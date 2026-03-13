@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   carregarServicos();
   iniciarTransicoesDePagina();
   marcarLinkAtivo();
+  // Dois painéis (home)
+  if (document.getElementById('painel-equip')) {
+    iniciarCarrosseis();
+    carregarVideosEspeciais();
+  }
 });
 
 
@@ -374,4 +379,211 @@ document.querySelectorAll('.filtro-btn').forEach(btn => {
 // Iniciar carregamento se estiver na página de produtos
 if (document.getElementById('produtos-grid')) {
   carregarProdutos();
+}
+
+
+// ════════════════════════════════════════════════════════════
+// CARROSSEL DOS DOIS PAINÉIS (home)
+// ════════════════════════════════════════════════════════════
+
+const _car = {
+  equip: { slides: [], atual: 0, timer: null, dados: [] },
+  serv:  { slides: [], atual: 0, timer: null, dados: [] }
+};
+
+const SERVICOS_CAROUSEL = [
+  { icone: '🔍', nome: 'Busca Inteligente',  bg: 'linear-gradient(160deg,#091520 0%,#0e2540 100%)' },
+  { icone: '📋', nome: 'Laudo Cautelar',     bg: 'linear-gradient(160deg,#150e00 0%,#2e1f00 100%)' },
+  { icone: '⭐', nome: 'Key Account Prime',  bg: 'linear-gradient(160deg,#0b0920 0%,#1a1540 100%)' },
+  { icone: '🚜', nome: 'Mix de Frota',       bg: 'linear-gradient(160deg,#081508 0%,#102810 100%)' },
+  { icone: '💰', nome: 'Venda do Ativo',     bg: 'linear-gradient(160deg,#150808 0%,#2e1010 100%)' },
+  { icone: '🎯', nome: 'Equipamento Ideal',  bg: 'linear-gradient(160deg,#100815 0%,#201028 100%)' },
+];
+
+const CAT_BG = {
+  'Colheitadeira': 'linear-gradient(160deg,#081508 0%,#142814 100%)',
+  'Trator':        'linear-gradient(160deg,#091520 0%,#0e2a40 100%)',
+  'Plantadeira':   'linear-gradient(160deg,#081508 0%,#103010 100%)',
+  'Pulverizador':  'linear-gradient(160deg,#150808 0%,#301010 100%)',
+  'Implemento':    'linear-gradient(160deg,#100815 0%,#201530 100%)',
+};
+
+const CAT_ICONE = {
+  'Colheitadeira': '🌾',
+  'Trator':        '🚜',
+  'Plantadeira':   '🌱',
+  'Pulverizador':  '💨',
+  'Implemento':    '⚙️',
+};
+
+function iniciarCarrosseis() {
+  // Serviços (estático)
+  montarCarrossel('serv', SERVICOS_CAROUSEL.map(s => ({
+    bg: s.bg, icone: s.icone, nome: s.nome, categoria: 'Serviço'
+  })));
+
+  // Equipamentos (dinâmico via API)
+  fetch('/api/produtos')
+    .then(r => r.json())
+    .then(dados => {
+      const lista = dados.produtos || [];
+      if (!lista.length) {
+        montarCarrossel('equip', [{ bg: CAT_BG['Trator'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Todos os tipos' }]);
+        return;
+      }
+      montarCarrossel('equip', lista.map(p => ({
+        bg:       p.imagem ? null : (CAT_BG[p.categoria] || 'linear-gradient(160deg,#091520,#0e2a40)'),
+        img:      p.imagem ? `/uploads/${p.imagem}` : null,
+        icone:    CAT_ICONE[p.categoria] || '🚜',
+        nome:     p.nome,
+        categoria:p.categoria,
+        estoque:  p.estoque,
+      })));
+    })
+    .catch(() => {
+      montarCarrossel('equip', [{ bg: CAT_BG['Trator'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Máquinas do Agronegócio' }]);
+    });
+}
+
+function montarCarrossel(id, slides) {
+  const c       = _car[id];
+  c.dados       = slides;
+  const slidesEl = document.getElementById(`slides-${id}`);
+  const dotsEl   = document.getElementById(`dots-${id}`);
+  if (!slidesEl) return;
+
+  slidesEl.innerHTML = slides.map((s, i) => {
+    const style = s.img
+      ? `background-image:url('${s.img}');background-size:cover;background-position:center;`
+      : `background:${s.bg};`;
+    return `<div class="painel__slide${i === 0 ? ' ativo' : ''}" style="${style}" data-idx="${i}">
+      <div class="slide-icone-bg">${s.icone}</div>
+    </div>`;
+  }).join('');
+
+  if (dotsEl) {
+    dotsEl.innerHTML = slides.map((_, i) =>
+      `<button class="painel__dot${i === 0 ? ' ativo' : ''}" data-idx="${i}" aria-label="Slide ${i+1}"></button>`
+    ).join('');
+    dotsEl.querySelectorAll('.painel__dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        clearInterval(c.timer);
+        _irParaSlide(id, parseInt(dot.dataset.idx));
+        _iniciarAutoplay(id);
+      });
+    });
+  }
+
+  c.slides = Array.from(slidesEl.querySelectorAll('.painel__slide'));
+  c.atual  = 0;
+  _atualizarInfoSlide(id, 0);
+  _iniciarAutoplay(id);
+
+  const painel = document.getElementById(`painel-${id}`);
+  if (painel) _adicionarSwipe(painel, id);
+}
+
+function _irParaSlide(id, idx) {
+  const c = _car[id];
+  if (!c.slides.length) return;
+
+  c.slides[c.atual].classList.remove('ativo');
+  const dots = document.getElementById(`dots-${id}`);
+  if (dots) dots.querySelectorAll('.painel__dot')[c.atual]?.classList.remove('ativo');
+
+  c.atual = ((idx % c.slides.length) + c.slides.length) % c.slides.length;
+  c.slides[c.atual].classList.add('ativo');
+  if (dots) dots.querySelectorAll('.painel__dot')[c.atual]?.classList.add('ativo');
+
+  _atualizarInfoSlide(id, c.atual);
+}
+
+function _atualizarInfoSlide(id, idx) {
+  const d = _car[id].dados[idx];
+  if (!d) return;
+
+  const nomeEl = document.getElementById(`${id}-nome`);
+  const catEl  = document.getElementById(`${id}-cat`);
+
+  if (nomeEl) {
+    nomeEl.style.opacity = '0';
+    setTimeout(() => { nomeEl.textContent = d.nome; nomeEl.style.opacity = '1'; }, 220);
+  }
+  if (catEl) catEl.textContent = d.categoria || 'Equipamento';
+
+  if (id === 'equip') {
+    const badgeEl = document.getElementById('equip-badge');
+    if (badgeEl && d.estoque !== undefined) {
+      badgeEl.style.display = 'inline-block';
+      if (d.estoque > 3) {
+        badgeEl.textContent = '● Em estoque';
+        badgeEl.className = 'painel__badge painel__badge--verde';
+      } else if (d.estoque > 0) {
+        badgeEl.textContent = '● Última unidade';
+        badgeEl.className = 'painel__badge painel__badge--amarelo';
+      } else {
+        badgeEl.textContent = '● Consultar disponibilidade';
+        badgeEl.className = 'painel__badge painel__badge--cinza';
+      }
+    }
+  }
+}
+
+function _iniciarAutoplay(id) {
+  const c = _car[id];
+  clearInterval(c.timer);
+  c.timer = setInterval(() => _irParaSlide(id, c.atual + 1), 4200);
+}
+
+function _adicionarSwipe(el, id) {
+  let sx = 0, sy = 0;
+  el.addEventListener('touchstart', e => {
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+  }, { passive: true });
+  el.addEventListener('touchend', e => {
+    const dx = sx - e.changedTouches[0].clientX;
+    const dy = Math.abs(sy - e.changedTouches[0].clientY);
+    if (Math.abs(dx) > 48 && Math.abs(dx) > dy) {
+      clearInterval(_car[id].timer);
+      _irParaSlide(id, _car[id].atual + (dx > 0 ? 1 : -1));
+      _iniciarAutoplay(id);
+    }
+  }, { passive: true });
+}
+
+
+// ════════════════════════════════════════════════════════════
+// VÍDEOS ESPECIAIS (YouTube embeds na home)
+// ════════════════════════════════════════════════════════════
+
+function carregarVideosEspeciais() {
+  const container = document.getElementById('videos-especiais-container');
+  const ctaEl     = document.getElementById('videos-canal-cta');
+  if (!container) return;
+
+  fetch('/api/conteudo')
+    .then(r => r.json())
+    .then(dados => {
+      const videos = dados.midia?.youtube?.videos || [];
+      if (!videos.length) return; // keep placeholder
+
+      const gridClass = videos.length === 1 ? 'videos-especiais-grid um-video' : 'videos-especiais-grid';
+      container.innerHTML = `
+        <div class="${gridClass}">
+          ${videos.slice(0, 4).map(vid => `
+            <div class="video-especial-wrapper">
+              <iframe
+                src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                title="Vídeo Forcemak Prime">
+              </iframe>
+            </div>`).join('')}
+        </div>`;
+
+      if (ctaEl) ctaEl.style.display = 'block';
+    })
+    .catch(() => { /* keep placeholder */ });
 }

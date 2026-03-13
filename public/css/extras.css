@@ -3,6 +3,388 @@
    Forcemak Prime
    ============================================================ */
 
+
+/* ════════════════════════════════════════════════════════════
+   DOIS PAINÉIS — HERO PRINCIPAL (Mobile-first)
+   ════════════════════════════════════════════════════════════ */
+.dois-paineis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  min-height: 580px;
+  max-height: 920px;
+  overflow: hidden;
+}
+
+.painel {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Slides container */
+.painel__slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.painel__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.painel__slide.ativo {
+  opacity: 1;
+}
+
+/* Large icon in background of each slide */
+.slide-icone-bg {
+  font-size: clamp(6rem, 14vw, 11rem);
+  opacity: 0.13;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+}
+
+/* Dark gradient overlay */
+.painel__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.12) 0%,
+    rgba(0,0,0,0.42) 50%,
+    rgba(0,0,0,0.84) 100%
+  );
+}
+
+.painel__overlay--serv {
+  background: linear-gradient(
+    to bottom,
+    rgba(10,20,40,0.2)  0%,
+    rgba(10,20,40,0.50) 50%,
+    rgba(10,20,40,0.88) 100%
+  );
+}
+
+/* Vertical divider between panels on desktop */
+.painel--equip {
+  border-right: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Content pinned to bottom of each panel */
+.painel__conteudo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 28px 32px;
+  z-index: 2;
+  color: white;
+}
+
+/* Current slide info row (updates per slide) */
+.painel__slide-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+  min-height: 22px;
+}
+
+.painel__item-cat {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.55);
+}
+
+.painel__item-sep {
+  color: rgba(255,255,255,0.25);
+  font-size: 0.7rem;
+}
+
+.painel__item-nome {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  transition: opacity 0.35s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* Stock/service badge */
+.painel__badge {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.painel__badge--verde  { background: rgba(34,197,94,0.22);  color: #4ade80; }
+.painel__badge--amarelo{ background: rgba(245,158,11,0.22); color: #fbbf24; }
+.painel__badge--cinza  { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.55); }
+
+/* Panel main title */
+.painel__titulo {
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
+  font-weight: 900;
+  color: white;
+  line-height: 1.15;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.55);
+}
+
+.painel__titulo strong        { color: var(--laranja); }
+.painel__titulo strong.titulo-azul { color: #7dc4ff; }
+
+.painel__desc {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.68);
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+/* CTA buttons — large touch targets */
+.painel__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 15px 20px;
+  border-radius: 9px;
+  transition: all 0.3s ease;
+  min-height: 52px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.painel__btn--laranja {
+  background: var(--laranja);
+  color: white;
+  border-color: var(--laranja);
+}
+.painel__btn--laranja:hover {
+  background: var(--laranja-hover);
+  border-color: var(--laranja-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232,98,42,0.55);
+}
+
+.painel__btn--branco {
+  background: rgba(255,255,255,0.14);
+  color: white;
+  border-color: rgba(255,255,255,0.45);
+  backdrop-filter: blur(10px);
+}
+.painel__btn--branco:hover {
+  background: rgba(255,255,255,0.24);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+/* Carousel dot indicators */
+.painel__dots {
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+
+.painel__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.painel__dot.ativo {
+  background: var(--laranja);
+  width: 22px;
+  border-radius: 3px;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   SEÇÃO CONTEÚDOS ESPECIAIS (YouTube)
+   ════════════════════════════════════════════════════════════ */
+.conteudos-especiais {
+  padding: 84px 0;
+  background: #07111e;
+  position: relative;
+  overflow: hidden;
+}
+
+.conteudos-especiais::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(232,98,42,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.conteudos-especiais .secao-titulo   { color: white; }
+.conteudos-especiais .secao-subtitulo{ color: rgba(255,255,255,0.5); }
+.conteudos-especiais .secao-etiqueta {
+  background: rgba(232,98,42,0.15);
+  color: #f08050;
+}
+
+.videos-especiais-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 880px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Single video takes full width */
+.videos-especiais-grid.um-video {
+  grid-template-columns: 1fr;
+  max-width: 560px;
+}
+
+.video-especial-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 44px rgba(0,0,0,0.55);
+  background: #000;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+
+.video-especial-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.videos-especiais-empty {
+  text-align: center;
+  padding: 52px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.videos-especiais-empty__icone {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  opacity: 0.45;
+}
+
+.videos-especiais-cta {
+  text-align: center;
+  margin-top: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVO — DOIS PAINÉIS & VÍDEOS
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .dois-paineis {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: none;
+    min-height: auto;
+  }
+
+  .painel {
+    height: 52vh;
+    min-height: 280px;
+    max-height: 400px;
+  }
+
+  .painel--equip {
+    border-right: none;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .painel__conteudo {
+    padding: 18px 18px 24px;
+  }
+
+  .painel__titulo {
+    font-size: 1.45rem;
+  }
+
+  .painel__desc {
+    display: none; /* hide on mobile to keep it tight */
+  }
+
+  .painel__btn {
+    font-size: 1rem;
+    min-height: 56px;
+    padding: 16px 20px;
+    border-radius: 10px;
+  }
+
+  .painel__dots {
+    top: 14px;
+    right: 10px;
+  }
+
+  .videos-especiais-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .conteudos-especiais {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .painel {
+    height: 48vh;
+    min-height: 260px;
+  }
+
+  .painel__titulo {
+    font-size: 1.3rem;
+  }
+
+  .slide-icone-bg {
+    font-size: 5rem;
+  }
+}
+
+
+
 /* ════════════════════════════════════════════════════════════
    PÁGINA PRODUTOS — LAYOUT COM SIDEBAR
    ════════════════════════════════════════════════════════════ */
