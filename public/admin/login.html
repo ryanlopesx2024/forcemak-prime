@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Admin | Forcemak Prime</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+
+  <div class="admin-login">
+    <div class="admin-login__card">
+
+      <!-- Logo -->
+      <div class="admin-login__logo">
+        <div class="nav__logo-texto" style="justify-content:center;align-items:center;">
+          <span class="nav__logo-nome" style="color:var(--azul);font-size:1.9rem;">FORCEMAK</span>
+          <span class="nav__logo-prime" style="align-self:center;">PRIME</span>
+        </div>
+      </div>
+      <p class="admin-login__subtitulo">Área restrita — acesso administrativo</p>
+
+      <!-- Mensagem de erro -->
+      <div class="admin-login__erro" id="erro-login"></div>
+
+      <!-- Formulário de login -->
+      <form id="form-login">
+        <div class="campo">
+          <label for="usuario">Usuário</label>
+          <input type="text" id="usuario" name="usuario" placeholder="admin" required autocomplete="username">
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn--azul" style="width:100%;justify-content:center;margin-top:8px;" id="btn-login">
+          Entrar
+        </button>
+      </form>
+
+      <p style="text-align:center;margin-top:20px;font-size:0.82rem;">
+        <a href="/" style="color:var(--cinza-texto);">← Voltar ao site</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    // Redireciona se já estiver logado
+    if (localStorage.getItem('forcemak_token')) {
+      window.location.href = '/admin/painel.html';
+    }
+
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn  = document.getElementById('btn-login');
+      const erro = document.getElementById('erro-login');
+
+      btn.disabled     = true;
+      btn.innerHTML    = '<span class="spinner"></span> Entrando...';
+      erro.style.display = 'none';
+
+      const dados = {
+        usuario: document.getElementById('usuario').value,
+        senha:   document.getElementById('senha').value
+      };
+
+      try {
+        const res  = await fetch('/api/admin/login', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(dados)
+        });
+        const json = await res.json();
+
+        if (json.token) {
+          localStorage.setItem('forcemak_token',   json.token);
+          localStorage.setItem('forcemak_usuario', json.usuario);
+          window.location.href = '/admin/painel.html';
+        } else {
+          throw new Error(json.erro || 'Credenciais inválidas');
+        }
+      } catch (err) {
+        erro.textContent   = err.message;
+        erro.style.display = 'block';
+        btn.disabled       = false;
+        btn.textContent    = 'Entrar';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contato | Forcemak Prime</title>
+  <meta name="description" content="Entre em contato com a Forcemak Prime. Nossa equipe está pronta para atender você.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="/css/estilos.css">
+
+  <!-- Meta Pixel do Facebook -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1433120138425099');
+    fbq('track', 'PageView');
+    fbq('track', 'Contact');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1433120138425099&ev=PageView&noscript=1">
+  </noscript>
+</head>
+<body>
+
+  <div id="overlay-transicao" class="overlay-transicao"></div>
+
+  <!-- Navegação -->
+  <nav class="nav" id="nav">
+    <div class="container nav__conteudo">
+      <a href="/" class="nav__logo">
+        <div class="nav__logo-texto">
+          <span class="nav__logo-nome">FORCEMAK</span>
+          <span class="nav__logo-prime">PRIME</span>
+        </div>
+      </a>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="/"              class="nav__link">Início</a></li>
+        <li><a href="/sobre.html"    class="nav__link">Sobre</a></li>
+        <li><a href="/produtos.html" class="nav__link">Produtos</a></li>
+        <li><a href="/contato.html"  class="nav__link ativo">Contato</a></li>
+      </ul>
+      <div class="nav__acoes">
+        <a href="/admin/login.html" class="btn btn--outline btn--pequeno" style="color:#fff;border-color:rgba(255,255,255,0.4);">
+          Área Admin
+        </a>
+        <button class="nav__hamburguer" id="nav-hamburguer" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cabeçalho da página -->
+  <section class="pagina-hero">
+    <div class="container pagina-hero__conteudo">
+      <nav class="breadcrumb" aria-label="Caminho">
+        <a href="/">Início</a>
+        <span>/</span>
+        <span>Contato</span>
+      </nav>
+      <h1 class="pagina-hero__titulo" data-aos="fade-up">Fale Conosco</h1>
+      <p class="pagina-hero__subtitulo" data-aos="fade-up" data-aos-delay="100">
+        Nossa equipe está pronta para atender você e encontrar as melhores soluções.
+      </p>
+    </div>
+  </section>
+
+  <!-- Seção de contato -->
+  <section class="contato-secao">
+    <div class="container">
+      <div class="contato-grid">
+
+        <!-- Informações de contato -->
+        <div data-aos="fade-right">
+          <h2 class="contato-info__titulo">Estamos aqui para ajudar</h2>
+          <p class="contato-info__texto">
+            Seja para tirar dúvidas, solicitar uma proposta ou conhecer melhor nossos serviços,
+            nossa equipe de especialistas está disponível para atender você.
+          </p>
+
+          <div class="contato-item">
+            <div class="contato-item__icone">📧</div>
+            <div>
+              <p class="contato-item__label">E-mail</p>
+              <p class="contato-item__valor">contato@forcemakprime.com.br</p>
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-item__icone">📱</div>
+            <div>
+              <p class="contato-item__label">Telefone / WhatsApp</p>
+              <p class="contato-item__valor">(11) 99614-0636</p>
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-item__icone">📍</div>
+            <div>
+              <p class="contato-item__label">Localização</p>
+              <p class="contato-item__valor">São Paulo, SP — Brasil</p>
+            </div>
+          </div>
+
+          <div class="contato-item">
+            <div class="contato-item__icone">🕐</div>
+            <div>
+              <p class="contato-item__label">Horário de Atendimento</p>
+              <p class="contato-item__valor">Segunda a Sexta: 8h às 18h</p>
+            </div>
+          </div>
+
+          <!-- Link WhatsApp direto -->
+          <a
+            href="https://wa.me/5511996140636?text=Olá!%20Vim%20pelo%20site%20da%20Forcemak%20Prime%20e%20gostaria%20de%20mais%20informações."
+            target="_blank"
+            rel="noopener"
+            class="btn btn--laranja"
+            style="margin-top:24px;"
+            onclick="fbq('track', 'Contact');"
+          >
+            💬 Chamar no WhatsApp
+          </a>
+        </div>
+
+        <!-- Formulário -->
+        <div data-aos="fade-left">
+          <form class="formulario" id="form-contato">
+            <h3 class="formulario__titulo">Envie uma mensagem</h3>
+
+            <div class="campo-grupo">
+              <div class="campo">
+                <label for="nome">Nome completo *</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+              </div>
+              <div class="campo">
+                <label for="email">E-mail *</label>
+                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+              </div>
+            </div>
+
+            <div class="campo">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="campo">
+              <label for="assunto">Assunto</label>
+              <select id="assunto" name="assunto">
+                <option value="">Selecione um assunto</option>
+                <option value="Negociação de Grãos">Negociação de Grãos</option>
+                <option value="Commodities">Commodities</option>
+                <option value="Consultoria">Consultoria</option>
+                <option value="Parceria Comercial">Parceria Comercial</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="mensagem">Mensagem *</label>
+              <textarea id="mensagem" name="mensagem" placeholder="Descreva como podemos ajudar você..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--laranja" style="width:100%;justify-content:center;">
+              Enviar Mensagem
+            </button>
+
+            <div class="formulario__mensagem" id="form-mensagem"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__conteudo">
+        <div class="rodape__marca">
+          <div class="rodape__logo-texto">
+            <span class="rodape__logo-nome">FORCEMAK</span>
+            <span class="rodape__logo-prime">PRIME</span>
+          </div>
+          <p>Negocie com segurança, realize com confiança.</p>
+        </div>
+        <div class="rodape__links">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="/">Início</a></li>
+            <li><a href="/sobre.html">Sobre</a></li>
+            <li><a href="/produtos.html">Produtos</a></li>
+            <li><a href="/contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div class="rodape__links">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="/produtos.html">Grãos e Cereais</a></li>
+            <li><a href="/produtos.html">Commodities</a></li>
+            <li><a href="/produtos.html">Consultoria</a></li>
+          </ul>
+        </div>
+        <div class="rodape__contato">
+          <h4>Contato</h4>
+          <p>contato@forcemakprime.com.br</p>
+          <p>(11) 99614-0636</p>
+          <p style="margin-top:12px;">São Paulo, SP - Brasil</p>
+        </div>
+      </div>
+      <div class="rodape__base">
+        <p>&copy; 2024 Forcemak Prime. Todos os direitos reservados.</p>
+        <p>CNPJ: XX.XXX.XXX/0001-XX</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="/js/principal.js"></script>
+
+</body>
+</html>

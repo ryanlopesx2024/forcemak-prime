@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin | Forcemak Prime</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/css/painel.css">
+</head>
+<body>
+
+  <div class="painel">
+
+    <!-- ─── Sidebar ─────────────────────────────────────── -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="sidebar__topo">
+        <div class="sidebar__logo-nome">FORCEMAK</div>
+        <span class="sidebar__logo-prime">PRIME</span>
+        <p class="sidebar__subtitulo">Painel Administrativo</p>
+      </div>
+
+      <nav class="sidebar__nav">
+        <p class="sidebar__secao-titulo">Principal</p>
+
+        <button class="sidebar__link ativo" data-secao="visao-geral">
+          <span class="sidebar__link-icone">📊</span>
+          Visão Geral
+        </button>
+
+        <button class="sidebar__link" data-secao="mensagens">
+          <span class="sidebar__link-icone">💬</span>
+          Mensagens
+          <span id="badge-mensagens" style="margin-left:auto;background:var(--laranja);color:#fff;font-size:0.7rem;padding:2px 7px;border-radius:10px;display:none;"></span>
+        </button>
+
+        <p class="sidebar__secao-titulo">Conteúdo</p>
+
+        <button class="sidebar__link" data-secao="produtos">
+          <span class="sidebar__link-icone">🌾</span>
+          Produtos
+        </button>
+
+        <button class="sidebar__link" data-secao="textos">
+          <span class="sidebar__link-icone">✏️</span>
+          Textos do Site
+        </button>
+
+        <button class="sidebar__link" data-secao="estoque">
+          <span class="sidebar__link-icone">📦</span>
+          Estoque
+        </button>
+
+        <p class="sidebar__secao-titulo">Integrações</p>
+
+        <button class="sidebar__link" data-secao="midias">
+          <span class="sidebar__link-icone">🎬</span>
+          Mídias Sociais
+        </button>
+
+        <button class="sidebar__link" data-secao="facebook">
+          <span class="sidebar__link-icone">📘</span>
+          Facebook / Meta
+        </button>
+
+        <p class="sidebar__secao-titulo">Configurações</p>
+
+        <button class="sidebar__link" data-secao="senha">
+          <span class="sidebar__link-icone">🔐</span>
+          Alterar Senha
+        </button>
+
+      </nav>
+
+      <div class="sidebar__rodape">
+        <div class="sidebar__usuario">
+          <div class="sidebar__usuario-avatar" id="avatar-letra">A</div>
+          <div>
+            <div class="sidebar__usuario-nome" id="nome-usuario">Admin</div>
+            <div class="sidebar__usuario-cargo">Administrador</div>
+          </div>
+        </div>
+        <button class="btn-sair" id="btn-sair">
+          ↪ Sair da conta
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- ─── Conteúdo Principal ────────────────────────── -->
+    <main class="painel__conteudo">
+
+      <!-- Topo -->
+      <header class="painel__topo">
+        <h1 class="painel__titulo-pagina" id="titulo-secao">Visão Geral</h1>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <a href="/" target="_blank" style="font-size:0.82rem;color:var(--cinza-texto);">
+            🌐 Ver site
+          </a>
+        </div>
+      </header>
+
+      <div class="painel__corpo">
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: VISÃO GERAL
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel ativa" id="sec-visao-geral">
+          <div class="stats-grid">
+            <div class="stat-card stat-card--azul">
+              <div class="stat-card__icone">💬</div>
+              <div class="stat-card__valor" id="total-mensagens">—</div>
+              <div class="stat-card__label">Mensagens recebidas</div>
+            </div>
+            <div class="stat-card stat-card--laranja">
+              <div class="stat-card__icone">🆕</div>
+              <div class="stat-card__valor" id="total-nao-lidas">—</div>
+              <div class="stat-card__label">Não lidas</div>
+            </div>
+            <div class="stat-card stat-card--verde">
+              <div class="stat-card__icone">🌾</div>
+              <div class="stat-card__valor" id="total-produtos">—</div>
+              <div class="stat-card__label">Produtos cadastrados</div>
+            </div>
+            <div class="stat-card stat-card--amarelo">
+              <div class="stat-card__icone">⭐</div>
+              <div class="stat-card__valor" id="total-destaque">—</div>
+              <div class="stat-card__label">Produtos em destaque</div>
+            </div>
+          </div>
+
+          <!-- Últimas mensagens -->
+          <div class="tabela-container">
+            <div class="tabela-cabecalho">
+              <h3>Últimas Mensagens</h3>
+              <button class="btn-admin btn-admin--outline" onclick="irParaSecao('mensagens')">
+                Ver todas →
+              </button>
+            </div>
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Assunto</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-ultimas-mensagens">
+                <tr><td colspan="5" style="text-align:center;padding:24px;color:#999;">Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: MENSAGENS
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-mensagens">
+          <div class="tabela-container">
+            <div class="tabela-cabecalho">
+              <h3>Todas as Mensagens</h3>
+              <button class="btn-admin btn-admin--outline" onclick="carregarMensagens()">
+                🔄 Atualizar
+              </button>
+            </div>
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Assunto</th>
+                  <th>Mensagem</th>
+                  <th>Data</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-mensagens">
+                <tr><td colspan="7" style="text-align:center;padding:24px;color:#999;">Carregando...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: PRODUTOS
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-produtos">
+
+          <!-- Formulário para adicionar/editar produto -->
+          <div class="admin-form-card">
+            <h3 id="titulo-form-produto">➕ Adicionar Produto</h3>
+            <form id="form-produto">
+              <input type="hidden" id="produto-id">
+              <div class="campo-linha">
+                <div class="campo-admin">
+                  <label>Nome do Produto *</label>
+                  <input type="text" id="prod-nome" placeholder="Ex: Soja em Grão" required>
+                </div>
+                <div class="campo-admin">
+                  <label>Categoria *</label>
+                  <select id="prod-categoria">
+                    <option value="Grãos">Grãos</option>
+                    <option value="Commodities">Commodities</option>
+                    <option value="Insumos">Insumos</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                </div>
+              </div>
+              <div class="campo-admin">
+                <label>Descrição *</label>
+                <textarea id="prod-descricao" placeholder="Descrição do produto..." required></textarea>
+              </div>
+              <div class="campo-linha">
+                <div class="campo-admin">
+                  <label>Unidade</label>
+                  <input type="text" id="prod-unidade" placeholder="Ex: Tonelada, Saca 60kg">
+                </div>
+                <div class="campo-admin">
+                  <label>Imagem (URL ou upload)</label>
+                  <input type="text" id="prod-imagem" placeholder="https://... ou deixe em branco">
+                </div>
+              </div>
+              <div class="campo-admin">
+                <label>
+                  <input type="checkbox" id="prod-destaque" style="width:auto;margin-right:8px;">
+                  Produto em destaque
+                </label>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="submit" class="btn-admin btn-admin--laranja" id="btn-salvar-produto">
+                  💾 Salvar Produto
+                </button>
+                <button type="button" class="btn-admin btn-admin--outline" id="btn-cancelar-produto" style="display:none;" onclick="cancelarEdicaoProduto()">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Lista de produtos -->
+          <div class="admin-form-card">
+            <h3>📋 Produtos Cadastrados</h3>
+            <div class="produtos-lista-admin" id="lista-produtos-admin">
+              <p style="color:#999;text-align:center;padding:20px;">Carregando...</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: TEXTOS DO SITE
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-textos">
+
+          <div class="admin-form-card">
+            <h3>🦸 Seção Hero (Início)</h3>
+            <form id="form-hero">
+              <div class="campo-admin">
+                <label>Título Principal</label>
+                <input type="text" id="hero-titulo" placeholder="Título do hero">
+              </div>
+              <div class="campo-admin">
+                <label>Subtítulo</label>
+                <textarea id="hero-subtitulo" style="min-height:80px;" placeholder="Descrição do hero"></textarea>
+              </div>
+              <div class="campo-linha">
+                <div class="campo-admin">
+                  <label>Texto do Botão Principal</label>
+                  <input type="text" id="hero-btn-principal" placeholder="Ex: Ver Produtos">
+                </div>
+                <div class="campo-admin">
+                  <label>Texto do Botão Secundário</label>
+                  <input type="text" id="hero-btn-secundario" placeholder="Ex: Falar com Consultor">
+                </div>
+              </div>
+              <button type="submit" class="btn-admin btn-admin--primario">
+                💾 Salvar Hero
+              </button>
+            </form>
+          </div>
+
+          <div class="admin-form-card">
+            <h3>📖 Seção Sobre</h3>
+            <form id="form-sobre">
+              <div class="campo-admin">
+                <label>Destaque (ex: "Desde 2010 no mercado")</label>
+                <input type="text" id="sobre-destaque" placeholder="Destaque">
+              </div>
+              <div class="campo-admin">
+                <label>Parágrafo 1</label>
+                <textarea id="sobre-p1" placeholder="Primeiro parágrafo sobre a empresa..."></textarea>
+              </div>
+              <div class="campo-admin">
+                <label>Parágrafo 2</label>
+                <textarea id="sobre-p2" placeholder="Segundo parágrafo..."></textarea>
+              </div>
+              <button type="submit" class="btn-admin btn-admin--primario">
+                💾 Salvar Sobre
+              </button>
+            </form>
+          </div>
+
+          <div class="admin-form-card">
+            <h3>📞 Informações de Contato (Rodapé)</h3>
+            <form id="form-rodape">
+              <div class="campo-linha">
+                <div class="campo-admin">
+                  <label>E-mail</label>
+                  <input type="email" id="rodape-email" placeholder="email@empresa.com.br">
+                </div>
+                <div class="campo-admin">
+                  <label>Telefone</label>
+                  <input type="text" id="rodape-telefone" placeholder="(11) 99999-9999">
+                </div>
+              </div>
+              <div class="campo-linha">
+                <div class="campo-admin">
+                  <label>CNPJ</label>
+                  <input type="text" id="rodape-cnpj" placeholder="XX.XXX.XXX/0001-XX">
+                </div>
+                <div class="campo-admin">
+                  <label>Endereço</label>
+                  <input type="text" id="rodape-endereco" placeholder="São Paulo, SP - Brasil">
+                </div>
+              </div>
+              <button type="submit" class="btn-admin btn-admin--primario">
+                💾 Salvar Contato
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: ESTOQUE
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-estoque">
+          <div class="admin-form-card">
+            <h3>📦 Gerenciar Estoque de Equipamentos</h3>
+            <p style="font-size:0.88rem;color:var(--cinza-texto);margin-bottom:20px;">
+              Ajuste a quantidade disponível de cada equipamento. O estoque aparece em tempo real na página de produtos.
+            </p>
+            <div id="lista-estoque">
+              <p style="color:#999;text-align:center;padding:20px;">Carregando...</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: MÍDIAS SOCIAIS
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-midias">
+
+          <div class="admin-form-card">
+            <h3>🎬 Vídeos do YouTube</h3>
+            <p style="font-size:0.88rem;color:var(--cinza-texto);margin-bottom:16px;">
+              Adicione IDs de vídeos do YouTube para exibi-los incorporados no site.
+              O ID fica no final da URL: youtube.com/watch?v=<strong>ESTE_AQUI</strong>
+            </p>
+            <div class="videos-tags-lista" id="videos-tags"></div>
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="input-video-id" class="campo-admin" style="margin:0;flex:1;"
+                placeholder="Cole o ID do vídeo (ex: dQw4w9WgXcQ)">
+              <button class="btn-admin btn-admin--laranja" onclick="adicionarVideo()">
+                + Adicionar
+              </button>
+            </div>
+            <button class="btn-admin btn-admin--primario" onclick="salvarMidias()" style="margin-top:16px;">
+              💾 Salvar Vídeos
+            </button>
+          </div>
+
+          <div class="admin-form-card">
+            <h3>📸 Posts do Instagram</h3>
+            <p style="font-size:0.88rem;color:var(--cinza-texto);margin-bottom:16px;">
+              Adicione URLs completas de posts do Instagram para exibi-los incorporados no site.
+              Ex: https://www.instagram.com/p/XXXXX/
+            </p>
+            <div class="instagram-tags-lista" id="instagram-tags"></div>
+            <div style="display:flex;gap:8px;">
+              <input type="text" id="input-instagram-url" class="campo-admin" style="margin:0;flex:1;"
+                placeholder="Cole a URL do post do Instagram">
+              <button class="btn-admin btn-admin--laranja" onclick="adicionarInstagram()">
+                + Adicionar
+              </button>
+            </div>
+            <button class="btn-admin btn-admin--primario" onclick="salvarMidias()" style="margin-top:16px;">
+              💾 Salvar Posts
+            </button>
+          </div>
+
+          <div class="admin-form-card">
+            <h3>ℹ️ Redes Sociais Configuradas</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div>
+                <p style="font-size:0.78rem;color:var(--cinza-texto);font-weight:600;margin-bottom:4px;">Instagram</p>
+                <p style="font-weight:700;">@forcemakequip</p>
+              </div>
+              <div>
+                <p style="font-size:0.78rem;color:var(--cinza-texto);font-weight:600;margin-bottom:4px;">Facebook</p>
+                <p style="font-weight:700;">facebook.com/forcemakequi</p>
+              </div>
+              <div>
+                <p style="font-size:0.78rem;color:var(--cinza-texto);font-weight:600;margin-bottom:4px;">YouTube</p>
+                <p style="font-weight:700;">@forcemak</p>
+              </div>
+              <div>
+                <p style="font-size:0.78rem;color:var(--cinza-texto);font-weight:600;margin-bottom:4px;">LinkedIn</p>
+                <p style="font-weight:700;">forcemak-equipamentos-ltda</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: FACEBOOK / META
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-facebook">
+
+          <div class="facebook-info">
+            <h3>📘 Facebook / Meta Pixel</h3>
+            <p>Pixel ID configurado: <strong>1433120138425099</strong></p>
+            <p style="margin-top:8px;font-size:0.82rem;">O pixel está ativo em todas as páginas do site.</p>
+          </div>
+
+          <div class="admin-form-card" id="facebook-dados">
+            <h3>📊 Informações do Pixel</h3>
+            <div id="facebook-conteudo">
+              <p style="color:#999;text-align:center;padding:20px;">Carregando dados do Facebook...</p>
+            </div>
+          </div>
+
+          <div class="admin-form-card">
+            <h3>⚙️ Configuração da API do Facebook</h3>
+            <p style="font-size:0.88rem;color:var(--cinza-texto);margin-bottom:20px;line-height:1.7;">
+              Para ver métricas detalhadas do pixel, configure o <strong>Access Token</strong> da API
+              do Facebook no arquivo <code style="background:#f0f2f5;padding:2px 6px;border-radius:4px;">.env</code>
+              do servidor:
+            </p>
+            <div style="background:#f8f9fa;border-radius:8px;padding:16px;font-family:monospace;font-size:0.85rem;color:#333;border:1px solid #e2e8f0;">
+              FACEBOOK_ACCESS_TOKEN=seu_token_aqui<br>
+              FACEBOOK_PIXEL_ID=1433120138425099
+            </div>
+            <p style="font-size:0.8rem;color:#999;margin-top:12px;">
+              Obtenha o Access Token no Gerenciador de Negócios do Facebook →
+              Configurações → Tokens de Acesso.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════
+             SEÇÃO: ALTERAR SENHA
+        ═══════════════════════════════════════════════ -->
+        <div class="secao-painel" id="sec-senha">
+          <div class="admin-form-card" style="max-width:480px;">
+            <h3>🔐 Alterar Senha de Acesso</h3>
+            <form id="form-senha">
+              <div class="campo-admin">
+                <label>Senha Atual</label>
+                <input type="password" id="senha-atual" placeholder="••••••••" required>
+              </div>
+              <div class="campo-admin">
+                <label>Nova Senha</label>
+                <input type="password" id="nova-senha" placeholder="••••••••" required minlength="6">
+              </div>
+              <div class="campo-admin">
+                <label>Confirmar Nova Senha</label>
+                <input type="password" id="confirmar-senha" placeholder="••••••••" required>
+              </div>
+              <button type="submit" class="btn-admin btn-admin--primario">
+                🔒 Alterar Senha
+              </button>
+            </form>
+          </div>
+        </div>
+
+
+      </div><!-- fim painel__corpo -->
+    </main><!-- fim painel__conteudo -->
+  </div><!-- fim painel -->
+
+  <!-- Toast de notificação -->
+  <div class="toast" id="toast"></div>
+
+  <script src="/admin/js/painel.js"></script>
+
+</body>
+</html>

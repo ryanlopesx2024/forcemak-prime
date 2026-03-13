@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "titulo": "Negocie com segurança,\nrealize com confiança.",
+    "subtitulo": "A Forcemak Prime conecta compradores e vendedores de máquinas agrícolas com tecnologia, transparência e as melhores condições do mercado.",
+    "botaoPrincipal": "Ver Equipamentos",
+    "botaoSecundario": "Falar com Especialista"
+  },
+  "sobre": {
+    "titulo": "Forcemak Prime",
+    "subtitulo": "Quem somos",
+    "paragrafo1": "Somos especialistas em negociação de máquinas e equipamentos agrícolas, conectando compradores e vendedores com segurança, transparência e agilidade. Nossa equipe acompanha cada etapa da negociação para garantir o melhor resultado.",
+    "paragrafo2": "Oferecemos avaliação técnica (Laudo Cautelar), busca inteligente de ativos, consultoria em mix de frota e o programa exclusivo Key Account Prime para grandes clientes.",
+    "destaque": "Confiança construída em números"
+  },
+  "numeros": {
+    "clientes": 1200,
+    "negociacoes": 500,
+    "anos": 15,
+    "satisfacao": 98
+  },
+  "servicos": [
+    {
+      "icone": "🔍",
+      "titulo": "Busca Inteligente",
+      "descricao": "Encontramos o equipamento ideal para a sua necessidade em todo o Brasil, com agilidade e preço justo."
+    },
+    {
+      "icone": "🚜",
+      "titulo": "Equipamento Ideal",
+      "descricao": "Consultoria especializada para identificar a máquina certa para o seu perfil de operação e safra."
+    },
+    {
+      "icone": "💰",
+      "titulo": "Venda do Seu Ativo",
+      "descricao": "Vendemos sua máquina com rapidez, segurança e pelo melhor preço de mercado. Sem complicação."
+    },
+    {
+      "icone": "📊",
+      "titulo": "Mix de Frota Ideal",
+      "descricao": "Analisamos sua operação e montamos a combinação perfeita de equipamentos para maximizar produtividade."
+    },
+    {
+      "icone": "⭐",
+      "titulo": "Key Account Prime",
+      "descricao": "Programa exclusivo para grandes clientes com atendimento personalizado, prioridade e condições diferenciadas."
+    },
+    {
+      "icone": "📋",
+      "titulo": "Laudo Cautelar",
+      "descricao": "Avaliação técnica completa antes da compra, com laudo detalhado para total segurança na transação."
+    }
+  ],
+  "midia": {
+    "youtube": {
+      "canal": "https://www.youtube.com/@forcemak",
+      "videos": []
+    },
+    "instagram": {
+      "perfil": "https://www.instagram.com/forcemakequip",
+      "usuario": "@forcemakequip",
+      "posts": []
+    },
+    "facebook": {
+      "pagina": "https://www.facebook.com/forcemakequi",
+      "usuario": "forcemakequi"
+    }
+  },
+  "rodape": {
+    "email": "contato@forcemakprime.com.br",
+    "telefone": "(51) 99605-0777",
+    "whatsapp": "5551996050777",
+    "cnpj": "XX.XXX.XXX/0001-XX",
+    "endereco": "Rio Grande do Sul — Brasil"
+  }
+}

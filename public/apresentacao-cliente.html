@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forcemak Prime — Apresentação do Projeto</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ─── Reset & Base ─────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Montserrat',sans-serif;background:#0D1B2A;color:#fff;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* ─── Variáveis ─────────────────────────────────────────── */
+:root{
+  --azul:#1C3A5E;
+  --azul-escuro:#0D1B2A;
+  --laranja:#E8622A;
+  --branco:#fff;
+  --cinza:#F4F6F9;
+}
+
+/* ─── Navegação da Apresentação ─────────────────────────── */
+.nav-apres{
+  position:fixed;top:0;left:0;width:100%;
+  background:rgba(13,27,42,0.96);
+  backdrop-filter:blur(12px);
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:1000;border-bottom:1px solid rgba(255,255,255,0.07);
+}
+.nav-apres__logo{font-size:1rem;font-weight:900;letter-spacing:-0.02em}
+.nav-apres__logo span{
+  background:var(--laranja);color:#fff;
+  font-size:0.55rem;font-weight:700;letter-spacing:0.1em;
+  padding:2px 7px;border-radius:4px;margin-left:4px;vertical-align:middle;
+}
+.nav-apres__links{display:flex;gap:24px}
+.nav-apres__link{
+  font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.55);
+  cursor:pointer;transition:color 0.2s;
+}
+.nav-apres__link:hover{color:var(--laranja)}
+
+/* ─── Capa ──────────────────────────────────────────────── */
+.capa{
+  min-height:100vh;
+  background:linear-gradient(135deg,#0D1B2A 0%,#1C3A5E 100%);
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:120px 40px 80px;
+  position:relative;overflow:hidden;
+}
+.capa::before{
+  content:'';position:absolute;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,98,42,0.1) 0%,transparent 70%);
+  top:-200px;right:-150px;
+}
+.capa::after{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  border:1px solid rgba(255,255,255,0.04);
+  border-radius:50%;bottom:-150px;left:-100px;
+  animation:girar 25s linear infinite;
+}
+@keyframes girar{to{transform:rotate(360deg)}}
+
+.capa__etiqueta{
+  display:inline-block;
+  background:rgba(232,98,42,0.15);border:1px solid rgba(232,98,42,0.4);
+  color:#f0845a;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;padding:8px 20px;border-radius:30px;
+  margin-bottom:28px;
+}
+.capa__logo-nome{font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1;letter-spacing:-0.03em}
+.capa__logo-prime{
+  display:inline-block;background:var(--laranja);color:#fff;
+  font-size:clamp(1rem,2vw,1.5rem);font-weight:700;letter-spacing:0.1em;
+  padding:6px 20px;border-radius:8px;margin-left:12px;vertical-align:middle;
+}
+.capa__tagline{
+  font-size:clamp(1rem,2vw,1.3rem);color:rgba(255,255,255,0.65);
+  font-style:italic;margin-top:16px;margin-bottom:48px;
+}
+.capa__info{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:32px;
+  margin-top:60px;
+}
+.capa__info-item{
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:20px 32px;text-align:center;
+}
+.capa__info-item strong{display:block;font-size:1.5rem;font-weight:800;color:var(--laranja)}
+.capa__info-item span{font-size:0.8rem;color:rgba(255,255,255,0.55);margin-top:4px;display:block}
+
+/* ─── Seções ────────────────────────────────────────────── */
+.secao{padding:80px 40px;max-width:1400px;margin:0 auto}
+.secao--full{max-width:none;padding:80px 40px}
+
+.secao-titulo{
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--laranja);margin-bottom:12px;
+}
+.secao-nome{
+  font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;
+  color:#fff;margin-bottom:8px;
+}
+.secao-desc{
+  font-size:1rem;color:rgba(255,255,255,0.55);
+  max-width:560px;line-height:1.7;margin-bottom:56px;
+}
+.linha-divisoria{
+  border:none;border-top:1px solid rgba(255,255,255,0.08);
+  margin:0;
+}
+
+/* ─── Paleta de Cores ───────────────────────────────────── */
+.cores-grid{display:flex;flex-wrap:wrap;gap:16px}
+.cor-item{flex:1;min-width:160px;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+.cor-item__bloco{height:120px;display:flex;align-items:flex-end;padding:16px}
+.cor-item__hex{font-size:0.78rem;font-weight:700;opacity:0.75;font-family:monospace}
+.cor-item__info{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-top:none;padding:14px 16px}
+.cor-item__nome{font-size:0.88rem;font-weight:700}
+.cor-item__uso{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:3px}
+
+/* ─── Tipografia ────────────────────────────────────────── */
+.tipo-card{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:32px;margin-bottom:16px;
+}
+.tipo-card__amostra{line-height:1.1;margin-bottom:12px;color:#fff}
+.tipo-card__info{font-size:0.8rem;color:rgba(255,255,255,0.4)}
+
+/* ─── Browser Mockup ────────────────────────────────────── */
+.telas-grid{
+  display:grid;gap:48px;
+}
+.telas-grid--2{grid-template-columns:1fr 1fr}
+.telas-grid--1{grid-template-columns:1fr;max-width:900px;margin:0 auto}
+
+.tela-wrapper{display:flex;flex-direction:column;gap:16px}
+.tela-rotulo{
+  font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:8px;
+}
+.tela-rotulo::before{
+  content:'';width:8px;height:8px;border-radius:50%;background:var(--laranja);
+}
+
+.browser{
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.08);
+}
+.browser__barra{
+  background:#1e2c3a;padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.browser__dots{display:flex;gap:6px}
+.browser__dot{
+  width:12px;height:12px;border-radius:50%;
+}
+.browser__dot--vermelho{background:#ff5f57}
+.browser__dot--amarelo{background:#febc2e}
+.browser__dot--verde{background:#28c840}
+.browser__url{
+  flex:1;background:rgba(255,255,255,0.06);
+  border-radius:6px;padding:5px 14px;
+  font-size:0.72rem;color:rgba(255,255,255,0.4);
+  font-family:monospace;
+}
+.browser__conteudo{
+  overflow:hidden;max-height:520px;
+}
+
+/* ─── Mobile Mockup ─────────────────────────────────────── */
+.mobile{
+  width:280px;
+  background:#1e2c3a;
+  border-radius:36px;
+  padding:16px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  border:2px solid rgba(255,255,255,0.12);
+  margin:0 auto;
+}
+.mobile__notch{
+  width:80px;height:20px;background:#0D1B2A;
+  border-radius:0 0 14px 14px;margin:0 auto 12px;
+}
+.mobile__tela{
+  border-radius:20px;overflow:hidden;
+  max-height:480px;
+}
+
+/* ════════════════════════════════════════════════════════
+   MINI PÁGINAS (conteúdo dos mockups)
+   ════════════════════════════════════════════════════════ */
+
+/* Mini Navbar */
+.m-nav{
+  background:#0D1B2A;padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.m-nav__logo{font-size:0.75rem;font-weight:900;color:#fff}
+.m-nav__prime{
+  background:var(--laranja);color:#fff;
+  font-size:0.4rem;font-weight:700;letter-spacing:0.08em;
+  padding:1px 5px;border-radius:3px;margin-left:3px;
+}
+.m-nav__links{display:flex;gap:10px}
+.m-nav__link{font-size:0.55rem;color:rgba(255,255,255,0.7);font-weight:500}
+.m-nav__btn{
+  background:var(--laranja);color:#fff;
+  font-size:0.5rem;font-weight:700;padding:4px 8px;border-radius:4px;
+}
+
+/* Mini Hero */
+.m-hero{
+  background:linear-gradient(135deg,#0D1B2A 0%,#1C3A5E 100%);
+  padding:28px 20px 24px;
+  position:relative;overflow:hidden;
+}
+.m-hero::before{
+  content:'';position:absolute;
+  width:180px;height:180px;border-radius:50%;
+  background:rgba(232,98,42,0.1);
+  top:-60px;right:-40px;
+}
+.m-hero__badge{
+  display:inline-block;
+  background:rgba(232,98,42,0.2);
+  color:#f0845a;font-size:0.48rem;font-weight:700;
+  padding:3px 8px;border-radius:10px;margin-bottom:8px;
+  border:1px solid rgba(232,98,42,0.3);
+}
+.m-hero__titulo{
+  font-size:0.95rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px;
+}
+.m-hero__destaque{color:var(--laranja)}
+.m-hero__sub{font-size:0.52rem;color:rgba(255,255,255,0.65);line-height:1.5;margin-bottom:12px}
+.m-hero__btns{display:flex;gap:6px;flex-wrap:wrap}
+.m-btn{font-size:0.5rem;font-weight:700;padding:5px 10px;border-radius:5px;display:inline-block}
+.m-btn--laranja{background:var(--laranja);color:#fff}
+.m-btn--outline{border:1px solid rgba(255,255,255,0.5);color:#fff}
+.m-hero__cards{
+  display:flex;gap:8px;margin-top:16px;
+}
+.m-card-mini{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+  border-radius:8px;padding:6px 10px;font-size:0.48rem;color:#fff;
+  display:flex;align-items:center;gap:5px;flex:1;
+}
+
+/* Mini Números */
+.m-numeros{
+  background:#1C3A5E;padding:16px;
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;
+  text-align:center;gap:8px;
+}
+.m-numero__val{font-size:0.85rem;font-weight:900;color:#fff}
+.m-numero__suf{font-size:0.6rem;font-weight:700;color:var(--laranja)}
+.m-numero__lbl{font-size:0.38rem;color:rgba(255,255,255,0.6);margin-top:2px;line-height:1.3}
+
+/* Mini Serviços */
+.m-servicos{background:#F4F6F9;padding:16px}
+.m-servicos__titulo{font-size:0.6rem;font-weight:800;color:#0D1B2A;margin-bottom:10px;text-align:center}
+.m-servicos__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.m-servico-card{
+  background:#fff;border-radius:6px;padding:8px 6px;
+  text-align:center;font-size:0.42rem;color:#333;
+  box-shadow:0 2px 6px rgba(0,0,0,0.06);
+}
+.m-servico-card__icone{font-size:1rem;display:block;margin-bottom:3px}
+
+/* Mini Sobre */
+.m-sobre{background:#fff;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}
+.m-sobre__etiqueta{
+  display:inline-block;background:rgba(232,98,42,0.1);
+  color:var(--laranja);font-size:0.42rem;font-weight:700;
+  padding:2px 6px;border-radius:8px;margin-bottom:4px;
+}
+.m-sobre__titulo{font-size:0.7rem;font-weight:800;color:#0D1B2A;margin-bottom:5px}
+.m-sobre__texto{font-size:0.42rem;color:#666;line-height:1.5;margin-bottom:8px}
+.m-sobre__img{
+  background:linear-gradient(135deg,#1C3A5E,#2A5298);
+  border-radius:10px;height:80px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;position:relative;
+}
+.m-sobre__badge{
+  position:absolute;bottom:-8px;left:-8px;
+  background:var(--laranja);color:#fff;
+  font-size:0.42rem;font-weight:800;padding:4px 8px;border-radius:5px;
+}
+
+/* Mini Mídias */
+.m-midias{background:#F4F6F9;padding:14px}
+.m-midias__titulo{font-size:0.6rem;font-weight:800;color:#0D1B2A;text-align:center;margin-bottom:8px}
+.m-midias__abas{display:flex;gap:4px;margin-bottom:10px;justify-content:center}
+.m-midia-aba{
+  font-size:0.42rem;font-weight:700;padding:3px 8px;border-radius:10px;
+  background:#fff;color:#666;border:1px solid #ddd;
+}
+.m-midia-aba--ativo{background:#FF0000;color:#fff;border-color:#FF0000}
+.m-video-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.m-video{height:40px;background:#0D1B2A;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+
+/* Mini CTA */
+.m-cta{
+  background:linear-gradient(135deg,#0D1B2A,#1C3A5E);
+  padding:20px;text-align:center;
+}
+.m-cta__titulo{font-size:0.7rem;font-weight:800;color:#fff;margin-bottom:6px}
+.m-cta__texto{font-size:0.45rem;color:rgba(255,255,255,0.65);margin-bottom:12px}
+.m-cta__btns{display:flex;gap:6px;justify-content:center}
+
+/* Mini Rodapé */
+.m-rodape{background:#0A1520;padding:12px 16px}
+.m-rodape__grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px;margin-bottom:10px}
+.m-rodape__nome{font-size:0.55rem;font-weight:900;color:#fff}
+.m-rodape__prime{
+  background:var(--laranja);color:#fff;
+  font-size:0.35rem;padding:1px 4px;border-radius:3px;margin-left:2px;
+}
+.m-rodape__sub{font-size:0.38rem;color:rgba(255,255,255,0.4);margin-top:3px;line-height:1.4}
+.m-rodape__titulo{font-size:0.5rem;font-weight:700;color:#fff;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.08em}
+.m-rodape__item{font-size:0.4rem;color:rgba(255,255,255,0.5);margin-bottom:2px}
+.m-rodape__base{border-top:1px solid rgba(255,255,255,0.06);padding-top:8px;font-size:0.38rem;color:rgba(255,255,255,0.3);text-align:center}
+
+/* Mini Produtos */
+.m-produtos{background:#F4F6F9;padding:12px;display:flex;gap:8px}
+.m-sidebar{
+  width:65px;background:#fff;border-radius:6px;padding:8px 6px;
+  flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.m-sidebar__titulo{font-size:0.45rem;font-weight:800;color:#0D1B2A;margin-bottom:6px}
+.m-busca{
+  background:#F4F6F9;border-radius:4px;padding:3px 5px;
+  font-size:0.38rem;color:#999;margin-bottom:6px;
+  display:flex;align-items:center;gap:3px;
+}
+.m-filtro-titulo{font-size:0.38rem;font-weight:700;color:#666;margin-bottom:3px;text-transform:uppercase;letter-spacing:0.06em}
+.m-check{font-size:0.38rem;color:#333;margin-bottom:2px;display:flex;justify-content:space-between}
+.m-toggle{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:0.38rem;color:#333;margin-top:6px;padding-top:6px;
+  border-top:1px solid #eee;
+}
+.m-toggle-sw{
+  width:16px;height:9px;background:#1C3A5E;border-radius:5px;
+  position:relative;flex-shrink:0;
+}
+.m-toggle-sw::after{
+  content:'';position:absolute;width:7px;height:7px;
+  background:#fff;border-radius:50%;top:1px;right:1px;
+}
+.m-prods-lista{flex:1}
+.m-prods-topo{display:flex;justify-content:space-between;margin-bottom:6px;align-items:center}
+.m-prods-count{font-size:0.42rem;color:#666}
+.m-prods-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.m-prod-card{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,0.06)}
+.m-prod-img{height:32px;background:linear-gradient(135deg,#1C3A5E,#2A5298);display:flex;align-items:center;justify-content:center;font-size:0.9rem}
+.m-prod-corpo{padding:5px}
+.m-prod-cat{font-size:0.35rem;color:var(--laranja);font-weight:700;margin-bottom:2px}
+.m-prod-nome{font-size:0.45rem;font-weight:700;color:#0D1B2A;margin-bottom:3px;line-height:1.2}
+.m-badge-verde{background:rgba(34,197,94,0.1);color:#16a34a;font-size:0.35rem;font-weight:700;padding:1px 5px;border-radius:8px}
+.m-badge-amarelo{background:rgba(245,158,11,0.1);color:#d97706;font-size:0.35rem;font-weight:700;padding:1px 5px;border-radius:8px}
+.m-badge-vermelho{background:rgba(239,68,68,0.08);color:#dc2626;font-size:0.35rem;font-weight:700;padding:1px 5px;border-radius:8px}
+
+/* Mini Sobre Página */
+.m-sobre-hero{
+  background:linear-gradient(135deg,#0D1B2A,#1C3A5E);
+  padding:20px 16px 14px;
+}
+.m-breadcrumb{font-size:0.38rem;color:rgba(255,255,255,0.4);margin-bottom:5px}
+.m-pagina-titulo{font-size:0.85rem;font-weight:900;color:#fff;margin-bottom:4px}
+.m-pagina-sub{font-size:0.45rem;color:rgba(255,255,255,0.65)}
+.m-valores{background:#F4F6F9;padding:12px}
+.m-valores__titulo{font-size:0.6rem;font-weight:800;color:#0D1B2A;text-align:center;margin-bottom:8px}
+.m-valores__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+.m-valor-card{
+  background:#fff;border-radius:6px;padding:8px 6px;
+  text-align:center;border-top:3px solid var(--laranja);
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+.m-valor-card__icone{font-size:1rem;margin-bottom:3px}
+.m-valor-card__titulo{font-size:0.42rem;font-weight:700;color:#0D1B2A}
+
+/* Mini Contato */
+.m-contato{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#F4F6F9;padding:14px}
+.m-contato-info{background:#fff;border-radius:8px;padding:10px}
+.m-contato-info__titulo{font-size:0.6rem;font-weight:800;color:#0D1B2A;margin-bottom:8px}
+.m-contato-item{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+.m-contato-icone{
+  width:18px;height:18px;background:rgba(232,98,42,0.1);
+  border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-size:0.6rem;flex-shrink:0;
+}
+.m-contato-txt{font-size:0.38rem;color:#333}
+.m-form{background:#fff;border-radius:8px;padding:10px}
+.m-form__titulo{font-size:0.6rem;font-weight:800;color:#0D1B2A;margin-bottom:8px}
+.m-campo{margin-bottom:5px}
+.m-campo__label{font-size:0.38rem;font-weight:600;color:#333;margin-bottom:2px;display:block}
+.m-campo__input{
+  width:100%;height:14px;background:#F4F6F9;
+  border-radius:3px;border:1px solid #E2E8F0;
+}
+.m-campo--row{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.m-campo__textarea{width:100%;height:30px;background:#F4F6F9;border-radius:3px;border:1px solid #E2E8F0}
+.m-btn-full{
+  width:100%;height:18px;background:var(--laranja);border-radius:4px;
+  font-size:0.42rem;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;
+  margin-top:6px;
+}
+
+/* Mini Admin */
+.m-admin{display:flex;height:360px;overflow:hidden}
+.m-admin-sidebar{
+  width:80px;background:#0D1B2A;padding:10px 8px;
+  display:flex;flex-direction:column;flex-shrink:0;
+}
+.m-admin-sidebar__logo{font-size:0.55rem;font-weight:900;color:#fff;margin-bottom:3px}
+.m-admin-sidebar__prime{background:var(--laranja);color:#fff;font-size:0.35rem;padding:1px 4px;border-radius:3px}
+.m-admin-sidebar__sub{font-size:0.35rem;color:rgba(255,255,255,0.3);margin-bottom:10px}
+.m-admin-link{
+  font-size:0.42rem;color:rgba(255,255,255,0.5);padding:5px 6px;
+  border-radius:5px;margin-bottom:2px;display:flex;align-items:center;gap:4px;
+  cursor:pointer;transition:all 0.2s;
+  border-left:2px solid transparent;
+}
+.m-admin-link--ativo{background:rgba(232,98,42,0.12);color:#fff;border-left-color:var(--laranja)}
+.m-admin-link__secao{font-size:0.38rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.25);padding:8px 6px 3px;margin-top:4px}
+.m-admin-conteudo{flex:1;padding:12px;background:#F0F2F5;overflow:hidden}
+.m-admin-topo{
+  background:#fff;border-radius:6px;padding:8px 10px;
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.m-admin-topo__titulo{font-size:0.55rem;font-weight:700;color:#0D1B2A}
+.m-stats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.m-stat{
+  background:#fff;border-radius:6px;padding:8px 6px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+.m-stat--azul{border-left:3px solid #1C3A5E}
+.m-stat--laranja{border-left:3px solid var(--laranja)}
+.m-stat--verde{border-left:3px solid #22c55e}
+.m-stat--amarelo{border-left:3px solid #f59e0b}
+.m-stat__icone{font-size:0.9rem;margin-bottom:3px}
+.m-stat__val{font-size:0.75rem;font-weight:800;color:#0D1B2A}
+.m-stat__lbl{font-size:0.35rem;color:#666}
+.m-tabela{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+.m-tabela__header{background:#F4F6F9;padding:6px 8px;display:flex;justify-content:space-between;border-bottom:1px solid #E2E8F0}
+.m-tabela__titulo{font-size:0.5rem;font-weight:700;color:#0D1B2A}
+.m-tabela__ths{display:grid;grid-template-columns:2fr 2fr 1fr 1fr 1fr;padding:5px 8px;background:#F4F6F9;border-bottom:1px solid #E2E8F0}
+.m-tabela__th{font-size:0.38rem;font-weight:700;text-transform:uppercase;color:#666;letter-spacing:0.06em}
+.m-tabela__row{display:grid;grid-template-columns:2fr 2fr 1fr 1fr 1fr;padding:5px 8px;border-bottom:1px solid #F0F2F5}
+.m-tabela__cell{font-size:0.4rem;color:#333}
+.m-badge-nova{background:rgba(232,98,42,0.1);color:var(--laranja);font-size:0.35rem;font-weight:700;padding:1px 5px;border-radius:8px}
+.m-badge-lida{background:rgba(34,197,94,0.1);color:#16a34a;font-size:0.35rem;font-weight:700;padding:1px 5px;border-radius:8px}
+
+/* Mini Admin Estoque */
+.m-estoque-row{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr;padding:5px 8px;border-bottom:1px solid #F0F2F5;align-items:center}
+.m-estoque-ctrl{display:flex;align-items:center;gap:3px}
+.m-estoque-btn{width:14px;height:14px;background:#F4F6F9;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.55rem;font-weight:700;color:#333}
+.m-estoque-num{width:20px;height:14px;background:#fff;border:1px solid #E2E8F0;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:0.45rem;font-weight:700;color:#0D1B2A}
+
+/* ─── Features Grid ─────────────────────────────────────── */
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.feature-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;padding:28px 24px;
+  transition:all 0.3s;
+}
+.feature-card:hover{
+  background:rgba(255,255,255,0.07);
+  border-color:rgba(232,98,42,0.3);
+  transform:translateY(-4px);
+}
+.feature-card__icone{font-size:2rem;margin-bottom:14px;display:block}
+.feature-card__titulo{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.feature-card__desc{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.6}
+
+/* ─── Rodapé da Apresentação ────────────────────────────── */
+.rodape-apres{
+  background:#060E16;padding:48px 40px;
+  text-align:center;border-top:1px solid rgba(255,255,255,0.06);
+}
+.rodape-apres__titulo{font-size:2rem;font-weight:900;margin-bottom:8px}
+.rodape-apres__sub{color:rgba(255,255,255,0.5);margin-bottom:32px;font-style:italic}
+.rodape-apres__info{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:40px;margin-bottom:40px;
+}
+.rodape-apres__item{font-size:0.85rem;color:rgba(255,255,255,0.6)}
+.rodape-apres__item strong{color:var(--laranja);display:block;font-size:0.75rem;margin-bottom:2px;text-transform:uppercase;letter-spacing:0.08em}
+.rodape-apres__copy{font-size:0.78rem;color:rgba(255,255,255,0.25)}
+
+/* ─── Responsivo ────────────────────────────────────────── */
+@media(max-width:900px){
+  .telas-grid--2{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .capa__info{gap:16px}
+  .nav-apres__links{display:none}
+}
+@media(max-width:600px){
+  .nav-apres{padding:12px 20px}
+  .secao{padding:60px 20px}
+  .features-grid{grid-template-columns:1fr}
+  .cores-grid{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Navegação ──────────────────────────────────────────── -->
+<nav class="nav-apres">
+  <div class="nav-apres__logo">
+    FORCEMAK <span>PRIME</span>
+  </div>
+  <div class="nav-apres__links">
+    <a class="nav-apres__link" href="#telas">Telas</a>
+    <a class="nav-apres__link" href="#mobile">Mobile</a>
+    <a class="nav-apres__link" href="#admin">Admin</a>
+    <a class="nav-apres__link" href="#identidade">Identidade</a>
+    <a class="nav-apres__link" href="#funcionalidades">Funcionalidades</a>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════════════════
+     CAPA
+     ════════════════════════════════════════════════════════ -->
+<section class="capa" id="inicio">
+  <div style="position:relative;z-index:1;">
+    <div class="capa__etiqueta">Apresentação do Projeto — Site Oficial</div>
+    <h1 style="line-height:1.05;margin-bottom:0;">
+      <span class="capa__logo-nome">FORCEMAK</span>
+      <span class="capa__logo-prime">PRIME</span>
+    </h1>
+    <p class="capa__tagline">Negocie com segurança, realize com confiança.</p>
+
+    <p style="font-size:0.88rem;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto 48px;line-height:1.7;">
+      Proposta de site profissional com animações, painel administrativo,
+      integração com Facebook Pixel, busca avançada de equipamentos e
+      mídias sociais incorporadas.
+    </p>
+
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+      <a href="#telas" style="background:var(--laranja);color:#fff;font-size:0.88rem;font-weight:700;padding:14px 28px;border-radius:8px;display:inline-block;">
+        Ver Telas →
+      </a>
+      <a href="http://localhost:3000" target="_blank"
+         style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.88rem;font-weight:700;padding:14px 28px;border-radius:8px;display:inline-block;">
+        🌐 Abrir Site
+      </a>
+    </div>
+
+    <div class="capa__info">
+      <div class="capa__info-item">
+        <strong>5</strong><span>Páginas</span>
+      </div>
+      <div class="capa__info-item">
+        <strong>2</strong><span>Acessos (usuário + admin)</span>
+      </div>
+      <div class="capa__info-item">
+        <strong>100%</strong><span>Responsivo</span>
+      </div>
+      <div class="capa__info-item">
+        <strong>SEO</strong><span>Otimizado</span>
+      </div>
+      <div class="capa__info-item">
+        <strong>Meta Pixel</strong><span>Integrado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     TELAS DESKTOP
+     ════════════════════════════════════════════════════════ -->
+<hr class="linha-divisoria">
+<div class="secao" id="telas">
+  <p class="secao-titulo">Design das Telas</p>
+  <h2 class="secao-nome">Versão Desktop</h2>
+  <p class="secao-desc">Todas as páginas do site com layout responsivo, animações suaves e identidade visual da Forcemak Prime.</p>
+
+  <!-- Tela 1: HOME -->
+  <div class="telas-grid telas-grid--1" style="margin-bottom:56px;">
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">01 — Página Inicial (Home)</p>
+      <div class="browser">
+        <div class="browser__barra">
+          <div class="browser__dots">
+            <div class="browser__dot browser__dot--vermelho"></div>
+            <div class="browser__dot browser__dot--amarelo"></div>
+            <div class="browser__dot browser__dot--verde"></div>
+          </div>
+          <div class="browser__url">forcemakprime.com.br</div>
+        </div>
+        <div class="browser__conteudo">
+          <!-- Nav -->
+          <div class="m-nav">
+            <div><span class="m-nav__logo">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div>
+            <div class="m-nav__links">
+              <span class="m-nav__link">Início</span>
+              <span class="m-nav__link">Sobre</span>
+              <span class="m-nav__link">Equipamentos</span>
+              <span class="m-nav__link">Contato</span>
+            </div>
+            <span class="m-btn m-btn--laranja">💬 WhatsApp</span>
+          </div>
+          <!-- Hero -->
+          <div class="m-hero" style="min-height:130px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;">
+              <div>
+                <span class="m-hero__badge">Especialistas em Máquinas Agrícolas</span>
+                <h2 class="m-hero__titulo">Negocie com <span class="m-hero__destaque">segurança</span>,<br>realize com <span class="m-hero__destaque">confiança</span>.</h2>
+                <p class="m-hero__sub">Conectamos compradores e vendedores de equipamentos agrícolas com transparência e as melhores condições.</p>
+                <div class="m-hero__btns">
+                  <span class="m-btn m-btn--laranja">Ver Equipamentos →</span>
+                  <span class="m-btn m-btn--outline">Falar com Especialista</span>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:center;position:relative;height:120px;">
+                <div style="width:90px;height:90px;background:linear-gradient(135deg,rgba(42,82,152,0.3),rgba(232,98,42,0.15));border-radius:50% 40% 60% 40%;border:1px solid rgba(255,255,255,0.1);"></div>
+                <div class="m-card-mini" style="position:absolute;top:4px;left:0;width:auto;font-size:0.42rem;padding:4px 7px;">
+                  📈 <strong style="font-size:0.48rem;">+500 negoc.</strong>
+                </div>
+                <div class="m-card-mini" style="position:absolute;bottom:8px;right:0;width:auto;font-size:0.42rem;padding:4px 7px;">
+                  ✅ <strong style="font-size:0.48rem;">Laudo Cautelar</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Números -->
+          <div class="m-numeros">
+            <div><span class="m-numero__val">1200</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Clientes Atendidos</p></div>
+            <div><span class="m-numero__val">500</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Negociações</p></div>
+            <div><span class="m-numero__val">15</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Anos Mercado</p></div>
+            <div><span class="m-numero__val">98</span><span class="m-numero__suf">%</span><p class="m-numero__lbl">Satisfação</p></div>
+          </div>
+          <!-- Serviços -->
+          <div class="m-servicos">
+            <p class="m-servicos__titulo">Nossos Serviços</p>
+            <div class="m-servicos__grid">
+              <div class="m-servico-card"><span class="m-servico-card__icone">🔍</span>Busca Inteligente</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">🚜</span>Equip. Ideal</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">💰</span>Venda Ativo</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">📊</span>Mix de Frota</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">⭐</span>Key Account</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">📋</span>Laudo Cautelar</div>
+            </div>
+          </div>
+          <!-- Sobre preview -->
+          <div class="m-sobre">
+            <div>
+              <span class="m-sobre__etiqueta">Quem somos</span>
+              <h3 class="m-sobre__titulo">Forcemak Prime</h3>
+              <p class="m-sobre__texto">Especialistas em negociação de máquinas e equipamentos agrícolas, com segurança e transparência.</p>
+              <span class="m-btn m-btn--laranja" style="font-size:0.45rem;">Conheça nossa história →</span>
+            </div>
+            <div class="m-sobre__img">🌾<div class="m-sobre__badge">+15 anos</div></div>
+          </div>
+          <!-- Mídias -->
+          <div class="m-midias">
+            <p class="m-midias__titulo">Forcemak nas Redes</p>
+            <div class="m-midias__abas">
+              <span class="m-midia-aba m-midia-aba--ativo">▶ YouTube</span>
+              <span class="m-midia-aba">📸 Instagram</span>
+              <span class="m-midia-aba">👍 Facebook</span>
+            </div>
+            <div class="m-video-grid">
+              <div class="m-video">▶</div>
+              <div class="m-video">▶</div>
+              <div class="m-video">▶</div>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div class="m-cta">
+            <p class="m-cta__titulo">Pronto para encontrar o equipamento ideal?</p>
+            <p class="m-cta__texto">Nossa equipe especializada encontra a máquina certa para a sua operação.</p>
+            <div class="m-cta__btns">
+              <span class="m-btn m-btn--laranja">Ver Equipamentos</span>
+              <span class="m-btn m-btn--outline">💬 WhatsApp</span>
+            </div>
+          </div>
+          <!-- Rodapé -->
+          <div class="m-rodape">
+            <div class="m-rodape__grid">
+              <div><span class="m-rodape__nome">FORCEMAK<span class="m-rodape__prime">PRIME</span></span><p class="m-rodape__sub">Negocie com segurança,<br>realize com confiança.</p></div>
+              <div><p class="m-rodape__titulo">Navegação</p><p class="m-rodape__item">Início</p><p class="m-rodape__item">Sobre</p><p class="m-rodape__item">Equipamentos</p></div>
+              <div><p class="m-rodape__titulo">Contato</p><p class="m-rodape__item">contato@...</p><p class="m-rodape__item">(51) 99605-0777</p></div>
+            </div>
+            <p class="m-rodape__base">© 2024 Forcemak Prime — Forcemak Equipamentos LTDA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telas 2+3: PRODUTOS e SOBRE lado a lado -->
+  <div class="telas-grid telas-grid--2" style="margin-bottom:56px;">
+    <!-- Produtos -->
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">02 — Equipamentos (com busca e estoque)</p>
+      <div class="browser">
+        <div class="browser__barra">
+          <div class="browser__dots"><div class="browser__dot browser__dot--vermelho"></div><div class="browser__dot browser__dot--amarelo"></div><div class="browser__dot browser__dot--verde"></div></div>
+          <div class="browser__url">forcemakprime.com.br/produtos.html</div>
+        </div>
+        <div class="browser__conteudo">
+          <div class="m-nav"><div><span class="m-nav__logo">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div><div class="m-nav__links"><span class="m-nav__link" style="color:var(--laranja);border-bottom:1px solid var(--laranja);">Equipamentos</span></div><span class="m-btn m-btn--laranja">💬 WhatsApp</span></div>
+          <div class="m-sobre-hero"><div class="m-breadcrumb">Início / Equipamentos</div><p class="m-pagina-titulo">Equipamentos Disponíveis</p><p class="m-pagina-sub">Colheitadeiras, tratores, plantadeiras e mais — estoque em tempo real.</p></div>
+          <div class="m-produtos" style="min-height:180px;">
+            <!-- Sidebar -->
+            <div class="m-sidebar">
+              <p class="m-sidebar__titulo">🔍 Filtrar</p>
+              <div class="m-busca">🔍 Buscar...</div>
+              <p class="m-filtro-titulo">Categoria</p>
+              <div class="m-check">🌾 Colheitadeiras <span style="background:#F4F6F9;border-radius:8px;padding:0 3px;font-size:0.35rem;">3</span></div>
+              <div class="m-check">🚜 Tratores <span style="background:#F4F6F9;border-radius:8px;padding:0 3px;font-size:0.35rem;">3</span></div>
+              <div class="m-check">🌱 Plantadeiras <span style="background:#F4F6F9;border-radius:8px;padding:0 3px;font-size:0.35rem;">2</span></div>
+              <div class="m-check">💨 Pulverizadores <span style="background:#F4F6F9;border-radius:8px;padding:0 3px;font-size:0.35rem;">2</span></div>
+              <div class="m-toggle">🟢 Em estoque <div class="m-toggle-sw"></div></div>
+            </div>
+            <!-- Cards -->
+            <div class="m-prods-lista">
+              <div class="m-prods-topo"><span class="m-prods-count"><strong>12</strong> equipamentos</span></div>
+              <div class="m-prods-grid">
+                <div class="m-prod-card"><div class="m-prod-img">🌾</div><div class="m-prod-corpo"><p class="m-prod-cat">COLHEITADEIRAS</p><p class="m-prod-nome">John Deere S680</p><span class="m-badge-amarelo">⚡ Últimas 2 unidades</span></div></div>
+                <div class="m-prod-card"><div class="m-prod-img">🚜</div><div class="m-prod-corpo"><p class="m-prod-cat">TRATORES</p><p class="m-prod-nome">JD 8345R</p><span class="m-badge-verde">🟢 5 em estoque</span></div></div>
+                <div class="m-prod-card"><div class="m-prod-img">🌱</div><div class="m-prod-corpo"><p class="m-prod-cat">PLANTADEIRAS</p><p class="m-prod-nome">Kinze 3660</p><span class="m-badge-vermelho">🔴 Indisponível</span></div></div>
+                <div class="m-prod-card"><div class="m-prod-img">💨</div><div class="m-prod-corpo"><p class="m-prod-cat">PULVERIZADORES</p><p class="m-prod-nome">Jacto 3030</p><span class="m-badge-verde">🟢 3 em estoque</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sobre -->
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">03 — Sobre Nós</p>
+      <div class="browser">
+        <div class="browser__barra">
+          <div class="browser__dots"><div class="browser__dot browser__dot--vermelho"></div><div class="browser__dot browser__dot--amarelo"></div><div class="browser__dot browser__dot--verde"></div></div>
+          <div class="browser__url">forcemakprime.com.br/sobre.html</div>
+        </div>
+        <div class="browser__conteudo">
+          <div class="m-nav"><div><span class="m-nav__logo">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div><div class="m-nav__links"><span class="m-nav__link" style="color:var(--laranja);">Sobre</span></div><span class="m-btn m-btn--laranja">💬 WhatsApp</span></div>
+          <div class="m-sobre-hero"><div class="m-breadcrumb">Início / Sobre</div><p class="m-pagina-titulo">Sobre a Forcemak Prime</p><p class="m-pagina-sub">Mais de 15 anos conectando o agronegócio com segurança.</p></div>
+          <div class="m-sobre" style="padding:14px;">
+            <div><span class="m-sobre__etiqueta">Nossa História</span><h3 class="m-sobre__titulo">Nascemos do campo</h3><p class="m-sobre__texto">Fundada com a missão de criar ambiente seguro para negociações no agronegócio. Mais de 15 anos de experiência no mercado de equipamentos.</p><span class="m-btn m-btn--laranja" style="font-size:0.42rem;">Saiba mais</span></div>
+            <div class="m-sobre__img">🚜<div class="m-sobre__badge">Desde 2010</div></div>
+          </div>
+          <div class="m-valores">
+            <p class="m-valores__titulo">Missão, Visão e Valores</p>
+            <div class="m-valores__grid">
+              <div class="m-valor-card"><div class="m-valor-card__icone">🎯</div><p class="m-valor-card__titulo">Missão</p></div>
+              <div class="m-valor-card"><div class="m-valor-card__icone">🔭</div><p class="m-valor-card__titulo">Visão</p></div>
+              <div class="m-valor-card"><div class="m-valor-card__icone">💎</div><p class="m-valor-card__titulo">Valores</p></div>
+              <div class="m-valor-card"><div class="m-valor-card__icone">🤝</div><p class="m-valor-card__titulo">Parceria</p></div>
+              <div class="m-valor-card"><div class="m-valor-card__icone">🚀</div><p class="m-valor-card__titulo">Inovação</p></div>
+              <div class="m-valor-card"><div class="m-valor-card__icone">🌿</div><p class="m-valor-card__titulo">Sustentab.</p></div>
+            </div>
+          </div>
+          <div class="m-numeros"><div><span class="m-numero__val">1200</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Clientes</p></div><div><span class="m-numero__val">500</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Negociações</p></div><div><span class="m-numero__val">15</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Anos</p></div><div><span class="m-numero__val">98</span><span class="m-numero__suf">%</span><p class="m-numero__lbl">Satisfação</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tela 4: CONTATO -->
+  <div class="telas-grid telas-grid--1">
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">04 — Contato</p>
+      <div class="browser">
+        <div class="browser__barra">
+          <div class="browser__dots"><div class="browser__dot browser__dot--vermelho"></div><div class="browser__dot browser__dot--amarelo"></div><div class="browser__dot browser__dot--verde"></div></div>
+          <div class="browser__url">forcemakprime.com.br/contato.html</div>
+        </div>
+        <div class="browser__conteudo">
+          <div class="m-nav"><div><span class="m-nav__logo">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div><div class="m-nav__links"><span class="m-nav__link" style="color:var(--laranja);">Contato</span></div><span class="m-btn m-btn--laranja">💬 WhatsApp</span></div>
+          <div class="m-sobre-hero"><div class="m-breadcrumb">Início / Contato</div><p class="m-pagina-titulo">Fale Conosco</p><p class="m-pagina-sub">Nossa equipe está pronta para atender você.</p></div>
+          <div class="m-contato">
+            <div class="m-contato-info">
+              <p class="m-contato-info__titulo">Estamos aqui</p>
+              <div class="m-contato-item"><div class="m-contato-icone">📧</div><div><p style="font-size:0.32rem;color:#999;font-weight:600;">E-MAIL</p><p class="m-contato-txt">contato@forcemakprime.com.br</p></div></div>
+              <div class="m-contato-item"><div class="m-contato-icone">📱</div><div><p style="font-size:0.32rem;color:#999;font-weight:600;">TELEFONE</p><p class="m-contato-txt">(51) 99605-0777</p></div></div>
+              <div class="m-contato-item"><div class="m-contato-icone">📍</div><div><p style="font-size:0.32rem;color:#999;font-weight:600;">LOCALIZAÇÃO</p><p class="m-contato-txt">Rio Grande do Sul — Brasil</p></div></div>
+              <div class="m-contato-item"><div class="m-contato-icone">🕐</div><div><p style="font-size:0.32rem;color:#999;font-weight:600;">HORÁRIO</p><p class="m-contato-txt">Seg–Sex: 8h às 18h</p></div></div>
+              <div style="margin-top:8px;"><span class="m-btn m-btn--laranja" style="font-size:0.42rem;padding:5px 10px;">💬 WhatsApp Direto</span></div>
+            </div>
+            <div class="m-form">
+              <p class="m-form__titulo">Envie uma mensagem</p>
+              <div class="m-campo--row"><div class="m-campo"><span class="m-campo__label">Nome *</span><div class="m-campo__input"></div></div><div class="m-campo"><span class="m-campo__label">E-mail *</span><div class="m-campo__input"></div></div></div>
+              <div class="m-campo"><span class="m-campo__label">Telefone</span><div class="m-campo__input"></div></div>
+              <div class="m-campo"><span class="m-campo__label">Assunto</span><div class="m-campo__input"></div></div>
+              <div class="m-campo"><span class="m-campo__label">Mensagem *</span><div class="m-campo__textarea"></div></div>
+              <div class="m-btn-full">Enviar Mensagem</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     MOBILE
+     ════════════════════════════════════════════════════════ -->
+<hr class="linha-divisoria">
+<div class="secao" id="mobile">
+  <p class="secao-titulo">Responsivo</p>
+  <h2 class="secao-nome">Versão Mobile</h2>
+  <p class="secao-desc">O site se adapta perfeitamente a qualquer tela — celulares, tablets e desktops.</p>
+
+  <div style="display:flex;gap:32px;flex-wrap:wrap;justify-content:center;align-items:flex-start;">
+    <!-- Mobile Home -->
+    <div class="tela-wrapper" style="align-items:center;">
+      <p class="tela-rotulo">Início — Mobile</p>
+      <div class="mobile">
+        <div class="mobile__notch"></div>
+        <div class="mobile__tela">
+          <div class="m-nav" style="padding:6px 10px;"><div><span class="m-nav__logo" style="font-size:0.65rem;">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div><span class="m-btn m-btn--laranja" style="font-size:0.42rem;padding:3px 7px;">≡</span></div>
+          <div class="m-hero" style="padding:16px 12px;">
+            <span class="m-hero__badge" style="font-size:0.4rem;">Especialistas em Máquinas</span>
+            <h2 class="m-hero__titulo" style="font-size:0.85rem;">Negocie com <span class="m-hero__destaque">segurança</span>,<br>realize com <span class="m-hero__destaque">confiança</span>.</h2>
+            <p class="m-hero__sub">Conectamos compradores e vendedores de equipamentos agrícolas.</p>
+            <div class="m-hero__btns"><span class="m-btn m-btn--laranja" style="font-size:0.45rem;">Ver Equipamentos</span></div>
+            <div class="m-hero__btns" style="margin-top:5px;"><span class="m-btn m-btn--outline" style="font-size:0.45rem;">💬 WhatsApp</span></div>
+          </div>
+          <div class="m-numeros" style="grid-template-columns:1fr 1fr;gap:6px;padding:10px;">
+            <div><span class="m-numero__val">1200</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Clientes</p></div>
+            <div><span class="m-numero__val">500</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Negoc.</p></div>
+            <div><span class="m-numero__val">15</span><span class="m-numero__suf">+</span><p class="m-numero__lbl">Anos</p></div>
+            <div><span class="m-numero__val">98</span><span class="m-numero__suf">%</span><p class="m-numero__lbl">Satisfação</p></div>
+          </div>
+          <div class="m-servicos" style="padding:10px;">
+            <p class="m-servicos__titulo" style="font-size:0.55rem;">Nossos Serviços</p>
+            <div class="m-servicos__grid">
+              <div class="m-servico-card"><span class="m-servico-card__icone">🔍</span>Busca</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">🚜</span>Equip.</div>
+              <div class="m-servico-card"><span class="m-servico-card__icone">📋</span>Laudo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Produtos -->
+    <div class="tela-wrapper" style="align-items:center;">
+      <p class="tela-rotulo">Equipamentos — Mobile</p>
+      <div class="mobile">
+        <div class="mobile__notch"></div>
+        <div class="mobile__tela">
+          <div class="m-nav" style="padding:6px 10px;"><div><span class="m-nav__logo" style="font-size:0.65rem;">FORCEMAK</span><span class="m-nav__prime">PRIME</span></div><span class="m-btn m-btn--laranja" style="font-size:0.42rem;padding:3px 7px;">≡</span></div>
+          <div class="m-sobre-hero" style="padding:14px 12px 10px;"><p class="m-pagina-titulo" style="font-size:0.75rem;">Equipamentos</p></div>
+          <!-- Busca e filtro mobile (horizontal) -->
+          <div style="background:#F4F6F9;padding:10px;border-bottom:1px solid #E2E8F0;">
+            <div class="m-busca" style="margin-bottom:6px;">🔍 Buscar equipamento...</div>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span style="background:#1C3A5E;color:#fff;font-size:0.38rem;font-weight:700;padding:2px 7px;border-radius:10px;">Todos</span>
+              <span style="background:#fff;color:#666;font-size:0.38rem;border:1px solid #ddd;padding:2px 7px;border-radius:10px;">Colheitadeiras</span>
+              <span style="background:#fff;color:#666;font-size:0.38rem;border:1px solid #ddd;padding:2px 7px;border-radius:10px;">Tratores</span>
+            </div>
+          </div>
+          <div style="background:#F4F6F9;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:5px;">
+            <div class="m-prod-card"><div class="m-prod-img">🌾</div><div class="m-prod-corpo"><p class="m-prod-cat">COLHEITAD.</p><p class="m-prod-nome">JD S680</p><span class="m-badge-amarelo">Últimas 2</span></div></div>
+            <div class="m-prod-card"><div class="m-prod-img">🚜</div><div class="m-prod-corpo"><p class="m-prod-cat">TRATORES</p><p class="m-prod-nome">JD 8345R</p><span class="m-badge-verde">5 em estoque</span></div></div>
+            <div class="m-prod-card"><div class="m-prod-img">💨</div><div class="m-prod-corpo"><p class="m-prod-cat">PULVERIZ.</p><p class="m-prod-nome">Jacto 3030</p><span class="m-badge-verde">3 em estoque</span></div></div>
+            <div class="m-prod-card" style="opacity:0.6;"><div class="m-prod-img">🌱</div><div class="m-prod-corpo"><p class="m-prod-cat">PLANTAD.</p><p class="m-prod-nome">Kinze 3660</p><span class="m-badge-vermelho">Indisp.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Admin -->
+    <div class="tela-wrapper" style="align-items:center;">
+      <p class="tela-rotulo">Painel Admin — Mobile</p>
+      <div class="mobile">
+        <div class="mobile__notch"></div>
+        <div class="mobile__tela">
+          <div style="background:#0D1B2A;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:0.6rem;font-weight:900;color:#fff;">FORCEMAK<span style="background:var(--laranja);font-size:0.35rem;padding:1px 4px;border-radius:3px;margin-left:3px;">PRIME</span></span>
+            <span style="font-size:0.45rem;color:rgba(255,255,255,0.5);">≡ Menu</span>
+          </div>
+          <div style="background:#F0F2F5;padding:10px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;">
+              <div class="m-stat m-stat--azul"><div class="m-stat__icone">💬</div><div class="m-stat__val">12</div><div class="m-stat__lbl">Mensagens</div></div>
+              <div class="m-stat m-stat--laranja"><div class="m-stat__icone">🆕</div><div class="m-stat__val">3</div><div class="m-stat__lbl">Não lidas</div></div>
+              <div class="m-stat m-stat--verde"><div class="m-stat__icone">🌾</div><div class="m-stat__val">12</div><div class="m-stat__lbl">Equipamentos</div></div>
+              <div class="m-stat m-stat--amarelo"><div class="m-stat__icone">⭐</div><div class="m-stat__val">4</div><div class="m-stat__lbl">Destaques</div></div>
+            </div>
+            <div class="m-tabela">
+              <div class="m-tabela__header"><span class="m-tabela__titulo">Últimas Mensagens</span></div>
+              <div style="padding:5px 8px;border-bottom:1px solid #F4F6F9;"><p style="font-size:0.42rem;font-weight:700;color:#0D1B2A;">João Silva</p><p style="font-size:0.38rem;color:#999;">Colheitadeira JD S680</p><span class="m-badge-nova">Nova</span></div>
+              <div style="padding:5px 8px;border-bottom:1px solid #F4F6F9;"><p style="font-size:0.42rem;font-weight:700;color:#0D1B2A;">Maria Santos</p><p style="font-size:0.38rem;color:#999;">Trator NH T8.420</p><span class="m-badge-lida">Lida</span></div>
+              <div style="padding:5px 8px;"><p style="font-size:0.42rem;font-weight:700;color:#0D1B2A;">Pedro Costa</p><p style="font-size:0.38rem;color:#999;">Busca Inteligente</p><span class="m-badge-nova">Nova</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     ADMIN PANEL
+     ════════════════════════════════════════════════════════ -->
+<hr class="linha-divisoria">
+<div class="secao" id="admin">
+  <p class="secao-titulo">Área Restrita</p>
+  <h2 class="secao-nome">Painel Administrativo</h2>
+  <p class="secao-desc">Área exclusiva para gestão de conteúdo, estoque, mensagens e integração com o Facebook.</p>
+
+  <div class="telas-grid telas-grid--2">
+    <!-- Admin Dashboard -->
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">05 — Dashboard / Visão Geral</p>
+      <div class="browser">
+        <div class="browser__barra"><div class="browser__dots"><div class="browser__dot browser__dot--vermelho"></div><div class="browser__dot browser__dot--amarelo"></div><div class="browser__dot browser__dot--verde"></div></div><div class="browser__url">forcemakprime.com.br/admin/painel.html</div></div>
+        <div class="browser__conteudo">
+          <div class="m-admin">
+            <div class="m-admin-sidebar">
+              <div class="m-admin-sidebar__logo">FORCEMAK</div><div><span class="m-admin-sidebar__prime">PRIME</span></div>
+              <p class="m-admin-sidebar__sub">Painel Admin</p>
+              <span class="m-admin-link--secao">Principal</span>
+              <div class="m-admin-link m-admin-link--ativo">📊 Visão Geral</div>
+              <div class="m-admin-link">💬 Mensagens</div>
+              <span class="m-admin-link--secao">Conteúdo</span>
+              <div class="m-admin-link">🌾 Produtos</div>
+              <div class="m-admin-link">📦 Estoque</div>
+              <div class="m-admin-link">✏️ Textos</div>
+              <span class="m-admin-link--secao">Integr.</span>
+              <div class="m-admin-link">🎬 Mídias</div>
+              <div class="m-admin-link">📘 Facebook</div>
+            </div>
+            <div class="m-admin-conteudo">
+              <div class="m-admin-topo"><span class="m-admin-topo__titulo">Visão Geral</span><span style="font-size:0.42rem;color:#666;">🌐 Ver site</span></div>
+              <div class="m-stats">
+                <div class="m-stat m-stat--azul"><div class="m-stat__icone">💬</div><div class="m-stat__val">12</div><div class="m-stat__lbl">Mensagens</div></div>
+                <div class="m-stat m-stat--laranja"><div class="m-stat__icone">🆕</div><div class="m-stat__val">3</div><div class="m-stat__lbl">Não lidas</div></div>
+                <div class="m-stat m-stat--verde"><div class="m-stat__icone">🌾</div><div class="m-stat__val">12</div><div class="m-stat__lbl">Equipamentos</div></div>
+                <div class="m-stat m-stat--amarelo"><div class="m-stat__icone">⭐</div><div class="m-stat__val">4</div><div class="m-stat__lbl">Destaques</div></div>
+              </div>
+              <div class="m-tabela">
+                <div class="m-tabela__header"><span class="m-tabela__titulo">Últimas Mensagens</span><span style="font-size:0.42rem;color:#666;">Ver todas →</span></div>
+                <div class="m-tabela__ths"><span class="m-tabela__th">Nome</span><span class="m-tabela__th">E-mail</span><span class="m-tabela__th">Assunto</span><span class="m-tabela__th">Data</span><span class="m-tabela__th">Status</span></div>
+                <div class="m-tabela__row"><span class="m-tabela__cell"><strong>João Silva</strong></span><span class="m-tabela__cell">joao@...</span><span class="m-tabela__cell">Colheitadeira</span><span class="m-tabela__cell" style="color:#999;">12/01</span><span class="m-tabela__cell"><span class="m-badge-nova">Nova</span></span></div>
+                <div class="m-tabela__row"><span class="m-tabela__cell"><strong>Maria Santos</strong></span><span class="m-tabela__cell">maria@...</span><span class="m-tabela__cell">Trator</span><span class="m-tabela__cell" style="color:#999;">11/01</span><span class="m-tabela__cell"><span class="m-badge-lida">Lida</span></span></div>
+                <div class="m-tabela__row"><span class="m-tabela__cell"><strong>Pedro Costa</strong></span><span class="m-tabela__cell">pedro@...</span><span class="m-tabela__cell">Busca</span><span class="m-tabela__cell" style="color:#999;">10/01</span><span class="m-tabela__cell"><span class="m-badge-nova">Nova</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Estoque -->
+    <div class="tela-wrapper">
+      <p class="tela-rotulo">06 — Gestão de Estoque</p>
+      <div class="browser">
+        <div class="browser__barra"><div class="browser__dots"><div class="browser__dot browser__dot--vermelho"></div><div class="browser__dot browser__dot--amarelo"></div><div class="browser__dot browser__dot--verde"></div></div><div class="browser__url">forcemakprime.com.br/admin/painel.html → Estoque</div></div>
+        <div class="browser__conteudo">
+          <div class="m-admin">
+            <div class="m-admin-sidebar">
+              <div class="m-admin-sidebar__logo">FORCEMAK</div><div><span class="m-admin-sidebar__prime">PRIME</span></div>
+              <p class="m-admin-sidebar__sub">Painel Admin</p>
+              <span class="m-admin-link--secao">Principal</span>
+              <div class="m-admin-link">📊 Visão Geral</div>
+              <div class="m-admin-link">💬 Mensagens</div>
+              <span class="m-admin-link--secao">Conteúdo</span>
+              <div class="m-admin-link">🌾 Produtos</div>
+              <div class="m-admin-link m-admin-link--ativo">📦 Estoque</div>
+              <div class="m-admin-link">✏️ Textos</div>
+            </div>
+            <div class="m-admin-conteudo">
+              <div class="m-admin-topo"><span class="m-admin-topo__titulo">📦 Gestão de Estoque</span></div>
+              <div class="m-tabela" style="margin-top:4px;">
+                <div class="m-tabela__header"><span class="m-tabela__titulo">Equipamentos</span><span style="font-size:0.38rem;color:#999;">Atualiza em tempo real no site</span></div>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr 1fr;padding:4px 8px;background:#F4F6F9;border-bottom:1px solid #E2E8F0;">
+                  <span style="font-size:0.38rem;font-weight:700;color:#666;text-transform:uppercase;">Equipamento</span>
+                  <span style="font-size:0.38rem;font-weight:700;color:#666;text-transform:uppercase;">Categ.</span>
+                  <span style="font-size:0.38rem;font-weight:700;color:#666;text-transform:uppercase;">Qtd.</span>
+                  <span style="font-size:0.38rem;font-weight:700;color:#666;text-transform:uppercase;">Ajustar</span>
+                  <span style="font-size:0.38rem;font-weight:700;color:#666;text-transform:uppercase;">Status</span>
+                </div>
+                <div class="m-estoque-row"><span style="font-size:0.42rem;font-weight:700;">JD S680</span><span style="font-size:0.38rem;color:#666;">Colheit.</span><span style="font-size:0.65rem;font-weight:800;text-align:center;">2</span><div class="m-estoque-ctrl"><div class="m-estoque-btn">−</div><div class="m-estoque-num">2</div><div class="m-estoque-btn">+</div></div><span class="m-badge-amarelo">Últimas</span></div>
+                <div class="m-estoque-row"><span style="font-size:0.42rem;font-weight:700;">JD 8345R</span><span style="font-size:0.38rem;color:#666;">Trator</span><span style="font-size:0.65rem;font-weight:800;text-align:center;">5</span><div class="m-estoque-ctrl"><div class="m-estoque-btn">−</div><div class="m-estoque-num">5</div><div class="m-estoque-btn">+</div></div><span class="m-badge-lida">Dispon.</span></div>
+                <div class="m-estoque-row"><span style="font-size:0.42rem;font-weight:700;">Kinze 3660</span><span style="font-size:0.38rem;color:#666;">Plantad.</span><span style="font-size:0.65rem;font-weight:800;text-align:center;color:#dc2626;">0</span><div class="m-estoque-ctrl"><div class="m-estoque-btn">−</div><div class="m-estoque-num">0</div><div class="m-estoque-btn">+</div></div><span class="m-badge-vermelho">Indisp.</span></div>
+                <div class="m-estoque-row"><span style="font-size:0.42rem;font-weight:700;">Jacto 3030</span><span style="font-size:0.38rem;color:#666;">Pulveriz.</span><span style="font-size:0.65rem;font-weight:800;text-align:center;">3</span><div class="m-estoque-ctrl"><div class="m-estoque-btn">−</div><div class="m-estoque-num">3</div><div class="m-estoque-btn">+</div></div><span class="m-badge-lida">Dispon.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     IDENTIDADE VISUAL
+     ════════════════════════════════════════════════════════ -->
+<hr class="linha-divisoria">
+<div class="secao" id="identidade">
+  <p class="secao-titulo">Identidade Visual</p>
+  <h2 class="secao-nome">Cores & Tipografia</h2>
+  <p class="secao-desc">Paleta fiel à marca Forcemak Prime, com tipografia moderna e legível.</p>
+
+  <!-- Cores -->
+  <h3 style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:20px;">Paleta de Cores</h3>
+  <div class="cores-grid" style="margin-bottom:56px;">
+    <div class="cor-item">
+      <div class="cor-item__bloco" style="background:#1C3A5E;"><span class="cor-item__hex">#1C3A5E</span></div>
+      <div class="cor-item__info"><p class="cor-item__nome">Azul Principal</p><p class="cor-item__uso">Headers, textos, fundo nav</p></div>
+    </div>
+    <div class="cor-item">
+      <div class="cor-item__bloco" style="background:#0D1B2A;"><span class="cor-item__hex">#0D1B2A</span></div>
+      <div class="cor-item__info"><p class="cor-item__nome">Azul Escuro</p><p class="cor-item__uso">Hero, rodapé, admin sidebar</p></div>
+    </div>
+    <div class="cor-item">
+      <div class="cor-item__bloco" style="background:#E8622A;"><span class="cor-item__hex">#E8622A</span></div>
+      <div class="cor-item__info"><p class="cor-item__nome">Laranja PRIME</p><p class="cor-item__uso">CTAs, badge PRIME, destaques</p></div>
+    </div>
+    <div class="cor-item">
+      <div class="cor-item__bloco" style="background:#F4F6F9;"><span class="cor-item__hex" style="color:#333;">#F4F6F9</span></div>
+      <div class="cor-item__info"><p class="cor-item__nome">Cinza Fundo</p><p class="cor-item__uso">Seções de conteúdo, cards</p></div>
+    </div>
+    <div class="cor-item">
+      <div class="cor-item__bloco" style="background:#fff;"><span class="cor-item__hex" style="color:#333;">#FFFFFF</span></div>
+      <div class="cor-item__info"><p class="cor-item__nome">Branco</p><p class="cor-item__uso">Cards, formulários, contraste</p></div>
+    </div>
+  </div>
+
+  <!-- Tipografia -->
+  <h3 style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.4);margin-bottom:20px;">Tipografia — Montserrat</h3>
+  <div>
+    <div class="tipo-card">
+      <div class="tipo-card__amostra" style="font-size:clamp(2rem,5vw,3.5rem);font-weight:900;">FORCEMAK PRIME</div>
+      <div class="tipo-card__info">Montserrat Black (900) — Títulos principais, logo</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card__amostra" style="font-size:clamp(1.4rem,3vw,2rem);font-weight:700;">Negocie com segurança, realize com confiança.</div>
+      <div class="tipo-card__info">Montserrat Bold (700) — Subtítulos, seções</div>
+    </div>
+    <div class="tipo-card">
+      <div class="tipo-card__amostra" style="font-size:1rem;font-weight:500;color:rgba(255,255,255,0.75);">Somos especialistas em negociação de máquinas e equipamentos agrícolas, conectando compradores e vendedores com segurança.</div>
+      <div class="tipo-card__info">Montserrat Medium (500) — Corpo de texto, descrições</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FUNCIONALIDADES
+     ════════════════════════════════════════════════════════ -->
+<hr class="linha-divisoria">
+<div class="secao" id="funcionalidades">
+  <p class="secao-titulo">O que está incluído</p>
+  <h2 class="secao-nome">Funcionalidades</h2>
+  <p class="secao-desc">Tudo que foi desenvolvido para o site da Forcemak Prime.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-card__icone">🎬</span>
+      <h3 class="feature-card__titulo">Animações Profissionais</h3>
+      <p class="feature-card__desc">GSAP para o hero com entrada sequencial. AOS para animações ao rolar. Contadores numéricos. Transições suaves entre páginas. Cards com hover effect.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">📦</span>
+      <h3 class="feature-card__titulo">Busca + Estoque em Tempo Real</h3>
+      <p class="feature-card__desc">Sidebar com busca por nome/descrição, filtros por categoria e toggle de disponibilidade. Badges 🟢 disponível / 🟡 últimas unidades / 🔴 indisponível.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">📱</span>
+      <h3 class="feature-card__titulo">Mídias Sociais Incorporadas</h3>
+      <p class="feature-card__desc">YouTube, Instagram e Facebook embarcados dentro do site. O lead vem da rede para o site — não vai embora. Configurável pelo admin sem código.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">🔐</span>
+      <h3 class="feature-card__titulo">Painel Admin Completo</h3>
+      <p class="feature-card__desc">Login com JWT. Gestão de produtos, estoque, textos do site, mensagens. Sem precisar de programador para alterar conteúdo.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">📊</span>
+      <h3 class="feature-card__titulo">Facebook Pixel + API</h3>
+      <p class="feature-card__desc">Pixel ID 1433120138425099 ativo em todas as páginas. Rastreio de PageView, Contact e ViewContent. Métricas visíveis no painel admin.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">🔍</span>
+      <h3 class="feature-card__titulo">SEO Completo</h3>
+      <p class="feature-card__desc">Meta tags, Open Graph (preview no WhatsApp), JSON-LD Schema.org, sitemap.xml, robots.txt, canonical URLs e breadcrumbs estruturados.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">📱</span>
+      <h3 class="feature-card__titulo">100% Responsivo</h3>
+      <p class="feature-card__desc">Layout adaptável para celular, tablet e desktop. Menu hambúrguer no mobile. Grid flexível que reorganiza os elementos conforme a tela.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">⚡</span>
+      <h3 class="feature-card__titulo">Performance</h3>
+      <p class="feature-card__desc">Imagens com lazy loading. Scripts carregados ao final. Fontes com preconnect. CSS e JS organizados em arquivos separados por contexto.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-card__icone">💬</span>
+      <h3 class="feature-card__titulo">WhatsApp Integrado</h3>
+      <p class="feature-card__desc">Botão fixo de WhatsApp em todas as páginas com mensagem pré-preenchida. Clique no produto envia o nome do equipamento diretamente no chat.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     RODAPÉ
+     ════════════════════════════════════════════════════════ -->
+<div class="rodape-apres">
+  <h2 class="rodape-apres__titulo">FORCEMAK <span style="color:var(--laranja);">PRIME</span></h2>
+  <p class="rodape-apres__sub">Negocie com segurança, realize com confiança.</p>
+
+  <div class="rodape-apres__info">
+    <div class="rodape-apres__item">
+      <strong>Telefone</strong>
+      (51) 99605-0777
+    </div>
+    <div class="rodape-apres__item">
+      <strong>Instagram</strong>
+      @forcemakequip
+    </div>
+    <div class="rodape-apres__item">
+      <strong>YouTube</strong>
+      @forcemak
+    </div>
+    <div class="rodape-apres__item">
+      <strong>Facebook</strong>
+      forcemakequi
+    </div>
+    <div class="rodape-apres__item">
+      <strong>Servidor</strong>
+      <a href="http://localhost:3000" target="_blank" style="color:var(--laranja);">localhost:3000 →</a>
+    </div>
+  </div>
+
+  <p class="rodape-apres__copy">Apresentação do projeto — Forcemak Equipamentos LTDA &copy; 2024</p>
+</div>
+
+</body>
+</html>
