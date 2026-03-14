@@ -478,9 +478,9 @@ function montarCarrossel(id, slides) {
     const style = s.img
       ? `background-image:url('${s.img}');background-size:cover;background-position:center;`
       : `background:${s.bg};`;
-    return `<div class="painel__slide${i === 0 ? ' ativo' : ''}" style="${style}" data-idx="${i}">
-      <div class="slide-icone-bg">${s.icone}</div>
-    </div>`;
+    // Emoji só aparece quando não há foto real
+    const icone = s.img ? '' : `<div class="slide-icone-bg">${s.icone}</div>`;
+    return `<div class="painel__slide${i === 0 ? ' ativo' : ''}" style="${style}" data-idx="${i}">${icone}</div>`;
   }).join('');
 
   if (dotsEl) {
