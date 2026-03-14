@@ -45,25 +45,27 @@
 
 /* Conteúdo centralizado no painel hero */
 .painel__conteudo--hero {
-  max-width: 620px;
-  padding: 32px 48px 48px;
+  max-width: 480px;
+  padding: 20px 32px 32px;
 }
 
 .painel__titulo--hero {
-  font-size: clamp(2rem, 4.5vw, 3.2rem) !important;
+  font-size: clamp(1.3rem, 2.8vw, 2rem) !important;
+  margin-bottom: 4px !important;
 }
 
 .painel__desc--hero {
-  font-size: 1rem !important;
+  font-size: 0.82rem !important;
   display: block !important;
-  max-width: 460px;
+  max-width: 380px;
+  margin-bottom: 14px !important;
 }
 
 .painel__btn--hero {
-  max-width: 320px;
-  font-size: 1.05rem;
-  padding: 18px 28px;
-  min-height: 60px;
+  max-width: 280px;
+  font-size: 0.9rem;
+  padding: 13px 20px;
+  min-height: 48px;
 }
 
 /* Slides container */
@@ -426,7 +428,7 @@
   }
 
   .painel__titulo--hero {
-    font-size: 1.8rem !important;
+    font-size: 1.25rem !important;
   }
 
   .painel__btn--hero {
