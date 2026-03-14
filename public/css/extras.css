@@ -23,19 +23,47 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.dois-paineis {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: 85vh;
-  min-height: 520px;
-  max-height: 820px;
-  overflow: hidden;
+/* Container do painel hero (tela cheia) */
+.painel-hero {
+  display: block;
+  width: 100%;
 }
 
 .painel {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+}
+
+/* Painel tela cheia — equipamentos */
+.painel--fullscreen {
+  width: 100%;
+  height: 88vh;
+  min-height: 560px;
+  max-height: 900px;
+}
+
+/* Conteúdo centralizado no painel hero */
+.painel__conteudo--hero {
+  max-width: 620px;
+  padding: 32px 48px 48px;
+}
+
+.painel__titulo--hero {
+  font-size: clamp(2rem, 4.5vw, 3.2rem) !important;
+}
+
+.painel__desc--hero {
+  font-size: 1rem !important;
+  display: block !important;
+  max-width: 460px;
+}
+
+.painel__btn--hero {
+  max-width: 320px;
+  font-size: 1.05rem;
+  padding: 18px 28px;
+  min-height: 60px;
 }
 
 /* Slides container */
@@ -385,15 +413,30 @@
     min-height: auto;
   }
 
-  /* Mobile: cada painel ocupa quase toda a tela = clique fácil com polegar */
-  .painel {
-    height: 70vh;
-    min-height: 340px;
+  /* Mobile: painel hero ocupa quase toda a tela */
+  .painel--fullscreen {
+    height: 88vh !important;
+    min-height: 420px !important;
+    max-height: none !important;
+  }
+
+  .painel__conteudo--hero {
+    padding: 20px 20px 32px;
+    max-width: 100%;
+  }
+
+  .painel__titulo--hero {
+    font-size: 1.8rem !important;
+  }
+
+  .painel__btn--hero {
+    max-width: 100%;
+    font-size: 1.1rem;
+    min-height: 64px;
   }
 
   .painel--equip {
     border-right: none;
-    border-bottom: 3px solid rgba(255,130,30,0.4);
   }
 
   /* Descrição visível no mobile (curta) */

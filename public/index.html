@@ -109,52 +109,28 @@
     </div>
   </nav>
 
-  <!-- ─── Dois Painéis de Acesso Direto ────────────────────── -->
-  <section class="dois-paineis" id="inicio">
-
-    <!-- Painel: Equipamentos / Classificados -->
-    <div class="painel painel--equip" id="painel-equip">
+  <!-- ─── Painel Principal — Equipamentos ─────────────────── -->
+  <section class="painel-hero" id="inicio">
+    <div class="painel painel--equip painel--fullscreen" id="painel-equip">
       <div class="painel__slides" id="slides-equip"></div>
       <div class="painel__overlay"></div>
-      <div class="painel__conteudo">
+      <div class="painel__conteudo painel__conteudo--hero">
         <div class="painel__slide-info">
           <span class="painel__item-cat" id="equip-cat">Equipamentos</span>
           <span class="painel__item-sep">·</span>
           <span class="painel__item-nome" id="equip-nome"> </span>
         </div>
         <span class="painel__badge painel__badge--verde" id="equip-badge" style="display:none;"></span>
-        <h2 class="painel__titulo">Encontre seu<br><strong>Equipamento</strong></h2>
-        <p class="painel__desc">Colheitadeiras, tratores, plantadeiras e mais — estoque atualizado.</p>
-        <a href="/produtos.html" class="painel__btn painel__btn--laranja"
+        <h2 class="painel__titulo painel__titulo--hero">Encontre seu<br><strong>Equipamento</strong></h2>
+        <p class="painel__desc painel__desc--hero">Colheitadeiras, escavadeiras, tratores e mais — estoque atualizado com fotos reais.</p>
+        <a href="/produtos.html" class="painel__btn painel__btn--laranja painel__btn--hero"
            onclick="fbq&&fbq('track','ViewContent')">
-          Ver Equipamentos
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Ver todos os Equipamentos
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="painel__dots" id="dots-equip"></div>
     </div>
-
-    <!-- Painel: Serviços -->
-    <div class="painel painel--serv" id="painel-serv">
-      <div class="painel__slides" id="slides-serv"></div>
-      <div class="painel__overlay painel__overlay--serv"></div>
-      <div class="painel__conteudo">
-        <div class="painel__slide-info">
-          <span class="painel__item-cat" id="serv-cat">Serviços</span>
-          <span class="painel__item-sep">·</span>
-          <span class="painel__item-nome" id="serv-nome">Busca Inteligente</span>
-        </div>
-        <h2 class="painel__titulo">Contrate seu<br><strong class="titulo-azul">Serviço</strong></h2>
-        <p class="painel__desc">Laudo cautelar, busca inteligente, key account e consultoria especializada.</p>
-        <a href="/contato.html" class="painel__btn painel__btn--branco"
-           onclick="fbq&&fbq('track','Contact')">
-          Falar com Especialista
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-      <div class="painel__dots" id="dots-serv"></div>
-    </div>
-
   </section>
 
   <!-- ─── Números ──────────────────────────────────────────── -->

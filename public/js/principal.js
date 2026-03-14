@@ -437,11 +437,6 @@ const CAT_ICONE = {
 };
 
 function iniciarCarrosseis() {
-  // Serviços (estático)
-  montarCarrossel('serv', SERVICOS_CAROUSEL.map(s => ({
-    bg: s.bg, icone: s.icone, nome: s.nome, categoria: 'Serviço'
-  })));
-
   // Equipamentos (dinâmico via API) — API retorna array direto
   fetch('/api/produtos')
     .then(r => r.json())
