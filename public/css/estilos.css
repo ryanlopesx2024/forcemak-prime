@@ -719,21 +719,10 @@ p { line-height: 1.7; }
 
 .sobre-preview__imagem-placeholder {
   width: 100%;
-  padding-bottom: 75%;
-  background: linear-gradient(135deg, var(--azul) 0%, #2A5298 100%);
+  aspect-ratio: 4/3;
+  object-fit: cover;
   border-radius: var(--radius-lg);
-  position: relative;
-  overflow: hidden;
-}
-
-.sobre-preview__imagem-placeholder::before {
-  content: '🌾';
-  position: absolute;
-  font-size: 6rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.3;
+  display: block;
 }
 
 .sobre-preview__badge-flutuante {
