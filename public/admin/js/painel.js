@@ -533,21 +533,27 @@ async function carregarEstoque() {
     }
 
     lista.innerHTML = `
+      <div style="margin-bottom:14px;display:flex;justify-content:flex-end;">
+        <button class="btn-admin btn-admin--laranja" onclick="irParaSecao('produtos')">
+          + Adicionar Equipamento
+        </button>
+      </div>
       <table class="tabela">
         <thead>
           <tr>
             <th>Equipamento</th>
             <th>Categoria</th>
-            <th>Estoque Atual</th>
+            <th style="text-align:center;">Qtd</th>
             <th>Ajustar</th>
             <th>Status</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           ${prods.map(p => `
             <tr id="estoque-row-${p.id}">
               <td><strong>${p.nome}</strong></td>
-              <td>${p.categoria}</td>
+              <td style="font-size:0.82rem;">${p.categoria}</td>
               <td style="font-size:1.1rem;font-weight:800;text-align:center;"
                   id="estoque-val-${p.id}">${p.estoque || 0}</td>
               <td>
@@ -560,12 +566,35 @@ async function carregarEstoque() {
                 </div>
               </td>
               <td>${badgeEstoqueAdmin(p.estoque || 0)}</td>
+              <td>
+                <button class="btn-admin btn-admin--perigo" style="padding:6px 12px;font-size:0.78rem;"
+                  onclick="excluirProdutoEstoque(${p.id}, '${p.nome.replace(/'/g,'`')}')">
+                  Remover
+                </button>
+              </td>
             </tr>
           `).join('')}
         </tbody>
       </table>`;
   } catch {
     lista.innerHTML = '<p style="color:#e00;text-align:center;">Erro ao carregar estoque.</p>';
+  }
+}
+
+async function excluirProdutoEstoque(id, nome) {
+  if (!confirm(`Remover "${nome}" do catálogo?\n\nEssa ação não pode ser desfeita.`)) return;
+  try {
+    const res  = await fetch(`/api/produtos/${id}`, {
+      method:  'DELETE',
+      headers: cabecalhoAuth()
+    });
+    const json = await res.json();
+    if (json.sucesso) {
+      mostrarToast('Equipamento removido!', 'sucesso');
+      carregarEstoque();
+    }
+  } catch {
+    mostrarToast('Erro ao remover equipamento', 'erro');
   }
 }
 
