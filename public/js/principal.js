@@ -401,19 +401,39 @@ const SERVICOS_CAROUSEL = [
 ];
 
 const CAT_BG = {
-  'Colheitadeira': 'linear-gradient(160deg,#081508 0%,#142814 100%)',
-  'Trator':        'linear-gradient(160deg,#091520 0%,#0e2a40 100%)',
-  'Plantadeira':   'linear-gradient(160deg,#081508 0%,#103010 100%)',
-  'Pulverizador':  'linear-gradient(160deg,#150808 0%,#301010 100%)',
-  'Implemento':    'linear-gradient(160deg,#100815 0%,#201530 100%)',
+  'Colheitadeiras':         'linear-gradient(160deg,#081508 0%,#142814 100%)',
+  'Tratores':               'linear-gradient(160deg,#091520 0%,#0e2a40 100%)',
+  'Plantadeiras':           'linear-gradient(160deg,#081508 0%,#103010 100%)',
+  'Pulverizadores':         'linear-gradient(160deg,#150808 0%,#301010 100%)',
+  'Implementos':            'linear-gradient(160deg,#100815 0%,#201530 100%)',
+  'Escavadeiras':           'linear-gradient(160deg,#150e00 0%,#2e2000 100%)',
+  'Mini Escavadeiras':      'linear-gradient(160deg,#100808 0%,#251808 100%)',
+  'Mini Carregadeiras':     'linear-gradient(160deg,#0a1020 0%,#142040 100%)',
+  'Pás Carregadeiras':      'linear-gradient(160deg,#101510 0%,#203020 100%)',
+  'Plataformas Elevatórias':'linear-gradient(160deg,#0d0d20 0%,#1a1a40 100%)',
+  'Retroescavadeiras':      'linear-gradient(160deg,#180800 0%,#301800 100%)',
+  'Motoniveladoras':        'linear-gradient(160deg,#100010 0%,#200820 100%)',
+  'Manipuladores':          'linear-gradient(160deg,#001518 0%,#003040 100%)',
+  'Fresadoras':             'linear-gradient(160deg,#181818 0%,#282828 100%)',
+  'Caminhões':              'linear-gradient(160deg,#100810 0%,#201020 100%)',
 };
 
 const CAT_ICONE = {
-  'Colheitadeira': '🌾',
-  'Trator':        '🚜',
-  'Plantadeira':   '🌱',
-  'Pulverizador':  '💨',
-  'Implemento':    '⚙️',
+  'Colheitadeiras':         '🌾',
+  'Tratores':               '🚜',
+  'Plantadeiras':           '🌱',
+  'Pulverizadores':         '💨',
+  'Implementos':            '⚙️',
+  'Escavadeiras':           '⛏️',
+  'Mini Escavadeiras':      '⛏️',
+  'Mini Carregadeiras':     '🏗️',
+  'Pás Carregadeiras':      '🏗️',
+  'Plataformas Elevatórias':'🔝',
+  'Retroescavadeiras':      '🏗️',
+  'Motoniveladoras':        '🛣️',
+  'Manipuladores':          '🦾',
+  'Fresadoras':             '⚙️',
+  'Caminhões':              '🚛',
 };
 
 function iniciarCarrosseis() {
@@ -422,18 +442,25 @@ function iniciarCarrosseis() {
     bg: s.bg, icone: s.icone, nome: s.nome, categoria: 'Serviço'
   })));
 
-  // Equipamentos (dinâmico via API)
+  // Equipamentos (dinâmico via API) — API retorna array direto
   fetch('/api/produtos')
     .then(r => r.json())
-    .then(dados => {
-      const lista = dados.produtos || [];
-      if (!lista.length) {
-        montarCarrossel('equip', [{ bg: CAT_BG['Trator'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Todos os tipos' }]);
+    .then(lista => {
+      if (!Array.isArray(lista) || !lista.length) {
+        montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Todos os tipos' }]);
         return;
       }
-      montarCarrossel('equip', lista.map(p => ({
+      // Seleciona até 3 por categoria para variedade máxima no carrossel
+      const comFoto = lista.filter(p => p.imagem);
+      const porCat  = {};
+      comFoto.forEach(p => {
+        if (!porCat[p.categoria]) porCat[p.categoria] = [];
+        if (porCat[p.categoria].length < 3) porCat[p.categoria].push(p);
+      });
+      const usarLista = Object.values(porCat).flat().slice(0, 40);
+      montarCarrossel('equip', usarLista.map(p => ({
         bg:       p.imagem ? null : (CAT_BG[p.categoria] || 'linear-gradient(160deg,#091520,#0e2a40)'),
-        img:      p.imagem ? `/uploads/${p.imagem}` : null,
+        img:      p.imagem || null,   // caminho completo: /imagens/uploads/...
         icone:    CAT_ICONE[p.categoria] || '🚜',
         nome:     p.nome,
         categoria:p.categoria,
@@ -441,7 +468,7 @@ function iniciarCarrosseis() {
       })));
     })
     .catch(() => {
-      montarCarrossel('equip', [{ bg: CAT_BG['Trator'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Máquinas do Agronegócio' }]);
+      montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Máquinas do Agronegócio' }]);
     });
 }
 

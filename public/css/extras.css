@@ -55,6 +55,9 @@
   align-items: center;
   justify-content: center;
   will-change: transform, opacity;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .painel__slide.ativo {
@@ -382,49 +385,64 @@
     min-height: auto;
   }
 
+  /* Mobile: cada painel ocupa quase toda a tela = clique fácil com polegar */
   .painel {
-    height: 60vh;
-    min-height: 300px;
+    height: 70vh;
+    min-height: 340px;
   }
 
   .painel--equip {
     border-right: none;
-    border-bottom: 2px solid rgba(255,255,255,0.1);
+    border-bottom: 3px solid rgba(255,130,30,0.4);
+  }
+
+  /* Descrição visível no mobile (curta) */
+  .painel__desc {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    margin-bottom: 14px;
+    display: block;
   }
 
   .painel__conteudo {
-    padding: 18px 18px 24px;
+    padding: 20px 20px 28px;
   }
 
   .painel__titulo {
-    font-size: 1.45rem;
+    font-size: 1.55rem;
+    margin-bottom: 8px;
   }
 
-  .painel__desc {
-    display: none; /* hide on mobile to keep it tight */
-  }
-
+  /* Botão grande — fácil de clicar com polegar */
   .painel__btn {
-    font-size: 1rem;
-    min-height: 56px;
-    padding: 16px 20px;
-    border-radius: 10px;
+    font-size: 1.05rem;
+    min-height: 60px;
+    padding: 18px 20px;
+    border-radius: 12px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
   }
 
   .painel__dots {
-    bottom: 14px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  /* arrows always visible on mobile */
+  /* Setas laterais sempre visíveis no mobile */
   .painel__arrow {
-    opacity: 0.7;
-    width: 34px;
-    height: 34px;
+    opacity: 0.85;
+    width: 36px;
+    height: 36px;
   }
   .painel:hover .painel__arrow {
-    opacity: 0.7;
+    opacity: 0.85;
+  }
+
+  /* Ícone de categoria maior e mais visível */
+  .slide-icone-bg {
+    font-size: clamp(7rem, 22vw, 11rem);
+    opacity: 0.10;
   }
 
   .videos-especiais-grid {
@@ -438,16 +456,12 @@
 
 @media (max-width: 480px) {
   .painel {
-    height: 48vh;
-    min-height: 260px;
+    height: 72vh;
+    min-height: 360px;
   }
 
   .painel__titulo {
-    font-size: 1.3rem;
-  }
-
-  .slide-icone-bg {
-    font-size: 5rem;
+    font-size: 1.4rem;
   }
 }
 

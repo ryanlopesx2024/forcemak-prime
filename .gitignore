@@ -1,3 +1,5 @@
 node_modules/
 .env
-uploads/
+# Scripts de importação (apenas uso local)
+importar-maquinas.js
+otimizar-fotos.js
