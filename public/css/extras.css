@@ -7,12 +7,28 @@
 /* ════════════════════════════════════════════════════════════
    DOIS PAINÉIS — HERO PRINCIPAL (Mobile-first)
    ════════════════════════════════════════════════════════════ */
+
+@keyframes kenBurnsZoom {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.10); }
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translate(-50%, -55%) scale(1);   }
+  50%       { transform: translate(-50%, -59%) scale(1.04); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .dois-paineis {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100vh;
-  min-height: 580px;
-  max-height: 920px;
+  height: 85vh;
+  min-height: 520px;
+  max-height: 820px;
   overflow: hidden;
 }
 
@@ -33,14 +49,18 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.1s ease;
+  transform: scale(1.05);
+  transition: opacity 1.0s ease, transform 1.0s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform, opacity;
 }
 
 .painel__slide.ativo {
   opacity: 1;
+  transform: scale(1.0);
+  animation: kenBurnsZoom 10s ease-in-out forwards;
 }
 
 /* Large icon in background of each slide */
@@ -53,6 +73,43 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -55%);
+  animation: floatIcon 6s ease-in-out infinite;
+}
+
+/* Navigation arrows */
+.painel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(0,0,0,0.38);
+  border: 1.5px solid rgba(255,255,255,0.22);
+  color: white;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  opacity: 0;
+  padding: 0;
+  backdrop-filter: blur(6px);
+  font-size: 1rem;
+}
+.painel__arrow--prev { left: 12px; }
+.painel__arrow--next { right: 12px; }
+
+.painel:hover .painel__arrow {
+  opacity: 1;
+}
+.painel__arrow:hover {
+  background: rgba(0,0,0,0.65);
+  transform: translateY(-50%) scale(1.1);
+}
+.painel__arrow:active {
+  transform: translateY(-50%) scale(0.96);
 }
 
 /* Dark gradient overlay */
@@ -204,11 +261,12 @@
   transform: translateY(-2px);
 }
 
-/* Carousel dot indicators */
+/* Carousel dot indicators — bottom center */
 .painel__dots {
   position: absolute;
-  top: 18px;
-  right: 14px;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 6px;
   z-index: 3;
@@ -325,9 +383,8 @@
   }
 
   .painel {
-    height: 52vh;
-    min-height: 280px;
-    max-height: 400px;
+    height: 60vh;
+    min-height: 300px;
   }
 
   .painel--equip {
@@ -355,8 +412,19 @@
   }
 
   .painel__dots {
-    top: 14px;
-    right: 10px;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* arrows always visible on mobile */
+  .painel__arrow {
+    opacity: 0.7;
+    width: 34px;
+    height: 34px;
+  }
+  .painel:hover .painel__arrow {
+    opacity: 0.7;
   }
 
   .videos-especiais-grid {

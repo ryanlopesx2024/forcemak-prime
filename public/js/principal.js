@@ -480,7 +480,26 @@ function montarCarrossel(id, slides) {
   _iniciarAutoplay(id);
 
   const painel = document.getElementById(`painel-${id}`);
-  if (painel) _adicionarSwipe(painel, id);
+  if (painel) {
+    _adicionarSwipe(painel, id);
+
+    // Inject prev/next arrows
+    ['prev','next'].forEach(dir => {
+      const btn = document.createElement('button');
+      btn.className = `painel__arrow painel__arrow--${dir}`;
+      btn.setAttribute('aria-label', dir === 'prev' ? 'Anterior' : 'Próximo');
+      btn.innerHTML = dir === 'prev'
+        ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+        : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        clearInterval(c.timer);
+        _irParaSlide(id, c.atual + (dir === 'prev' ? -1 : 1));
+        _iniciarAutoplay(id);
+      });
+      painel.appendChild(btn);
+    });
+  }
 }
 
 function _irParaSlide(id, idx) {
@@ -492,7 +511,12 @@ function _irParaSlide(id, idx) {
   if (dots) dots.querySelectorAll('.painel__dot')[c.atual]?.classList.remove('ativo');
 
   c.atual = ((idx % c.slides.length) + c.slides.length) % c.slides.length;
-  c.slides[c.atual].classList.add('ativo');
+  // Force animation restart (Ken Burns)
+  const nextSlide = c.slides[c.atual];
+  nextSlide.style.animation = 'none';
+  void nextSlide.offsetWidth; // reflow
+  nextSlide.style.animation = '';
+  nextSlide.classList.add('ativo');
   if (dots) dots.querySelectorAll('.painel__dot')[c.atual]?.classList.add('ativo');
 
   _atualizarInfoSlide(id, c.atual);
