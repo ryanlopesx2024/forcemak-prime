@@ -680,15 +680,18 @@ function renderizarTagsInstagram() {
 
 function adicionarVideo() {
   const input = document.getElementById('input-video-id');
-  const id    = input.value.trim();
-  // Extrai o ID se o usuário colou a URL completa
-  const match = id.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  const videoId = match ? match[1] : id;
-  if (!videoId || videoId.length < 5) {
-    mostrarToast('ID de vídeo inválido', 'erro');
+  const raw   = input.value.trim();
+  // Aceita URL completa, youtu.be, embed/, ou ID de 11 chars
+  const match = raw.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  const videoId = match ? match[1] : (raw.length === 11 ? raw : null);
+  if (!videoId) {
+    mostrarToast('Cole a URL do vídeo ou o ID (11 caracteres)', 'erro');
     return;
   }
-  if (!videosIds.includes(videoId)) videosIds.push(videoId);
+  if (!videosIds.includes(videoId)) {
+    videosIds.push(videoId);
+    salvarMidias(false); // auto-salva
+  }
   input.value = '';
   renderizarTagsVideos();
 }
@@ -696,6 +699,7 @@ function adicionarVideo() {
 function removerVideo(idx) {
   videosIds.splice(idx, 1);
   renderizarTagsVideos();
+  salvarMidias(false); // auto-salva ao remover
 }
 
 function adicionarInstagram() {
@@ -715,9 +719,9 @@ function removerInstagram(idx) {
   renderizarTagsInstagram();
 }
 
-async function salvarMidias() {
+async function salvarMidias(mostrar = true) {
   try {
-    const res  = await fetch('/api/conteudo');
+    const res   = await fetch('/api/conteudo');
     const dados = await res.json();
 
     const midiaAtualizada = {
@@ -726,14 +730,16 @@ async function salvarMidias() {
       instagram: { ...dados.midia?.instagram, posts:  instagramUrls }
     };
 
-    await fetch('/api/conteudo/midia', {
+    const r = await fetch('/api/conteudo/midia', {
       method:  'PUT',
       headers: cabecalhoAuth(),
       body:    JSON.stringify(midiaAtualizada)
     });
-    mostrarToast('Mídias salvas! Atualize o site para ver.', 'sucesso');
+    const json = await r.json();
+    if (!json.sucesso) throw new Error('Falha ao salvar');
+    if (mostrar) mostrarToast('Vídeos salvos com sucesso!', 'sucesso');
   } catch {
-    mostrarToast('Erro ao salvar mídias', 'erro');
+    if (mostrar) mostrarToast('Erro ao salvar vídeos', 'erro');
   }
 }
 
