@@ -204,30 +204,37 @@
     </div>
   </section>
 
-  <!-- ─── Conteúdos Especiais (YouTube Embed) ─────────────── -->
+  <!-- ─── Conteúdos Especiais (YouTube thumbnails + modal) ── -->
   <section class="conteudos-especiais" id="conteudos">
     <div class="container">
       <div class="secao-cabecalho" data-aos="fade-up">
-        <span class="secao-etiqueta">🎬 Canal Forcemak</span>
-        <h2 class="secao-titulo">Assista aos nossos<br>conteúdos especiais</h2>
-        <p class="secao-subtitulo">Entrevistas, análises de máquinas e dicas do agronegócio — direto aqui, sem sair do site.</p>
+        <span class="secao-etiqueta">Canal Forcemak</span>
+        <h2 class="secao-titulo">Assista nossos<br>conteúdos especiais</h2>
+        <p class="secao-subtitulo">Clique no vídeo e assista aqui mesmo, sem sair do site.</p>
       </div>
       <div id="videos-especiais-container" data-aos="fade-up" data-aos-delay="100">
         <div class="videos-especiais-empty">
-          <div class="videos-especiais-empty__icone">🎬</div>
-          <p style="color:rgba(255,255,255,0.45);margin-bottom:20px;">Vídeos sendo configurados — visite nosso canal.</p>
+          <p style="color:rgba(255,255,255,0.45);margin-bottom:20px;">Vídeos sendo configurados — adicione pelo painel admin.</p>
           <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener"
              class="btn btn--laranja">Visitar Canal YouTube</a>
         </div>
       </div>
       <div class="videos-especiais-cta" id="videos-canal-cta" style="display:none;">
         <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener"
-           class="btn btn--outline-branco">
-          Ver todos os vídeos no YouTube →
-        </a>
+           class="btn btn--outline-branco">Ver todos os vídeos no YouTube</a>
       </div>
     </div>
   </section>
+
+  <!-- ─── Modal YouTube ─────────────────────────────────────── -->
+  <div class="yt-modal" id="yt-modal" style="display:none;" onclick="fecharModalYT(event)">
+    <div class="yt-modal__inner">
+      <button class="yt-modal__fechar" onclick="fecharModalYT()">&times;</button>
+      <div class="yt-modal__iframe-wrap">
+        <iframe id="yt-modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- ─── CTA Final ────────────────────────────────────────── -->
   <section class="cta-final">

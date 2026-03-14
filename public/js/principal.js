@@ -600,7 +600,7 @@ function _adicionarSwipe(el, id) {
 
 
 // ════════════════════════════════════════════════════════════
-// VÍDEOS ESPECIAIS (YouTube embeds na home)
+// VÍDEOS ESPECIAIS — thumbnails clicáveis + modal
 // ════════════════════════════════════════════════════════════
 
 function carregarVideosEspeciais() {
@@ -612,24 +612,49 @@ function carregarVideosEspeciais() {
     .then(r => r.json())
     .then(dados => {
       const videos = dados.midia?.youtube?.videos || [];
-      if (!videos.length) return; // keep placeholder
+      if (!videos.length) return;
 
-      const gridClass = videos.length === 1 ? 'videos-especiais-grid um-video' : 'videos-especiais-grid';
+      // Renderiza grade de thumbnails (não iframes — muito mais rápido)
       container.innerHTML = `
-        <div class="${gridClass}">
-          ${videos.slice(0, 4).map(vid => `
-            <div class="video-especial-wrapper">
-              <iframe
-                src="https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy"
-                title="Vídeo Forcemak Prime">
-              </iframe>
+        <div class="yt-grid">
+          ${videos.map(vid => `
+            <div class="yt-thumb" onclick="abrirModalYT('${vid}')" role="button" aria-label="Assistir vídeo">
+              <img src="https://img.youtube.com/vi/${vid}/hqdefault.jpg"
+                   alt="Vídeo Forcemak Prime" loading="lazy">
+              <div class="yt-thumb__play">
+                <svg viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="68" height="48" rx="12" fill="#FF0000" opacity="0.9"/>
+                  <polygon points="26,14 26,34 48,24" fill="white"/>
+                </svg>
+              </div>
             </div>`).join('')}
         </div>`;
 
       if (ctaEl) ctaEl.style.display = 'block';
     })
-    .catch(() => { /* keep placeholder */ });
+    .catch(() => {});
 }
+
+function abrirModalYT(videoId) {
+  const modal  = document.getElementById('yt-modal');
+  const iframe = document.getElementById('yt-modal-iframe');
+  if (!modal || !iframe) return;
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModalYT(e) {
+  if (e && e.target !== e.currentTarget && !e.target.classList.contains('yt-modal__fechar')) return;
+  const modal  = document.getElementById('yt-modal');
+  const iframe = document.getElementById('yt-modal-iframe');
+  if (!modal) return;
+  modal.style.display = 'none';
+  if (iframe) iframe.src = '';
+  document.body.style.overflow = '';
+}
+
+// Fechar modal com ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') fecharModalYT({target: null, currentTarget: null});
+});

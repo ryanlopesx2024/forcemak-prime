@@ -240,16 +240,55 @@ async function carregarProdutosAdmin() {
   }
 }
 
+// Preview de foto ao selecionar arquivo
+document.getElementById('prod-foto-file').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const status  = document.getElementById('upload-status');
+  const preview = document.getElementById('prod-foto-preview');
+  const img     = document.getElementById('prod-foto-img');
+
+  status.textContent = 'Enviando foto...';
+
+  const form = new FormData();
+  form.append('imagem', file);
+
+  try {
+    const res  = await fetch('/api/upload', {
+      method:  'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body:    form
+    });
+    const json = await res.json();
+    if (json.url) {
+      document.getElementById('prod-imagem').value = json.url;
+      img.src = json.url;
+      preview.style.display = 'block';
+      status.textContent = 'Foto enviada!';
+      status.style.color = '#22c55e';
+      setTimeout(() => { status.textContent = ''; status.style.color = ''; }, 3000);
+    } else {
+      throw new Error(json.erro || 'Erro no upload');
+    }
+  } catch(err) {
+    status.textContent = 'Erro: ' + err.message;
+    status.style.color = '#ef4444';
+  }
+});
+
 // Salvar produto (criar ou editar)
 document.getElementById('form-produto').addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const id   = document.getElementById('produto-id').value;
+  const id      = document.getElementById('produto-id').value;
+  const estoque = parseInt(document.getElementById('prod-estoque').value) || 0;
   const dados = {
     nome:      document.getElementById('prod-nome').value,
     categoria: document.getElementById('prod-categoria').value,
     descricao: document.getElementById('prod-descricao').value,
-    unidade:   document.getElementById('prod-unidade').value,
+    unidade:   'Unidade',
+    estoque,
     imagem:    document.getElementById('prod-imagem').value,
     destaque:  document.getElementById('prod-destaque').checked
   };
@@ -269,19 +308,19 @@ document.getElementById('form-produto').addEventListener('submit', async (e) => 
     });
     const json = await res.json();
 
-    if (json.sucesso) {
-      mostrarToast(id ? 'Produto atualizado!' : 'Produto criado!', 'sucesso');
+    if (json.sucesso || json.id) {
+      mostrarToast(id ? 'Equipamento atualizado!' : 'Equipamento cadastrado!', 'sucesso');
       cancelarEdicaoProduto();
       carregarProdutosAdmin();
     } else {
       throw new Error(json.erro);
     }
   } catch (err) {
-    mostrarToast(err.message || 'Erro ao salvar produto', 'erro');
+    mostrarToast(err.message || 'Erro ao salvar equipamento', 'erro');
   }
 
   btn.disabled = false;
-  btn.textContent = '💾 Salvar Produto';
+  btn.textContent = 'Salvar Equipamento';
 });
 
 async function editarProduto(id) {
@@ -291,30 +330,37 @@ async function editarProduto(id) {
     const prod  = prods.find(p => p.id === id);
     if (!prod) return;
 
-    document.getElementById('produto-id').value     = prod.id;
-    document.getElementById('prod-nome').value      = prod.nome;
-    document.getElementById('prod-categoria').value = prod.categoria;
-    document.getElementById('prod-descricao').value = prod.descricao;
-    document.getElementById('prod-unidade').value   = prod.unidade || '';
-    document.getElementById('prod-imagem').value    = prod.imagem  || '';
+    document.getElementById('produto-id').value      = prod.id;
+    document.getElementById('prod-nome').value       = prod.nome;
+    document.getElementById('prod-categoria').value  = prod.categoria;
+    document.getElementById('prod-descricao').value  = prod.descricao || '';
+    document.getElementById('prod-estoque').value    = prod.estoque ?? 1;
+    document.getElementById('prod-imagem').value     = prod.imagem  || '';
     document.getElementById('prod-destaque').checked = prod.destaque || false;
 
-    document.getElementById('titulo-form-produto').textContent = '✏️ Editando Produto';
-    document.getElementById('btn-salvar-produto').textContent  = '💾 Atualizar Produto';
+    // Mostra preview da foto atual
+    if (prod.imagem) {
+      document.getElementById('prod-foto-img').src = prod.imagem;
+      document.getElementById('prod-foto-preview').style.display = 'block';
+    }
+
+    document.getElementById('titulo-form-produto').textContent = 'Editando Equipamento';
+    document.getElementById('btn-salvar-produto').textContent  = 'Atualizar Equipamento';
     document.getElementById('btn-cancelar-produto').style.display = 'inline-flex';
 
-    // Rola até o formulário
     document.getElementById('form-produto').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch {
-    mostrarToast('Erro ao carregar produto', 'erro');
+    mostrarToast('Erro ao carregar equipamento', 'erro');
   }
 }
 
 function cancelarEdicaoProduto() {
   document.getElementById('form-produto').reset();
   document.getElementById('produto-id').value = '';
-  document.getElementById('titulo-form-produto').textContent = '➕ Adicionar Produto';
-  document.getElementById('btn-salvar-produto').textContent  = '💾 Salvar Produto';
+  document.getElementById('prod-imagem').value = '';
+  document.getElementById('prod-foto-preview').style.display = 'none';
+  document.getElementById('titulo-form-produto').textContent = 'Adicionar Equipamento';
+  document.getElementById('btn-salvar-produto').textContent  = 'Salvar Equipamento';
   document.getElementById('btn-cancelar-produto').style.display = 'none';
 }
 
@@ -537,16 +583,22 @@ async function alterarEstoque(id, delta) {
 }
 
 async function salvarEstoqueDirecto(id, valor) {
+  const qtd = Math.max(0, parseInt(valor) || 0);
   try {
     await fetch(`/api/produtos/${id}/estoque`, {
       method:  'PATCH',
       headers: cabecalhoAuth(),
-      body:    JSON.stringify({ estoque: parseInt(valor) })
+      body:    JSON.stringify({ estoque: qtd })
     });
-    // Atualiza o valor exibido na célula
-    const cell = document.getElementById(`estoque-val-${id}`);
-    if (cell) cell.textContent = Math.max(0, parseInt(valor));
-    mostrarToast('Estoque atualizado!', 'sucesso');
+    // Atualiza célula de valor e badge de status automaticamente
+    const cell  = document.getElementById(`estoque-val-${id}`);
+    const row   = document.getElementById(`estoque-row-${id}`);
+    if (cell) cell.textContent = qtd;
+    if (row) {
+      const statusCell = row.querySelector('td:last-child');
+      if (statusCell) statusCell.innerHTML = badgeEstoqueAdmin(qtd);
+    }
+    mostrarToast(qtd > 0 ? `Disponível — ${qtd} unidade(s)` : 'Marcado como indisponível', 'sucesso');
   } catch {
     mostrarToast('Erro ao atualizar estoque', 'erro');
   }
