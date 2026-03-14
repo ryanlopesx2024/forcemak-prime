@@ -415,11 +415,11 @@
     min-height: auto;
   }
 
-  /* Mobile: painel hero compacto mas impactante */
+  /* Mobile: painel hero compacto */
   .painel--fullscreen {
-    height: 72vh !important;
-    min-height: 380px !important;
-    max-height: none !important;
+    height: 46vh !important;
+    min-height: 220px !important;
+    max-height: 340px !important;
   }
 
   .painel__conteudo--hero {
@@ -501,8 +501,8 @@
 
 @media (max-width: 480px) {
   .painel {
-    height: 72vh;
-    min-height: 360px;
+    height: 46vh;
+    min-height: 220px;
   }
 
   .painel__titulo {
