@@ -445,14 +445,16 @@ function iniciarCarrosseis() {
         montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Todos os tipos' }]);
         return;
       }
-      // Seleciona até 3 por categoria para variedade máxima no carrossel
-      const comFoto = lista.filter(p => p.imagem);
-      const porCat  = {};
-      comFoto.forEach(p => {
+      // Seleciona 1 por categoria, priorizando destaques em estoque, máx 6 slides
+      const comFoto    = lista.filter(p => p.imagem);
+      const destaques  = comFoto.filter(p => p.destaque && p.estoque > 0);
+      const outros     = comFoto.filter(p => !(p.destaque && p.estoque > 0));
+      const porCat     = {};
+      [...destaques, ...outros].forEach(p => {
         if (!porCat[p.categoria]) porCat[p.categoria] = [];
-        if (porCat[p.categoria].length < 3) porCat[p.categoria].push(p);
+        if (porCat[p.categoria].length < 1) porCat[p.categoria].push(p);
       });
-      const usarLista = Object.values(porCat).flat().slice(0, 40);
+      const usarLista = Object.values(porCat).flat().slice(0, 6);
       montarCarrossel('equip', usarLista.map(p => ({
         bg:       p.imagem ? null : (CAT_BG[p.categoria] || 'linear-gradient(160deg,#091520,#0e2a40)'),
         img:      p.imagem || null,   // caminho completo: /imagens/uploads/...
