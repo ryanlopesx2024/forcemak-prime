@@ -333,13 +333,6 @@ async function carregarProdutos(filtro = 'Todos') {
       return;
     }
 
-    const iconesPorCategoria = {
-      'Grãos':        '🌾',
-      'Commodities':  '📦',
-      'Insumos':      '🌱',
-      'Outros':       '🔶'
-    };
-
     grid.innerHTML = produtos.map((p, i) => `
       <a href="/produto.html?id=${p.id}" class="produto-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 80}" style="display:block;text-decoration:none;color:inherit;">
         <div class="produto-card__imagem">
@@ -442,7 +435,7 @@ function iniciarCarrosseis() {
     .then(r => r.json())
     .then(lista => {
       if (!Array.isArray(lista) || !lista.length) {
-        montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Todos os tipos' }]);
+        montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '', nome: 'Equipamentos', categoria: 'Todos os tipos' }]);
         return;
       }
       // Seleciona 1 por categoria, priorizando destaques em estoque, máx 6 slides
@@ -465,7 +458,7 @@ function iniciarCarrosseis() {
       })));
     })
     .catch(() => {
-      montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '🚜', nome: 'Equipamentos Agrícolas', categoria: 'Máquinas do Agronegócio' }]);
+      montarCarrossel('equip', [{ bg: CAT_BG['Tratores'], icone: '', nome: 'Equipamentos', categoria: 'Forcemak Prime' }]);
     });
 }
 
