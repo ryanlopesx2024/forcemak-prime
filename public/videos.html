@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vídeos | Forcemak Prime — Canal YouTube</title>
+  <meta name="description" content="Assista conteúdos especiais da Forcemak Prime: dicas de compra e venda de máquinas agrícolas, avaliações e muito mais. Canal YouTube.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/extras.css">
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1433120138425099');fbq('track','PageView');</script>
+</head>
+<body>
+
+  <div id="overlay-transicao" class="overlay-transicao"></div>
+
+  <nav class="nav" id="nav">
+    <div class="container nav__conteudo">
+      <a href="/" class="nav__logo">
+        <div class="nav__logo-texto">
+          <span class="nav__logo-nome">FORCEMAK</span>
+          <span class="nav__logo-prime">PRIME</span>
+        </div>
+      </a>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="/"               class="nav__link">Início</a></li>
+        <li><a href="/servicos.html"  class="nav__link">Serviços</a></li>
+        <li><a href="/produtos.html"  class="nav__link">Equipamentos</a></li>
+        <li><a href="/laudo.html"     class="nav__link">Laudo</a></li>
+        <li><a href="/videos.html"    class="nav__link ativo">Vídeos</a></li>
+        <li><a href="/sobre.html"     class="nav__link">Sobre</a></li>
+        <li><a href="/contato.html"   class="nav__link">Contato</a></li>
+      </ul>
+      <div class="nav__acoes">
+        <a href="https://wa.me/5551996050777" target="_blank" rel="noopener"
+           class="btn btn--laranja btn--pequeno">WhatsApp</a>
+        <button class="nav__hamburguer" id="nav-hamburguer" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Cabeçalho -->
+  <section class="pagina-hero">
+    <div class="container pagina-hero__conteudo">
+      <nav class="breadcrumb" aria-label="Caminho">
+        <a href="/">Início</a><span>/</span><span>Vídeos</span>
+      </nav>
+      <h1 class="pagina-hero__titulo" data-aos="fade-up">Canal Forcemak</h1>
+      <p class="pagina-hero__subtitulo" data-aos="fade-up" data-aos-delay="100">
+        Conteúdos especiais sobre compra, venda e avaliação de máquinas agrícolas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grade de vídeos -->
+  <section style="padding:80px 0;background:#fff;">
+    <div class="container">
+      <div id="videos-especiais-container" data-aos="fade-up">
+        <p style="text-align:center;color:var(--cinza-texto);">Carregando vídeos...</p>
+      </div>
+      <div style="text-align:center;margin-top:48px;">
+        <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener"
+           class="btn btn--azul btn--grande">Ver todos os vídeos no YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal YouTube -->
+  <div class="yt-modal" id="yt-modal" style="display:none;" onclick="fecharModalYT(event)">
+    <div class="yt-modal__inner">
+      <button class="yt-modal__fechar" onclick="fecharModalYT()">&times;</button>
+      <div class="yt-modal__iframe-wrap">
+        <iframe id="yt-modal-iframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section style="padding:60px 0;background:var(--verde-fundo);">
+    <div class="container texto-centro" data-aos="fade-up">
+      <h2 style="font-size:1.6rem;font-weight:800;margin-bottom:12px;color:var(--preto-titulo);">Quer negociar com segurança?</h2>
+      <p style="color:var(--cinza-texto);margin-bottom:28px;">Nossa equipe está pronta para atender você.</p>
+      <a href="https://wa.me/5551996050777" target="_blank" rel="noopener" class="btn btn--laranja btn--grande">Falar no WhatsApp</a>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__base" style="padding:24px 0;text-align:center;">
+        <p>&copy; 2024 Forcemak Prime. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    // Para a página de vídeos, mostrar todos (sem limite de 3)
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('videos-especiais-container');
+      fetch('/api/conteudo')
+        .then(r => r.json())
+        .then(dados => {
+          const videos = dados.midia?.youtube?.videos || [];
+          if (!videos.length) { container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Nenhum vídeo disponível no momento.</p>'; return; }
+          container.innerHTML = `<div class="yt-grid">${videos.map(vid => `
+            <div class="yt-thumb" onclick="abrirModalYT('${vid}')" role="button" aria-label="Assistir vídeo">
+              <img src="https://img.youtube.com/vi/${vid}/hqdefault.jpg" alt="Vídeo Forcemak Prime" loading="lazy">
+              <div class="yt-thumb__play">
+                <svg viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="68" height="48" rx="12" fill="#FF0000" opacity="0.9"/>
+                  <polygon points="26,14 26,34 48,24" fill="white"/>
+                </svg>
+              </div>
+            </div>`).join('')}</div>`;
+        }).catch(() => { container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Erro ao carregar vídeos.</p>'; });
+    });
+    function abrirModalYT(videoId) {
+      const modal = document.getElementById('yt-modal');
+      const iframe = document.getElementById('yt-modal-iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function fecharModalYT(e) {
+      if (e && e.target !== e.currentTarget && !e.target.classList.contains('yt-modal__fechar')) return;
+      const modal = document.getElementById('yt-modal');
+      const iframe = document.getElementById('yt-modal-iframe');
+      modal.style.display = 'none';
+      if (iframe) iframe.src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModalYT({target:null,currentTarget:null}); });
+  </script>
+  <script src="/js/principal.js"></script>
+</body>
+</html>

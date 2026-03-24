@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipamento | Forcemak Prime</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/extras.css">
+  <style>
+    .produto-detalhe { padding: 120px 0 80px; }
+    .produto-detalhe__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .produto-detalhe__foto-principal { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 16px; display: block; background: var(--cinza-fundo); }
+    .produto-detalhe__info { position: sticky; top: 100px; }
+    .produto-detalhe__categoria { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--laranja); margin-bottom: 12px; }
+    .produto-detalhe__nome { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--preto-titulo); margin-bottom: 16px; line-height: 1.2; }
+    .produto-detalhe__desc { color: var(--cinza-texto); line-height: 1.8; margin-bottom: 24px; font-size: 0.95rem; }
+    .produto-detalhe__badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; margin-bottom: 28px; }
+    .produto-detalhe__badge--disponivel { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .produto-detalhe__badge--consultar { background: rgba(100,116,139,0.1); color: #64748B; }
+    .produto-detalhe__botoes { display: flex; flex-direction: column; gap: 12px; }
+    .produto-detalhe__back { display: inline-flex; align-items: center; gap: 8px; color: var(--cinza-texto); font-size: 0.88rem; font-weight: 600; margin-bottom: 32px; transition: color 0.3s; }
+    .produto-detalhe__back:hover { color: var(--azul); }
+    @media (max-width: 768px) {
+      .produto-detalhe__grid { grid-template-columns: 1fr; gap: 32px; }
+      .produto-detalhe__info { position: static; }
+      .produto-detalhe { padding: 100px 0 60px; }
+    }
+  </style>
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1433120138425099');fbq('track','PageView');</script>
+</head>
+<body>
+
+  <div id="overlay-transicao" class="overlay-transicao"></div>
+
+  <nav class="nav rolando" id="nav">
+    <div class="container nav__conteudo">
+      <a href="/" class="nav__logo">
+        <div class="nav__logo-texto">
+          <span class="nav__logo-nome">FORCEMAK</span>
+          <span class="nav__logo-prime">PRIME</span>
+        </div>
+      </a>
+      <ul class="nav__menu" id="nav-menu">
+        <li><a href="/"               class="nav__link">Início</a></li>
+        <li><a href="/servicos.html"  class="nav__link">Serviços</a></li>
+        <li><a href="/produtos.html"  class="nav__link ativo">Equipamentos</a></li>
+        <li><a href="/laudo.html"     class="nav__link">Laudo</a></li>
+        <li><a href="/videos.html"    class="nav__link">Vídeos</a></li>
+        <li><a href="/sobre.html"     class="nav__link">Sobre</a></li>
+        <li><a href="/contato.html"   class="nav__link">Contato</a></li>
+      </ul>
+      <div class="nav__acoes">
+        <a href="https://wa.me/5551996050777" target="_blank" rel="noopener"
+           class="btn btn--laranja btn--pequeno">WhatsApp</a>
+        <button class="nav__hamburguer" id="nav-hamburguer" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="produto-detalhe" style="background:#fff;">
+    <div class="container">
+      <a href="/produtos.html" class="produto-detalhe__back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Voltar aos Equipamentos
+      </a>
+
+      <div id="produto-loading" style="text-align:center;padding:60px;color:var(--cinza-texto);">Carregando equipamento...</div>
+
+      <div class="produto-detalhe__grid" id="produto-conteudo" style="display:none;">
+        <div>
+          <img src="" alt="" class="produto-detalhe__foto-principal" id="produto-foto">
+        </div>
+        <div class="produto-detalhe__info">
+          <p class="produto-detalhe__categoria" id="produto-categoria"></p>
+          <h1 class="produto-detalhe__nome" id="produto-nome"></h1>
+          <p class="produto-detalhe__badge" id="produto-status"></p>
+          <p class="produto-detalhe__desc" id="produto-desc"></p>
+          <div class="produto-detalhe__botoes">
+            <a id="produto-wa-btn" href="#" target="_blank" rel="noopener"
+               class="btn btn--laranja btn--grande"
+               onclick="fbq&&fbq('track','Contact')">
+              Consultar Disponibilidade no WhatsApp
+            </a>
+            <a href="/laudo.html" class="btn btn--outline btn--grande">
+              Solicitar Laudo Cautelar
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="produto-nao-encontrado" style="display:none;text-align:center;padding:60px;">
+        <p style="color:var(--cinza-texto);font-size:1.1rem;">Equipamento não encontrado.</p>
+        <a href="/produtos.html" class="btn btn--azul" style="margin-top:20px;">Ver todos os equipamentos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__base" style="padding:24px 0;text-align:center;">
+        <p>&copy; 2024 Forcemak Prime. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="/js/principal.js"></script>
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id'));
+      const loading = document.getElementById('produto-loading');
+      const conteudo = document.getElementById('produto-conteudo');
+      const naoEncontrado = document.getElementById('produto-nao-encontrado');
+
+      if (!id) { loading.style.display = 'none'; naoEncontrado.style.display = 'block'; return; }
+
+      try {
+        const res = await fetch('/api/produtos');
+        const lista = await res.json();
+        const p = lista.find(x => x.id === id);
+
+        if (!p) { loading.style.display = 'none'; naoEncontrado.style.display = 'block'; return; }
+
+        // Atualiza título da página
+        document.title = `${p.nome} | Forcemak Prime`;
+
+        // Preenche os campos
+        document.getElementById('produto-categoria').textContent = p.categoria;
+        document.getElementById('produto-nome').textContent = p.nome;
+        document.getElementById('produto-desc').textContent = p.descricao || 'Entre em contato para mais informações sobre este equipamento.';
+
+        const foto = document.getElementById('produto-foto');
+        if (p.imagem) {
+          foto.src = p.imagem;
+          foto.alt = p.nome;
+        } else {
+          foto.style.display = 'none';
+        }
+
+        const status = document.getElementById('produto-status');
+        if (p.estoque > 0) {
+          status.textContent = 'Disponível em estoque';
+          status.className = 'produto-detalhe__badge produto-detalhe__badge--disponivel';
+        } else {
+          status.textContent = 'Consultar disponibilidade';
+          status.className = 'produto-detalhe__badge produto-detalhe__badge--consultar';
+        }
+
+        const waBtn = document.getElementById('produto-wa-btn');
+        const msg = encodeURIComponent(`Olá! Tenho interesse no equipamento: ${p.nome} (ID ${p.id}). Poderia me dar mais informações?`);
+        waBtn.href = `https://wa.me/5551996050777?text=${msg}`;
+
+        loading.style.display = 'none';
+        conteudo.style.display = 'grid';
+
+      } catch(e) {
+        loading.style.display = 'none';
+        naoEncontrado.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -4,19 +4,20 @@
 
 /* ─── Variáveis de Tema ─────────────────────────────────────── */
 :root {
-  --verde:         #1A3D2B;
-  --verde-medio:   #245037;
-  --azul:          #1C3A5E;
-  --azul-medio:    #2A5298;
-  --azul-escuro:   #0D1B2A;
-  --laranja:       #E8622A;
-  --laranja-hover: #D4561E;
+  --verde-fundo:   #b4eecc;
+  --verde:         #1a6040;
+  --verde-medio:   #1e7050;
+  --azul:          #114156;
+  --azul-medio:    #1a6080;
+  --azul-escuro:   #0a2d3d;
+  --laranja:       #f3733b;
+  --laranja-hover: #d95e28;
   --branco:        #FFFFFF;
-  --cinza-fundo:   #F4F6F9;
+  --cinza-fundo:   #edf9f3;
   --cinza-card:    #FFFFFF;
-  --cinza-borda:   #E2E8F0;
-  --cinza-texto:   #64748B;
-  --preto-titulo:  #0D1B2A;
+  --cinza-borda:   #d4eddf;
+  --cinza-texto:   #4a6a5a;
+  --preto-titulo:  #0a2d3d;
 
   --sombra-sm:  0 2px 8px  rgba(0, 0, 0, 0.07);
   --sombra-md:  0 4px 20px rgba(0, 0, 0, 0.10);
@@ -46,7 +47,7 @@ html {
 body {
   font-family: 'Montserrat', sans-serif;
   color: var(--preto-titulo);
-  background: var(--branco);
+  background: var(--verde-fundo);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -205,7 +206,7 @@ p { line-height: 1.7; }
 }
 
 .nav.rolando {
-  background: rgba(13, 27, 42, 0.97);
+  background: rgba(17, 65, 86, 0.97);
   backdrop-filter: blur(12px);
   padding: 12px 0;
   box-shadow: 0 2px 20px rgba(0,0,0,0.3);
@@ -627,7 +628,7 @@ p { line-height: 1.7; }
    ════════════════════════════════════════════════════════════ */
 .servicos {
   padding: 100px 0;
-  background: var(--cinza-fundo);
+  background: var(--branco);
 }
 
 .servicos__grid {
@@ -695,7 +696,7 @@ p { line-height: 1.7; }
    ════════════════════════════════════════════════════════════ */
 .sobre-preview {
   padding: 100px 0;
-  background: var(--branco);
+  background: var(--verde-fundo);
 }
 
 .sobre-preview__conteudo {
@@ -962,7 +963,7 @@ p { line-height: 1.7; }
    ════════════════════════════════════════════════════════════ */
 .produtos-secao {
   padding: 80px 0;
-  background: var(--cinza-fundo);
+  background: var(--branco);
 }
 
 .filtros-categorias {
@@ -1132,7 +1133,7 @@ p { line-height: 1.7; }
    ════════════════════════════════════════════════════════════ */
 .contato-secao {
   padding: 80px 0;
-  background: var(--cinza-fundo);
+  background: var(--branco);
 }
 
 .contato-grid {
@@ -1398,10 +1399,11 @@ p { line-height: 1.7; }
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--azul-escuro);
+    background: var(--azul);
     flex-direction: column;
     justify-content: center;
-    gap: 32px;
+    align-items: center;
+    gap: 28px;
     transform: translateX(-100%);
     transition: transform 0.4s ease;
     z-index: 999;

@@ -341,11 +341,11 @@ async function carregarProdutos(filtro = 'Todos') {
     };
 
     grid.innerHTML = produtos.map((p, i) => `
-      <div class="produto-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 80}">
+      <a href="/produto.html?id=${p.id}" class="produto-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 80}" style="display:block;text-decoration:none;color:inherit;">
         <div class="produto-card__imagem">
           ${p.imagem
             ? `<img src="${p.imagem}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;">`
-            : `<span style="font-size:3.5rem">${iconesPorCategoria[p.categoria] || '📦'}</span>`
+            : `<div style="width:100%;height:100%;background:var(--cinza-fundo);display:flex;align-items:center;justify-content:center;"><span style="font-size:1.5rem;color:var(--cinza-texto);font-weight:600;">${p.categoria}</span></div>`
           }
         </div>
         <div class="produto-card__corpo">
@@ -353,11 +353,11 @@ async function carregarProdutos(filtro = 'Todos') {
           <h3 class="produto-card__nome">${p.nome}</h3>
           <p class="produto-card__descricao">${p.descricao}</p>
           <div class="produto-card__rodape">
-            <span class="produto-card__unidade">Unidade: ${p.unidade}</span>
-            ${p.destaque ? '<span class="badge-destaque">⭐ Destaque</span>' : ''}
+            <span class="produto-card__unidade">${p.estoque > 0 ? 'Disponível' : 'Consultar'}</span>
+            ${p.destaque ? '<span class="badge-destaque">Destaque</span>' : ''}
           </div>
         </div>
-      </div>
+      </a>
     `).join('');
 
     if (typeof AOS !== 'undefined') AOS.refresh();
@@ -613,7 +613,7 @@ function carregarVideosEspeciais() {
   fetch('/api/conteudo')
     .then(r => r.json())
     .then(dados => {
-      const videos = dados.midia?.youtube?.videos || [];
+      const videos = (dados.midia?.youtube?.videos || []).slice(0, 3);
       if (!videos.length) return;
 
       // Renderiza grade de thumbnails (não iframes — muito mais rápido)
