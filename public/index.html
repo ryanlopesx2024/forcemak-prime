@@ -157,77 +157,71 @@
     </div>
   </section>
 
-  <!-- ─── 2. CONSULTORIA — Foco Principal ─────────────────── -->
-  <section class="consultoria-prime" id="consultoria">
-    <div class="container">
-      <div class="secao-cabecalho" data-aos="fade-up">
-        <span class="secao-etiqueta">Como podemos ajudar</span>
-        <h2 class="secao-titulo">Consultoria Especializada</h2>
-        <p class="secao-subtitulo">Da busca ao fechamento — a Forcemak Prime acompanha você em cada etapa da negociação com segurança e transparência.</p>
-      </div>
-
-      <div class="cp-grid" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="cp-card">
-          <div class="cp-card__foto" style="background-image:url('/imagens/uploads/maq-115-3.jpg')"></div>
-          <div class="cp-card__overlay"></div>
-          <div class="cp-card__body">
-            <div class="cp-card__icone">🔍</div>
-            <h3 class="cp-card__titulo">Busca de Equipamentos</h3>
-            <p class="cp-card__desc">Encontramos a máquina ideal para a sua operação em todo o Brasil. Rápido, seguro e com o melhor preço de mercado.</p>
-            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20buscar%20um%20equipamento" class="cp-card__btn" target="_blank" rel="noopener">Quero Encontrar →</a>
-          </div>
-        </div>
-
-        <div class="cp-card">
-          <div class="cp-card__foto" style="background-image:url('/imagens/uploads/maq-201-21.jpg')"></div>
-          <div class="cp-card__overlay"></div>
-          <div class="cp-card__body">
-            <div class="cp-card__icone">💰</div>
-            <h3 class="cp-card__titulo">Venda do Seu Ativo</h3>
-            <p class="cp-card__desc">Vendemos sua máquina com agilidade, segurança e pelo melhor preço de mercado. Sem burocracia, sem complicação.</p>
-            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20vender%20meu%20equipamento" class="cp-card__btn" target="_blank" rel="noopener">Quero Vender →</a>
-          </div>
-        </div>
-
-        <div class="cp-card">
-          <div class="cp-card__foto" style="background-image:url('/imagens/uploads/maq-259-1.-maquina-1-.png')"></div>
-          <div class="cp-card__overlay"></div>
-          <div class="cp-card__body">
-            <div class="cp-card__icone">🤝</div>
-            <h3 class="cp-card__titulo">Consultoria Personalizada</h3>
-            <p class="cp-card__desc">Avaliamos sua operação e indicamos as melhores opções de equipamentos para maximizar sua produtividade e lucratividade.</p>
-            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20uma%20consultoria%20especializada" class="cp-card__btn" target="_blank" rel="noopener">Falar com Consultor →</a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ─── 3. SERVIÇOS ──────────────────────────────────────── -->
-  <section class="servicos" id="servicos">
+  <!-- ─── SERVIÇOS COM ABAS ────────────────────────────────── -->
+  <section class="servicos-abas" id="servicos">
     <div class="container">
       <div class="secao-cabecalho" data-aos="fade-up">
         <span class="secao-etiqueta">O que fazemos</span>
-        <h2 class="secao-titulo">Serviços Forcemak</h2>
-        <p class="secao-subtitulo">Soluções completas para quem compra ou vende equipamentos.</p>
+        <h2 class="secao-titulo">Nossos Serviços</h2>
       </div>
-      <div class="servicos__grid" id="servicos-grid"></div>
+
+      <!-- Abas de navegação -->
+      <div class="sa-tabs" data-aos="fade-up">
+        <button class="sa-tab ativo" data-tab="busca">Busca de Equipamentos</button>
+        <button class="sa-tab" data-tab="venda">Venda do Seu Ativo</button>
+        <button class="sa-tab" data-tab="consultoria">Consultoria</button>
+        <button class="sa-tab" data-tab="laudo">Laudo Cautelar</button>
+      </div>
+
+      <!-- Painéis de conteúdo -->
+      <div class="sa-paineis" data-aos="fade-up" data-aos-delay="80">
+
+        <div class="sa-painel ativo" id="tab-busca">
+          <img src="/imagens/uploads/maq-115-3.jpg" alt="Busca de Equipamentos" class="sa-painel__img">
+          <div class="sa-painel__info">
+            <h3>Busca de Equipamentos</h3>
+            <p>Você descreve o que precisa — nós localizamos, avaliamos e apresentamos as melhores opções com total transparência. Nossa rede cobre todo o Brasil.</p>
+            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20buscar%20um%20equipamento" class="btn btn--azul" target="_blank" rel="noopener">Quero Encontrar</a>
+          </div>
+        </div>
+
+        <div class="sa-painel" id="tab-venda">
+          <img src="/imagens/uploads/maq-201-21.jpg" alt="Venda do Ativo" class="sa-painel__img">
+          <div class="sa-painel__info">
+            <h3>Venda do Seu Ativo</h3>
+            <p>Vendemos seu equipamento com agilidade, segurança e pelo melhor preço de mercado. Cuidamos de tudo: avaliação, divulgação e fechamento. Sem burocracia.</p>
+            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20vender%20meu%20equipamento" class="btn btn--azul" target="_blank" rel="noopener">Quero Vender</a>
+          </div>
+        </div>
+
+        <div class="sa-painel" id="tab-consultoria">
+          <img src="/imagens/uploads/maq-259-1.-maquina-1-.png" alt="Consultoria" class="sa-painel__img">
+          <div class="sa-painel__info">
+            <h3>Consultoria Personalizada</h3>
+            <p>Um consultor dedicado analisa seu caso e indica as melhores opções para sua operação. Acompanhamento do início ao fim com segurança e transparência.</p>
+            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20uma%20consultoria" class="btn btn--azul" target="_blank" rel="noopener">Falar com Consultor</a>
+          </div>
+        </div>
+
+        <div class="sa-painel" id="tab-laudo">
+          <img src="/imagens/uploads/maq-115-3.jpg" alt="Laudo Cautelar" class="sa-painel__img">
+          <div class="sa-painel__info">
+            <h3>Laudo Cautelar</h3>
+            <p>Inspeção técnica completa antes de qualquer compra: motor, hidráulico, estrutura e documentação. Relatório detalhado para uma negociação totalmente segura.</p>
+            <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20um%20Laudo%20Cautelar" class="btn btn--azul" target="_blank" rel="noopener" onclick="fbq&&fbq('track','Lead')">Solicitar Laudo</a>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
-  <!-- ─── 4. EQUIPAMENTOS — Carrossel ─────────────────────── -->
+  <!-- ─── CARROSSEL DE EQUIPAMENTOS ────────────────────────── -->
   <section class="equipamentos-secao" id="equipamentos">
-    <div class="container equipamentos-secao__header">
-      <div class="secao-cabecalho secao-cabecalho--claro" data-aos="fade-up">
-        <span class="secao-etiqueta secao-etiqueta--laranja">Estoque Disponível</span>
-        <h2 class="secao-titulo secao-titulo--claro">Aqui está seu próximo equipamento</h2>
-        <p class="secao-subtitulo secao-subtitulo--claro">Equipamentos disponíveis com fotos reais e estoque atualizado.</p>
-      </div>
+    <div class="container" style="padding-top:48px;padding-bottom:20px;text-align:center;">
+      <span class="secao-etiqueta secao-etiqueta--laranja">Estoque</span>
+      <h2 style="font-size:1.3rem;font-weight:800;color:#fff;margin:8px 0 4px;">Equipamentos Disponíveis</h2>
     </div>
-
     <div class="painel painel--equip painel--fullscreen" id="painel-equip">
       <div class="painel__slides" id="slides-equip"></div>
       <div class="painel__overlay"></div>
@@ -241,68 +235,25 @@
       </div>
       <div class="painel__dots" id="dots-equip"></div>
     </div>
-
-    <div class="container equipamentos-secao__cta" data-aos="fade-up">
-      <a href="/produtos.html" class="btn btn--laranja btn--grande"
-         onclick="fbq&&fbq('track','ViewContent')">
-        Ver todos os Equipamentos
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20consultar%20disponibilidade%20de%20um%20equipamento%20que%20vi%20no%20site"
-         target="_blank" rel="noopener"
-         class="btn btn--outline btn--grande"
-         onclick="fbq&&fbq('track','Contact')">
-        💬 Consultar Disponibilidade
-      </a>
+    <div style="text-align:center;padding:20px 0 48px;">
+      <a href="/produtos.html" class="btn btn--laranja" onclick="fbq&&fbq('track','ViewContent')">Ver todos os Equipamentos</a>
     </div>
   </section>
 
-  <!-- ─── 5. NÚMEROS ───────────────────────────────────────── -->
-  <section class="numeros" id="numeros">
-    <div class="container">
-      <div class="numeros__grid">
-        <div class="numero-item" data-aos="fade-up" data-aos-delay="0">
-          <span class="numero-item__valor" data-contador="1200">0</span>
-          <span class="numero-item__sufixo">+</span>
-          <p class="numero-item__label">Clientes Atendidos</p>
-        </div>
-        <div class="numero-item" data-aos="fade-up" data-aos-delay="100">
-          <span class="numero-item__valor" data-contador="500">0</span>
-          <span class="numero-item__sufixo">+</span>
-          <p class="numero-item__label">Negociações Realizadas</p>
-        </div>
-        <div class="numero-item" data-aos="fade-up" data-aos-delay="200">
-          <span class="numero-item__valor" data-contador="15">0</span>
-          <span class="numero-item__sufixo">+</span>
-          <p class="numero-item__label">Anos de Mercado</p>
-        </div>
-        <div class="numero-item" data-aos="fade-up" data-aos-delay="300">
-          <span class="numero-item__valor" data-contador="98">0</span>
-          <span class="numero-item__sufixo">%</span>
-          <p class="numero-item__label">Índice de Satisfação</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── 6. YOUTUBE ───────────────────────────────────────── -->
-  <section class="conteudos-especiais" id="conteudos">
+  <!-- ─── VÍDEOS ────────────────────────────────────────────── -->
+  <section class="videos-secao-home" id="conteudos">
     <div class="container">
       <div class="secao-cabecalho" data-aos="fade-up">
         <span class="secao-etiqueta">Canal Forcemak</span>
-        <h2 class="secao-titulo">Assista nossos<br>conteúdos especiais</h2>
-        <p class="secao-subtitulo">Clique no vídeo e assista aqui mesmo, sem sair do site.</p>
+        <h2 class="secao-titulo">Conteúdos especiais</h2>
       </div>
-      <div id="videos-especiais-container" data-aos="fade-up" data-aos-delay="100">
-        <div class="videos-especiais-empty">
-          <p style="color:rgba(255,255,255,0.45);margin-bottom:20px;">Vídeos sendo configurados — adicione pelo painel admin.</p>
-          <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener"
-             class="btn btn--laranja">Visitar Canal YouTube</a>
+      <div id="videos-especiais-container" data-aos="fade-up" data-aos-delay="80">
+        <div class="videos-especiais-empty" style="text-align:center;padding:24px 0;">
+          <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener" class="btn btn--azul">Ver Canal YouTube</a>
         </div>
       </div>
-      <div class="videos-especiais-cta" id="videos-canal-cta" style="display:none;">
-        <a href="https://www.youtube.com/@forcemak" target="_blank" rel="noopener"
-           class="btn btn--outline-branco">Ver todos os vídeos no YouTube</a>
+      <div style="text-align:center;margin-top:28px;display:none;" id="videos-canal-cta">
+        <a href="/videos.html" class="btn btn--outline">Ver todos os vídeos</a>
       </div>
     </div>
   </section>
@@ -317,49 +268,18 @@
     </div>
   </div>
 
-  <!-- ─── 7. LAUDO CAUTELAR (último) ───────────────────────── -->
-  <section class="laudo-secao" id="laudo">
-    <div class="container">
-      <div class="laudo-secao__grid">
-        <div class="laudo-secao__texto" data-aos="fade-right">
-          <span class="secao-etiqueta">Segurança na Negociação</span>
-          <h2 class="secao-titulo">Laudo Cautelar</h2>
-          <p>Antes de fechar qualquer negócio, garanta a procedência e a condição técnica real do equipamento. O Laudo Cautelar da Forcemak Prime inclui inspeção completa de motor, sistema hidráulico, estrutura e documentação.</p>
-          <p>Você recebe um relatório técnico detalhado — total transparência antes de assinar qualquer contrato.</p>
-          <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20solicitar%20um%20Laudo%20Cautelar"
-             class="btn btn--azul" target="_blank" rel="noopener"
-             onclick="fbq&&fbq('track','Lead')">
-            Solicitar Laudo Cautelar →
-          </a>
-        </div>
-        <div class="laudo-secao__visual" data-aos="fade-left">
-          <img src="/imagens/uploads/maq-259-1.-maquina-1-.png" alt="Laudo Cautelar de Equipamentos" class="laudo-secao__img">
-          <div class="laudo-secao__checks">
-            <div class="laudo-secao__check">✅ Inspeção técnica completa</div>
-            <div class="laudo-secao__check">✅ Relatório detalhado</div>
-            <div class="laudo-secao__check">✅ Verificação de documentação</div>
-            <div class="laudo-secao__check">✅ Segurança garantida</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── CTA Final ────────────────────────────────────────── -->
   <section class="cta-final">
     <div class="container cta-final__conteudo texto-centro" data-aos="fade-up">
-      <h2 class="cta-final__titulo">Pronto para encontrar o equipamento ideal?</h2>
-      <p class="cta-final__texto">
-        Nossa equipe especializada encontra a máquina certa para a sua operação,
-        com segurança, laudo técnico e as melhores condições de negócio.
-      </p>
+      <h2 class="cta-final__titulo">Pronto para negociar com segurança?</h2>
+      <p class="cta-final__texto">Nossa equipe está disponível para atender você agora.</p>
       <div class="cta-final__botoes">
-        <a href="/produtos.html" class="btn btn--laranja btn--grande">Ver Equipamentos</a>
-        <a href="https://wa.me/5551996050777?text=Olá!%20Gostaria%20de%20uma%20proposta."
+        <a href="/servicos.html" class="btn btn--laranja btn--grande">Conhecer Serviços</a>
+        <a href="https://wa.me/5551996050777?text=Olá!%20Gostaria%20de%20uma%20consultoria."
            target="_blank" rel="noopener"
            class="btn btn--outline-branco btn--grande"
-           onclick="fbq && fbq('track','Contact')">
-          💬 Chamar no WhatsApp
+           onclick="fbq&&fbq('track','Contact')">
+          Falar no WhatsApp
         </a>
       </div>
     </div>

@@ -653,3 +653,26 @@ function fecharModalYT(e) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') fecharModalYT({target: null, currentTarget: null});
 });
+
+
+// ════════════════════════════════════════════════════════════
+// ABAS DE SERVIÇOS
+// ════════════════════════════════════════════════════════════
+(function iniciarAbasServicos() {
+  const tabs   = document.querySelectorAll('.sa-tab');
+  const paineis = document.querySelectorAll('.sa-painel');
+  if (!tabs.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const alvo = tab.dataset.tab;
+
+      tabs.forEach(t => t.classList.remove('ativo'));
+      paineis.forEach(p => p.classList.remove('ativo'));
+
+      tab.classList.add('ativo');
+      const painel = document.getElementById('tab-' + alvo);
+      if (painel) painel.classList.add('ativo');
+    });
+  });
+})();
