@@ -159,6 +159,37 @@
     </div>
   </section>
 
+  <!-- ─── Modal de Equipamento ──────────────────────────────── -->
+  <div class="eq-modal" id="eq-modal" style="display:none;" onclick="fecharEqModal(event)">
+    <div class="eq-modal__box">
+      <button class="eq-modal__fechar" onclick="fecharEqModal()" aria-label="Fechar">&times;</button>
+
+      <div class="eq-modal__img-wrap">
+        <img src="" alt="" id="eq-modal-foto" class="eq-modal__img">
+        <div class="eq-modal__img-placeholder" id="eq-modal-placeholder">
+          <span id="eq-modal-cat-placeholder"></span>
+        </div>
+      </div>
+
+      <div class="eq-modal__info">
+        <span class="eq-modal__cat" id="eq-modal-cat"></span>
+        <h2 class="eq-modal__nome" id="eq-modal-nome"></h2>
+        <span class="eq-modal__status" id="eq-modal-status"></span>
+        <p class="eq-modal__desc" id="eq-modal-desc"></p>
+        <div class="eq-modal__acoes">
+          <a id="eq-modal-wa" href="#" target="_blank" rel="noopener"
+             class="btn btn--laranja btn--grande"
+             onclick="fbq&&fbq('track','Contact')">
+            Consultar no WhatsApp
+          </a>
+          <a href="/laudo.html" class="btn btn--outline btn--grande">
+            Solicitar Laudo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- CTA -->
   <section class="cta-final">
     <div class="container cta-final__conteudo texto-centro" data-aos="fade-up">

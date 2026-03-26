@@ -197,8 +197,15 @@ function renderizarProdutos() {
     const badgeEstoque = badgeEstoqueHTML(p.estoque);
     const semEstoque   = p.estoque <= 0 ? 'sem-estoque' : '';
 
+    const dadosAttr = encodeURIComponent(JSON.stringify({
+      id: p.id, nome: p.nome, categoria: p.categoria,
+      descricao: p.descricao || '', imagem: p.imagem || '',
+      estoque: p.estoque, destaque: p.destaque
+    }));
+
     return `
-      <div class="produto-card ${semEstoque}" data-aos="fade-up" data-aos-delay="${(i % 3) * 60}">
+      <div class="produto-card ${semEstoque}" data-aos="fade-up" data-aos-delay="${(i % 3) * 60}"
+           style="cursor:pointer;" onclick="abrirEqModal('${dadosAttr}')">
         <div class="produto-card__imagem">
           ${p.imagem
             ? `<img src="${p.imagem}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;">`
@@ -213,12 +220,10 @@ function renderizarProdutos() {
             ${badgeEstoque}
             ${p.destaque ? '<span class="badge-destaque">Destaque</span>' : ''}
           </div>
-          <a href="/contato.html?equipamento=${encodeURIComponent(p.nome)}"
-             class="btn btn--azul"
-             style="width:100%;justify-content:center;margin-top:16px;font-size:0.85rem;"
-             onclick="fbq && fbq('track','InitiateCheckout',{content_name:'${p.nome}'})">
-            Solicitar Proposta
-          </a>
+          <span class="btn btn--azul"
+               style="display:block;text-align:center;margin-top:16px;font-size:0.85rem;padding:10px 16px;border-radius:8px;">
+            Ver Detalhes
+          </span>
         </div>
       </div>
     `;
@@ -250,6 +255,59 @@ function destacarTexto(texto, termo) {
   const re = new RegExp(`(${termo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
   return texto.replace(re, '<mark style="background:rgba(232,98,42,0.2);border-radius:2px;padding:0 2px;">$1</mark>');
 }
+
+// ─── Modal de Equipamento ────────────────────────────────────
+function abrirEqModal(dadosEncoded) {
+  const p = JSON.parse(decodeURIComponent(dadosEncoded));
+  const modal = document.getElementById('eq-modal');
+  if (!modal) return;
+
+  document.getElementById('eq-modal-cat').textContent      = p.categoria;
+  document.getElementById('eq-modal-nome').textContent     = p.nome;
+  document.getElementById('eq-modal-desc').textContent     = p.descricao || 'Entre em contato para mais informações sobre este equipamento.';
+  document.getElementById('eq-modal-cat-placeholder').textContent = p.categoria;
+
+  const foto = document.getElementById('eq-modal-foto');
+  const placeholder = document.getElementById('eq-modal-placeholder');
+  if (p.imagem) {
+    foto.src = p.imagem;
+    foto.alt = p.nome;
+    foto.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    foto.style.display = 'none';
+    placeholder.style.display = 'flex';
+  }
+
+  const status = document.getElementById('eq-modal-status');
+  if (p.estoque > 0) {
+    status.textContent  = 'Disponível em estoque';
+    status.className    = 'eq-modal__status eq-modal__status--ok';
+  } else {
+    status.textContent  = 'Consultar disponibilidade';
+    status.className    = 'eq-modal__status eq-modal__status--consultar';
+  }
+
+  const msg = encodeURIComponent(`Olá! Tenho interesse no equipamento: ${p.nome}. Poderia me passar mais informações?`);
+  document.getElementById('eq-modal-wa').href = `https://wa.me/5551996050777?text=${msg}`;
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome });
+}
+
+function fecharEqModal(e) {
+  if (e && e.target !== e.currentTarget && !e.target.classList.contains('eq-modal__fechar')) return;
+  const modal = document.getElementById('eq-modal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') fecharEqModal({ target: null, currentTarget: null });
+});
+
 
 // ─── Preenche campo de contato com equipamento selecionado ───
 document.addEventListener('DOMContentLoaded', () => {
