@@ -1437,9 +1437,10 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   }
 
   .nav__menu.aberto { transform: translateX(0); }
-  .nav__link        { font-size: 1.2rem; }
+  .nav__link        { font-size: 1.15rem; font-weight: 600; }
   .nav__hamburguer  { display: flex; z-index: 1001; }
-  .nav__acoes .btn--outline { display: none; }
+  /* Esconde todos os botões do nav no mobile — hamburguer ocupa o espaço */
+  .nav__acoes .btn  { display: none; }
 
   .servicos__grid   { grid-template-columns: 1fr; }
   .numeros__grid    { grid-template-columns: repeat(2, 1fr); }
@@ -1447,8 +1448,19 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   .rodape__base     { flex-direction: column; gap: 8px; text-align: center; }
   .campo-grupo      { grid-template-columns: 1fr; }
   .formulario       { padding: 28px 24px; }
-  .produtos-grid    { grid-template-columns: 1fr; }
+  .produtos-grid    { grid-template-columns: 1fr 1fr; gap: 16px; }
   .valores-grid     { grid-template-columns: 1fr; }
+
+  /* Mobile: imagens de produto maiores e mais visíveis */
+  .produto-card__imagem { height: 200px; }
+
+  /* Botões com alvo de toque maior */
+  .btn { min-height: 48px; }
+
+  /* CTA final — coluna única no mobile */
+  .cta-final { padding: 60px 0; }
+  .cta-final__botoes { flex-direction: column; align-items: stretch; }
+  .cta-final__botoes .btn { text-align: center; justify-content: center; }
 }
 
 @media (max-width: 480px) {
@@ -1458,6 +1470,9 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   .numeros__grid    { grid-template-columns: 1fr 1fr; }
   .cta-final__botoes { flex-direction: column; align-items: stretch; }
   .cta-final__botoes .btn { text-align: center; justify-content: center; }
+  /* Produto grid — coluna única em telas muito pequenas */
+  .produtos-grid    { grid-template-columns: 1fr; }
+  .produto-card__imagem { height: 220px; }
 }
 
 
@@ -1748,5 +1763,9 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 
 @media (max-width: 480px) {
   .hero-abertura__badge { font-size: 0.7rem; padding: 6px 14px; }
-  .hero-abertura__conteudo { padding-top: 100px; padding-bottom: 60px; }
+  .hero-abertura__conteudo { padding-top: 28px; padding-bottom: 40px; }
+  .hero-abertura { min-height: auto; padding-top: 76px; padding-bottom: 0; }
+  /* Botões hero — largura total no mobile */
+  .hero-abertura__botoes { flex-direction: column; align-items: stretch; }
+  .hero-abertura__botoes .btn { text-align: center; justify-content: center; min-height: 52px; }
 }

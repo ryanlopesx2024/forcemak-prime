@@ -49,6 +49,13 @@ html, body {
   max-height: 340px;
 }
 
+/* Carousel contido — não full-bleed */
+.painel--card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+}
+
 /* Conteúdo centralizado no painel hero */
 .painel__conteudo--hero {
   max-width: 480px;
@@ -423,8 +430,8 @@ html, body {
 
   /* Mobile: painel hero */
   .painel--fullscreen {
-    height: 30vh !important;
-    min-height: 180px !important;
+    height: 44vh !important;
+    min-height: 240px !important;
     max-height: none !important;
   }
 
@@ -507,8 +514,8 @@ html, body {
 
 @media (max-width: 480px) {
   .painel--fullscreen {
-    height: 28vh !important;
-    min-height: 160px !important;
+    height: 40vh !important;
+    min-height: 220px !important;
   }
 
   .painel__titulo {
@@ -1497,18 +1504,19 @@ html, body {
   }
 
   .sa-painel__img {
-    height: 190px;
+    height: 230px;
     min-height: unset;
     max-height: unset;
     order: -1;
   }
 
   .sa-painel__info {
-    padding: 24px 24px 28px;
+    padding: 24px 20px 28px;
     gap: 12px;
   }
 
   .sa-painel__info h3 { font-size: 1.1rem; }
+  .sa-painel__info .btn { width: 100%; justify-content: center; }
 }
 
 
