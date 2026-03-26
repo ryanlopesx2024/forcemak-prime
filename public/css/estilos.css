@@ -339,6 +339,10 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 .nav__hamburguer.aberto span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
+/* X sempre branco — visível sobre o overlay azul */
+.nav__hamburguer.aberto span {
+  background: var(--branco) !important;
+}
 
 
 /* ════════════════════════════════════════════════════════════
@@ -649,7 +653,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
    ════════════════════════════════════════════════════════════ */
 .servicos {
   padding: 100px 0;
-  background: var(--branco);
+  background: var(--verde-fundo);
 }
 
 .servicos__grid {
@@ -668,9 +672,9 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 }
 
 .servico-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--sombra-lg);
-  border-color: rgba(232, 98, 42, 0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(17,65,86,0.16);
+  border-color: rgba(17,65,86,0.22);
 }
 
 .servico-card__icone {
@@ -984,7 +988,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
    ════════════════════════════════════════════════════════════ */
 .produtos-secao {
   padding: 80px 0;
-  background: var(--branco);
+  background: var(--verde-fundo);
 }
 
 .filtros-categorias {
@@ -1026,6 +1030,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--cinza-borda);
+  box-shadow: 0 2px 12px rgba(17,65,86,0.07);
   transition: var(--transicao-lenta);
 }
 
@@ -1125,9 +1130,10 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 
 .valor-card {
   padding: 32px 24px;
-  background: var(--cinza-fundo);
+  background: #fff;
   border-radius: var(--radius);
   border-top: 4px solid var(--laranja);
+  box-shadow: 0 4px 20px rgba(17,65,86,0.08);
   text-align: center;
 }
 
@@ -1154,7 +1160,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
    ════════════════════════════════════════════════════════════ */
 .contato-secao {
   padding: 80px 0;
-  background: var(--branco);
+  background: var(--verde-fundo);
 }
 
 .contato-grid {
@@ -1671,7 +1677,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
    ════════════════════════════════════════════════════════════ */
 .laudo-secao {
   padding: 100px 0;
-  background: var(--branco);
+  background: var(--verde-fundo);
 }
 
 .laudo-secao__grid {
