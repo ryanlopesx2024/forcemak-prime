@@ -29,7 +29,7 @@ async function carregarTodosProdutos() {
   } catch {
     document.getElementById('produtos-grid').innerHTML = `
       <div class="sem-resultados">
-        <div class="sem-resultados__icone">⚠️</div>
+        <div class="sem-resultados__icone"></div>
         <p class="sem-resultados__titulo">Erro ao carregar equipamentos</p>
         <p class="sem-resultados__texto">Tente recarregar a página.</p>
       </div>`;
@@ -52,9 +52,7 @@ function montarFiltrosCategorias() {
   container.innerHTML = categorias.map(cat => `
     <label class="filtro-opcao">
       <input type="checkbox" value="${cat}" class="filtro-categoria-check">
-      <span class="filtro-opcao__label">
-        ${iconeCategoria(cat)} ${cat}
-      </span>
+      <span class="filtro-opcao__label">${cat}</span>
       <span class="filtro-opcao__contagem">${contagem[cat]}</span>
     </label>
   `).join('');
@@ -69,17 +67,6 @@ function montarFiltrosCategorias() {
   });
 }
 
-function iconeCategoria(cat) {
-  const icones = {
-    'Colheitadeiras': '🌾',
-    'Tratores':       '🚜',
-    'Plantadeiras':   '🌱',
-    'Pulverizadores': '💨',
-    'Implementos':    '🔧',
-    'Outros':         '📦'
-  };
-  return icones[cat] || '📦';
-}
 
 // ─── Eventos ─────────────────────────────────────────────────
 function iniciarEventos() {
@@ -196,7 +183,7 @@ function renderizarProdutos() {
   if (!filtrados.length) {
     grid.innerHTML = `
       <div class="sem-resultados" style="grid-column: 1/-1;">
-        <div class="sem-resultados__icone">🔍</div>
+        <div class="sem-resultados__icone"></div>
         <p class="sem-resultados__titulo">Nenhum equipamento encontrado</p>
         <p class="sem-resultados__texto">Tente ajustar os filtros ou pesquise por outro termo.</p>
         <button onclick="limparFiltros()" class="btn btn--azul" style="margin-top:20px;">
@@ -215,7 +202,7 @@ function renderizarProdutos() {
         <div class="produto-card__imagem">
           ${p.imagem
             ? `<img src="${p.imagem}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;">`
-            : `<span style="font-size:3.5rem;">${iconeCategoria(p.categoria)}</span>`
+            : `<span style="font-size:0.8rem;font-weight:600;color:var(--cinza-texto);text-transform:uppercase;letter-spacing:0.08em;">${p.categoria}</span>`
           }
         </div>
         <div class="produto-card__corpo">
@@ -224,7 +211,7 @@ function renderizarProdutos() {
           <p class="produto-card__descricao">${p.descricao}</p>
           <div class="produto-card__rodape">
             ${badgeEstoque}
-            ${p.destaque ? '<span class="badge-destaque">⭐ Destaque</span>' : ''}
+            ${p.destaque ? '<span class="badge-destaque">Destaque</span>' : ''}
           </div>
           <a href="/contato.html?equipamento=${encodeURIComponent(p.nome)}"
              class="btn btn--azul"
