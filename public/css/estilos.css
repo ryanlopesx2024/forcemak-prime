@@ -1489,18 +1489,6 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   position: relative;
 }
 
-/* Grid pattern sutil */
-.hero-abertura::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(17,65,86,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17,65,86,0.03) 1px, transparent 1px);
-  background-size: 44px 44px;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* ─── Watermark container ─────────────────────────────── */
 .hero-wm {
