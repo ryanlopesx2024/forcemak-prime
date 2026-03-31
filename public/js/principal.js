@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   marcarLinkAtivo();
   iniciarHeroTicker();
   // Home
-  if (document.getElementById('eq-destaque-grid')) {
-    carregarEquipamentosDestaque();
+  if (document.getElementById('videos-especiais-container')) {
     carregarVideosEspeciais();
   }
   // Painéis legados (outras páginas que ainda usem)

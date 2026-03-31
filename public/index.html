@@ -252,23 +252,6 @@
     </div>
   </section>
 
-  <!-- ─── EQUIPAMENTOS ────────────────────────────────────── -->
-  <section class="equipamentos-secao" id="equipamentos">
-    <div class="container">
-      <div class="eq-destaque-header">
-        <div>
-          <span class="secao-etiqueta secao-etiqueta--laranja">Estoque atualizado</span>
-          <h2 class="eq-destaque-titulo">Equipamentos Disponíveis</h2>
-          <p class="eq-destaque-sub">Escavadeiras, mini carregadeiras, retroescavadeiras, pás carregadeiras e muito mais — com laudo técnico e procedência verificada.</p>
-        </div>
-        <a href="/produtos.html" class="btn btn--laranja" onclick="fbq&&fbq('track','ViewContent')">Ver todo o Estoque</a>
-      </div>
-      <div class="eq-destaque-grid" id="eq-destaque-grid">
-        <!-- Preenchido por JS — 3 equipamentos em destaque -->
-      </div>
-    </div>
-  </section>
-
   <!-- ─── VÍDEOS ────────────────────────────────────────────── -->
   <section class="videos-secao-home" id="conteudos">
     <div class="container">
@@ -365,36 +348,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Modal de Equipamento (reutilizado da página de produtos) -->
-  <div class="eq-modal" id="eq-modal" style="display:none;" onclick="fecharEqModal(event)">
-    <div class="eq-modal__box">
-      <button class="eq-modal__fechar" onclick="fecharEqModal()" aria-label="Fechar">&times;</button>
-      <div class="eq-modal__img-wrap">
-        <div class="eq-modal__logo-topo">
-          <span class="eq-modal__logo-nome">FORCEMAK</span>
-          <span class="eq-modal__logo-prime">PRIME</span>
-        </div>
-        <img src="" alt="" id="eq-modal-foto" class="eq-modal__img">
-        <div class="eq-modal__img-placeholder" id="eq-modal-placeholder">
-          <span id="eq-modal-cat-placeholder"></span>
-        </div>
-      </div>
-      <div class="eq-modal__info">
-        <span class="eq-modal__cat" id="eq-modal-cat"></span>
-        <h2 class="eq-modal__nome" id="eq-modal-nome"></h2>
-        <span class="eq-modal__status" id="eq-modal-status"></span>
-        <p class="eq-modal__desc" id="eq-modal-desc"></p>
-        <div class="eq-modal__acoes">
-          <a id="eq-modal-wa" href="#" target="_blank" rel="noopener"
-             class="btn btn--laranja btn--grande" onclick="fbq&&fbq('track','Contact')">
-            Consultar no WhatsApp
-          </a>
-          <a href="/laudo.html" class="btn btn--outline btn--grande">Solicitar Laudo</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
