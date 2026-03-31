@@ -1490,86 +1490,40 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 }
 
 
-/* ─── Watermark container ─────────────────────────────── */
+/* ─── Watermark container — mosaico de fundo ──────────── */
 .hero-wm {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0;
 }
 
 .hero-wm__item {
-  position: absolute;
-  background-size: contain;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  filter: grayscale(100%) contrast(1.1);
-  opacity: 0.065;
+  filter: grayscale(100%) contrast(1.05);
+  opacity: 0.09;
 }
 
-/* 1 — Grande, canto inferior direito */
-.hero-wm__item--1 {
-  width: 46%;
-  height: 90%;
-  right: -2%;
-  bottom: -12%;
-  background-position: right bottom;
-}
-
-/* 2 — Médio, canto inferior esquerdo */
-.hero-wm__item--2 {
-  width: 26%;
-  height: 58%;
-  left: -1%;
-  bottom: -6%;
-  background-position: left bottom;
-  opacity: 0.045;
-}
-
-/* 3 — Pequeno, canto superior direito */
-.hero-wm__item--3 {
-  width: 20%;
-  height: 40%;
-  right: 3%;
-  top: 2%;
-  background-position: right top;
-  opacity: 0.04;
-  transform: scaleX(-1);
-}
-
-/* 4 — Fino, centro-esquerdo */
-.hero-wm__item--4 {
-  width: 18%;
-  height: 36%;
-  left: 28%;
-  bottom: 0%;
-  background-position: center bottom;
-  opacity: 0.038;
-}
-
-/* 5 — Canto superior esquerdo, discreto */
-.hero-wm__item--5 {
-  width: 16%;
-  height: 32%;
-  left: 0%;
-  top: 4%;
-  background-position: left top;
-  opacity: 0.03;
+/* Itens grandes que ocupam 2 colunas */
+.hero-wm__item--wide {
+  grid-column: span 2;
 }
 
 @media (max-width: 768px) {
-  .hero-wm__item--2,
-  .hero-wm__item--3,
-  .hero-wm__item--4,
-  .hero-wm__item--5 { display: none; }
-
-  .hero-wm__item--1 {
-    width: 80%;
-    height: 60%;
-    right: -8%;
-    bottom: 0;
-    opacity: 0.055;
+  .hero-wm {
+    grid-template-columns: repeat(2, 1fr);
   }
+  .hero-wm__item--wide {
+    grid-column: span 1;
+  }
+  .hero-wm__item { opacity: 0.07; }
 }
 
 .hero-abertura__conteudo {
