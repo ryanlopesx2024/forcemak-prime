@@ -142,6 +142,12 @@
           </a>
         </div>
       </div>
+      <!-- Ticker flutuante -->
+      <div class="hero-ticker" aria-hidden="true">
+        <span class="hero-ticker__dot"></span>
+        <span class="hero-ticker__texto" id="hero-ticker-texto">+10.000 clientes atendidos</span>
+      </div>
+
       <div class="hero-abertura__stats" data-aos="fade-up" data-aos-delay="150">
         <div class="hero-abertura__stat">
           <strong>+10.000</strong>
@@ -220,28 +226,19 @@
     </div>
   </section>
 
-  <!-- ─── CARROSSEL DE EQUIPAMENTOS ────────────────────────── -->
+  <!-- ─── EQUIPAMENTOS ────────────────────────────────────── -->
   <section class="equipamentos-secao" id="equipamentos">
     <div class="container">
-      <div style="padding-top:48px;padding-bottom:20px;text-align:center;">
-        <span class="secao-etiqueta secao-etiqueta--laranja">Estoque</span>
-        <h2 style="font-size:1.2rem;font-weight:700;color:#fff;margin:8px 0 4px;">Equipamentos Disponíveis</h2>
-      </div>
-      <div class="painel painel--equip painel--fullscreen painel--card" id="painel-equip">
-        <div class="painel__slides" id="slides-equip"></div>
-        <div class="painel__overlay"></div>
-        <div class="painel__conteudo painel__conteudo--hero">
-          <div class="painel__slide-info">
-            <span class="painel__item-cat" id="equip-cat">Equipamentos</span>
-            <span class="painel__item-sep">·</span>
-            <span class="painel__item-nome" id="equip-nome"> </span>
-          </div>
-          <span class="painel__badge painel__badge--verde" id="equip-badge" style="display:none;"></span>
+      <div class="eq-destaque-header">
+        <div>
+          <span class="secao-etiqueta secao-etiqueta--laranja">Estoque atualizado</span>
+          <h2 class="eq-destaque-titulo">Equipamentos Disponíveis</h2>
+          <p class="eq-destaque-sub">Escavadeiras, mini carregadeiras, retroescavadeiras, pás carregadeiras e muito mais — com laudo técnico e procedência verificada.</p>
         </div>
-        <div class="painel__dots" id="dots-equip"></div>
+        <a href="/produtos.html" class="btn btn--laranja" onclick="fbq&&fbq('track','ViewContent')">Ver todo o Estoque</a>
       </div>
-      <div style="text-align:center;padding:20px 0 48px;">
-        <a href="/produtos.html" class="btn btn--laranja" onclick="fbq&&fbq('track','ViewContent')">Ver todos os Equipamentos</a>
+      <div class="eq-destaque-grid" id="eq-destaque-grid">
+        <!-- Preenchido por JS — 3 equipamentos em destaque -->
       </div>
     </div>
   </section>
@@ -342,6 +339,36 @@
       </div>
     </div>
   </footer>
+
+  <!-- Modal de Equipamento (reutilizado da página de produtos) -->
+  <div class="eq-modal" id="eq-modal" style="display:none;" onclick="fecharEqModal(event)">
+    <div class="eq-modal__box">
+      <button class="eq-modal__fechar" onclick="fecharEqModal()" aria-label="Fechar">&times;</button>
+      <div class="eq-modal__img-wrap">
+        <div class="eq-modal__logo-topo">
+          <span class="eq-modal__logo-nome">FORCEMAK</span>
+          <span class="eq-modal__logo-prime">PRIME</span>
+        </div>
+        <img src="" alt="" id="eq-modal-foto" class="eq-modal__img">
+        <div class="eq-modal__img-placeholder" id="eq-modal-placeholder">
+          <span id="eq-modal-cat-placeholder"></span>
+        </div>
+      </div>
+      <div class="eq-modal__info">
+        <span class="eq-modal__cat" id="eq-modal-cat"></span>
+        <h2 class="eq-modal__nome" id="eq-modal-nome"></h2>
+        <span class="eq-modal__status" id="eq-modal-status"></span>
+        <p class="eq-modal__desc" id="eq-modal-desc"></p>
+        <div class="eq-modal__acoes">
+          <a id="eq-modal-wa" href="#" target="_blank" rel="noopener"
+             class="btn btn--laranja btn--grande" onclick="fbq&&fbq('track','Contact')">
+            Consultar no WhatsApp
+          </a>
+          <a href="/laudo.html" class="btn btn--outline btn--grande">Solicitar Laudo</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

@@ -12,10 +12,15 @@ document.addEventListener('DOMContentLoaded', () => {
   carregarServicos();
   iniciarTransicoesDePagina();
   marcarLinkAtivo();
-  // Dois painéis (home)
-  if (document.getElementById('painel-equip')) {
-    iniciarCarrosseis();
+  iniciarHeroTicker();
+  // Home
+  if (document.getElementById('eq-destaque-grid')) {
+    carregarEquipamentosDestaque();
     carregarVideosEspeciais();
+  }
+  // Painéis legados (outras páginas que ainda usem)
+  if (document.getElementById('painel-equip') && !document.getElementById('eq-destaque-grid')) {
+    iniciarCarrosseis();
   }
 });
 
@@ -630,6 +635,54 @@ function carregarVideosEspeciais() {
     .catch(() => {});
 }
 
+// ════════════════════════════════════════════════════════════
+// MODAL DE EQUIPAMENTO (disponível em qualquer página)
+// ════════════════════════════════════════════════════════════
+function abrirEqModal(dadosEncoded) {
+  const p = JSON.parse(decodeURIComponent(dadosEncoded));
+  const modal = document.getElementById('eq-modal');
+  if (!modal) return;
+
+  document.getElementById('eq-modal-cat').textContent  = p.categoria;
+  document.getElementById('eq-modal-nome').textContent = p.nome;
+  document.getElementById('eq-modal-desc').textContent = p.descricao || 'Entre em contato para mais informações.';
+  document.getElementById('eq-modal-cat-placeholder').textContent = p.categoria;
+
+  const foto = document.getElementById('eq-modal-foto');
+  const ph   = document.getElementById('eq-modal-placeholder');
+  if (p.imagem) {
+    foto.src = p.imagem; foto.alt = p.nome;
+    foto.style.display = 'block'; ph.style.display = 'none';
+  } else {
+    foto.style.display = 'none'; ph.style.display = 'flex';
+  }
+
+  const status = document.getElementById('eq-modal-status');
+  if (p.estoque > 0) {
+    status.textContent = 'Disponível em estoque';
+    status.className   = 'eq-modal__status eq-modal__status--ok';
+  } else {
+    status.textContent = 'Consultar disponibilidade';
+    status.className   = 'eq-modal__status eq-modal__status--consultar';
+  }
+
+  const msg = encodeURIComponent(`Olá! Tenho interesse no equipamento: ${p.nome}. Poderia me passar mais informações?`);
+  document.getElementById('eq-modal-wa').href = `https://wa.me/5551996050777?text=${msg}`;
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome });
+}
+
+function fecharEqModal(e) {
+  if (e && e.target !== e.currentTarget && !e.target.classList.contains('eq-modal__fechar')) return;
+  const modal = document.getElementById('eq-modal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+
 function abrirModalYT(videoId) {
   const modal  = document.getElementById('yt-modal');
   const iframe = document.getElementById('yt-modal-iframe');
@@ -653,6 +706,86 @@ function fecharModalYT(e) {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') fecharModalYT({target: null, currentTarget: null});
 });
+
+
+// ════════════════════════════════════════════════════════════
+// HERO TICKER ROTATIVO
+// ════════════════════════════════════════════════════════════
+function iniciarHeroTicker() {
+  const el = document.getElementById('hero-ticker-texto');
+  if (!el) return;
+
+  const msgs = [
+    '+10.000 clientes atendidos',
+    'Consultoria do início ao fim',
+    '+3.000 equipamentos negociados',
+    '17 anos de mercado',
+    'Laudo Cautelar especializado',
+  ];
+
+  let i = 0;
+  setInterval(() => {
+    el.classList.add('saindo');
+    setTimeout(() => {
+      i = (i + 1) % msgs.length;
+      el.textContent = msgs[i];
+      el.classList.remove('saindo');
+      el.classList.add('entrando');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => el.classList.remove('entrando'));
+      });
+    }, 380);
+  }, 3200);
+}
+
+
+// ════════════════════════════════════════════════════════════
+// EQUIPAMENTOS DESTAQUE (home — substitui carrossel)
+// ════════════════════════════════════════════════════════════
+function carregarEquipamentosDestaque() {
+  const grid = document.getElementById('eq-destaque-grid');
+  if (!grid) return;
+
+  fetch('/api/produtos')
+    .then(r => r.json())
+    .then(lista => {
+      if (!Array.isArray(lista) || !lista.length) return;
+
+      // Prioriza destaques com foto, máximo 3
+      const comFoto = lista.filter(p => p.imagem);
+      const dest    = comFoto.filter(p => p.destaque && p.estoque > 0);
+      const outros  = comFoto.filter(p => !(p.destaque && p.estoque > 0));
+      const selecionados = [...dest, ...outros].slice(0, 3);
+
+      if (!selecionados.length) return;
+
+      grid.innerHTML = selecionados.map(p => {
+        const dadosAttr = encodeURIComponent(JSON.stringify({
+          id: p.id, nome: p.nome, categoria: p.categoria,
+          descricao: p.descricao || '', imagem: p.imagem || '',
+          estoque: p.estoque, destaque: p.destaque
+        }));
+        const statusHtml = p.estoque > 0
+          ? '<span class="eq-destaque-card__status">Disponível</span>'
+          : '<span class="eq-destaque-card__status eq-destaque-card__status--consultar">Consultar</span>';
+
+        return `
+          <div class="eq-destaque-card" onclick="abrirEqModal('${dadosAttr}')">
+            <img src="${p.imagem}" alt="${p.nome}" class="eq-destaque-card__img"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="eq-destaque-card__img-placeholder" style="display:none;">
+              <span>${p.categoria}</span>
+            </div>
+            <div class="eq-destaque-card__body">
+              <span class="eq-destaque-card__cat">${p.categoria}</span>
+              <h3 class="eq-destaque-card__nome">${p.nome}</h3>
+              ${statusHtml}
+            </div>
+          </div>`;
+      }).join('');
+    })
+    .catch(() => {});
+}
 
 
 // ════════════════════════════════════════════════════════════
