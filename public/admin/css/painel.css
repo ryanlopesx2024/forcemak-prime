@@ -625,3 +625,14 @@ img  { max-width: 100%; display: block; }
 @media (max-width: 640px) {
   .foto-slot-admin { grid-column: 1 / -1; }
 }
+
+.sidebar__link--sair {
+  margin-top: 8px;
+  color: #ef4444 !important;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 16px !important;
+}
+.sidebar__link--sair:hover {
+  background: rgba(239,68,68,0.12) !important;
+  color: #ef4444 !important;
+}

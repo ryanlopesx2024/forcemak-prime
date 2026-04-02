@@ -19,11 +19,13 @@ if (usuario) {
 }
 
 // Botão sair
-document.getElementById('btn-sair').addEventListener('click', () => {
+document.getElementById('btn-sair')?.addEventListener('click', fazerLogout);
+
+function fazerLogout() {
   localStorage.removeItem('forcemak_token');
   localStorage.removeItem('forcemak_usuario');
   window.location.href = '/admin/login.html';
-});
+}
 
 
 // ─── Utilitários ─────────────────────────────────────────────
