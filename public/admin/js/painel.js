@@ -240,42 +240,42 @@ async function carregarProdutosAdmin() {
   }
 }
 
-// Preview de foto ao selecionar arquivo
-document.getElementById('prod-foto-file').addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const status  = document.getElementById('upload-status');
-  const preview = document.getElementById('prod-foto-preview');
-  const img     = document.getElementById('prod-foto-img');
-
-  status.textContent = 'Enviando foto...';
-
-  const form = new FormData();
-  form.append('imagem', file);
-
-  try {
-    const res  = await fetch('/api/upload', {
-      method:  'POST',
-      headers: { 'Authorization': 'Bearer ' + token },
-      body:    form
-    });
-    const json = await res.json();
-    if (json.url) {
-      document.getElementById('prod-imagem').value = json.url;
-      img.src = json.url;
-      preview.style.display = 'block';
-      status.textContent = 'Foto enviada!';
-      status.style.color = '#22c55e';
-      setTimeout(() => { status.textContent = ''; status.style.color = ''; }, 3000);
-    } else {
-      throw new Error(json.erro || 'Erro no upload');
+// Upload de fotos — slots 1 a 6
+function criarUploadHandler(num) {
+  const fileInput = document.getElementById(`prod-foto-file-${num}`);
+  if (!fileInput) return;
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const status = document.getElementById('upload-status');
+    status.textContent = `Enviando foto ${num}...`;
+    status.style.color = '#999';
+    const formData = new FormData();
+    formData.append('imagem', file);
+    try {
+      const res  = await fetch('/api/upload', {
+        method:  'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        body:    formData
+      });
+      const json = await res.json();
+      if (json.url) {
+        document.getElementById(`prod-imagem-${num}`).value = json.url;
+        document.getElementById(`prod-foto-img-${num}`).src = json.url;
+        document.getElementById(`prod-foto-preview-${num}`).style.display = 'block';
+        status.textContent = `Foto ${num} enviada!`;
+        status.style.color = '#22c55e';
+        setTimeout(() => { status.textContent = ''; status.style.color = '#999'; }, 3000);
+      } else {
+        throw new Error(json.erro || 'Erro no upload');
+      }
+    } catch(err) {
+      status.textContent = 'Erro: ' + err.message;
+      status.style.color = '#ef4444';
     }
-  } catch(err) {
-    status.textContent = 'Erro: ' + err.message;
-    status.style.color = '#ef4444';
-  }
-});
+  });
+}
+for (let i = 1; i <= 6; i++) criarUploadHandler(i);
 
 // Salvar produto (criar ou editar)
 document.getElementById('form-produto').addEventListener('submit', async (e) => {
@@ -283,14 +283,25 @@ document.getElementById('form-produto').addEventListener('submit', async (e) => 
 
   const id      = document.getElementById('produto-id').value;
   const estoque = parseInt(document.getElementById('prod-estoque').value) || 0;
+
+  const imagens = [1,2,3,4,5,6]
+    .map(n => document.getElementById(`prod-imagem-${n}`).value)
+    .filter(Boolean);
+
   const dados = {
-    nome:      document.getElementById('prod-nome').value,
-    categoria: document.getElementById('prod-categoria').value,
-    descricao: document.getElementById('prod-descricao').value,
-    unidade:   'Unidade',
+    nome:        document.getElementById('prod-nome').value,
+    categoria:   document.getElementById('prod-categoria').value,
+    descricao:   document.getElementById('prod-descricao').value,
+    ano:         document.getElementById('prod-ano').value,
+    horimetro:   document.getElementById('prod-horimetro').value,
+    localizacao: document.getElementById('prod-localizacao').value,
+    valor:       document.getElementById('prod-valor').value,
+    condicao:    document.getElementById('prod-condicao').value,
+    unidade:     'Unidade',
     estoque,
-    imagem:    document.getElementById('prod-imagem').value,
-    destaque:  document.getElementById('prod-destaque').checked
+    imagem:      imagens[0] || '',
+    imagens:     imagens,
+    destaque:    document.getElementById('prod-destaque').checked
   };
 
   const btn = document.getElementById('btn-salvar-produto');
@@ -330,18 +341,29 @@ async function editarProduto(id) {
     const prod  = prods.find(p => p.id === id);
     if (!prod) return;
 
-    document.getElementById('produto-id').value      = prod.id;
-    document.getElementById('prod-nome').value       = prod.nome;
-    document.getElementById('prod-categoria').value  = prod.categoria;
-    document.getElementById('prod-descricao').value  = prod.descricao || '';
-    document.getElementById('prod-estoque').value    = prod.estoque ?? 1;
-    document.getElementById('prod-imagem').value     = prod.imagem  || '';
-    document.getElementById('prod-destaque').checked = prod.destaque || false;
+    document.getElementById('produto-id').value       = prod.id;
+    document.getElementById('prod-nome').value        = prod.nome;
+    document.getElementById('prod-categoria').value   = prod.categoria;
+    document.getElementById('prod-descricao').value   = prod.descricao   || '';
+    document.getElementById('prod-estoque').value     = prod.estoque ?? 1;
+    document.getElementById('prod-ano').value         = prod.ano         || '';
+    document.getElementById('prod-horimetro').value   = prod.horimetro   || '';
+    document.getElementById('prod-localizacao').value = prod.localizacao || '';
+    document.getElementById('prod-valor').value       = prod.valor       || '';
+    document.getElementById('prod-condicao').value    = prod.condicao    || '';
+    document.getElementById('prod-destaque').checked  = prod.destaque    || false;
 
-    // Mostra preview da foto atual
-    if (prod.imagem) {
-      document.getElementById('prod-foto-img').src = prod.imagem;
-      document.getElementById('prod-foto-preview').style.display = 'block';
+    // Preenche slots de foto
+    const todasFotos = (prod.imagens && prod.imagens.length > 0)
+      ? prod.imagens
+      : (prod.imagem ? [prod.imagem] : []);
+    for (let n = 1; n <= 6; n++) {
+      const url = todasFotos[n-1] || '';
+      document.getElementById(`prod-imagem-${n}`).value = url;
+      if (url) {
+        document.getElementById(`prod-foto-img-${n}`).src = url;
+        document.getElementById(`prod-foto-preview-${n}`).style.display = 'block';
+      }
     }
 
     document.getElementById('titulo-form-produto').textContent = 'Editando Equipamento';
@@ -357,8 +379,10 @@ async function editarProduto(id) {
 function cancelarEdicaoProduto() {
   document.getElementById('form-produto').reset();
   document.getElementById('produto-id').value = '';
-  document.getElementById('prod-imagem').value = '';
-  document.getElementById('prod-foto-preview').style.display = 'none';
+  for (let n = 1; n <= 6; n++) {
+    document.getElementById(`prod-imagem-${n}`).value = '';
+    document.getElementById(`prod-foto-preview-${n}`).style.display = 'none';
+  }
   document.getElementById('titulo-form-produto').textContent = 'Adicionar Equipamento';
   document.getElementById('btn-salvar-produto').textContent  = 'Salvar Equipamento';
   document.getElementById('btn-cancelar-produto').style.display = 'none';

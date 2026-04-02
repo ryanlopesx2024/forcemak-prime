@@ -602,3 +602,26 @@ img  { max-width: 100%; display: block; }
   .stats-grid        { grid-template-columns: 1fr 1fr; }
   .campo-linha       { grid-template-columns: 1fr; }
 }
+
+.foto-slot-admin {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+}
+.foto-slot-admin__label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.foto-slot-admin input[type="file"] {
+  font-size: 0.78rem;
+  padding: 4px;
+}
+@media (max-width: 640px) {
+  .foto-slot-admin { grid-column: 1 / -1; }
+}
