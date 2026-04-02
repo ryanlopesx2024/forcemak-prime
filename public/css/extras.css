@@ -1365,47 +1365,109 @@ html, body {
 
 
 /* ════════════════════════════════════════════════════════════
-   SERVIÇOS — BLOCOS RESPONSIVOS (servicos.html)
+   SERVIÇOS — CARDS COM ACORDEÃO (servicos.html)
    ════════════════════════════════════════════════════════════ */
 
-.srv-lista {
+.srv-cards-secao {
   padding: 80px 0;
   background: #fff;
 }
 
-.srv-bloco {
+.srv-card {
+  border: 1.5px solid var(--cinza-borda);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: box-shadow 0.2s;
+}
+.srv-card:hover,
+.srv-card.aberto {
+  box-shadow: 0 8px 32px rgba(17, 65, 86, 0.1);
+  border-color: var(--azul);
+}
+
+/* Topo do card: imagem + resumo lado a lado */
+.srv-card__topo {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
+  grid-template-columns: 280px 1fr;
+  min-height: 200px;
 }
 
-/* Versão invertida: imagem à esquerda no desktop */
-.srv-bloco--invertido {
-  direction: rtl;
-}
-.srv-bloco--invertido > * {
-  direction: ltr;
-}
-
-.srv-bloco__img img {
+.srv-card__img img {
   width: 100%;
-  border-radius: 16px;
+  height: 100%;
   object-fit: cover;
-  aspect-ratio: 4 / 3;
   display: block;
 }
 
-.srv-bloco__texto p {
-  color: var(--cinza-texto);
-  margin-bottom: 16px;
-  line-height: 1.7;
+.srv-card__resumo {
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 
-.srv-divisor {
+.srv-card__titulo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--preto-titulo);
+  line-height: 1.25;
+  margin: 0;
+}
+
+.srv-card__intro {
+  font-size: 0.9rem;
+  color: var(--cinza-texto);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Botão Saiba Mais */
+.srv-card__saiba-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 9px 20px;
+  background: var(--azul);
+  color: #fff;
   border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.18s;
+}
+.srv-card__saiba-btn:hover { background: #0d3447; }
+
+.srv-card__seta {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.srv-card.aberto .srv-card__seta--up { transform: rotate(0deg); }
+
+/* Detalhe expandível */
+.srv-card__detalhe {
+  display: none;
+  padding: 0 36px 32px;
   border-top: 1px solid var(--cinza-borda);
-  margin: 72px 0;
+  animation: abrirDetalhe 0.25s ease;
+}
+.srv-card.aberto .srv-card__detalhe {
+  display: block;
+}
+.srv-card__detalhe p {
+  color: var(--cinza-texto);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+@keyframes abrirDetalhe {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Tabela de preços */
@@ -1413,9 +1475,8 @@ html, body {
   background: var(--cinza-fundo);
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
-
 .srv-precos__label {
   font-size: 0.78rem;
   font-weight: 700;
@@ -1424,7 +1485,6 @@ html, body {
   color: var(--cinza-texto);
   margin-bottom: 14px;
 }
-
 .srv-preco-item {
   display: flex;
   justify-content: space-between;
@@ -1436,37 +1496,36 @@ html, body {
   font-size: 0.88rem;
 }
 .srv-preco-item:last-child { margin-bottom: 0; }
-
 .srv-preco-item span:first-child { font-weight: 600; }
 .srv-preco-item span:last-child  { font-weight: 700; }
-
 .srv-preco-item--azul    { border-left: 3px solid var(--azul); }
 .srv-preco-item--laranja { border-left: 3px solid var(--laranja); }
 .srv-preco-item--verde   { border-left: 3px solid var(--verde); }
-
 .srv-preco-item--azul    span:last-child { color: var(--azul); }
 .srv-preco-item--laranja span:last-child { color: var(--laranja); }
 .srv-preco-item--verde   span:last-child { color: var(--verde); }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .srv-lista { padding: 48px 0; }
+  .srv-cards-secao { padding: 48px 0; }
 
-  .srv-bloco {
+  .srv-card__topo {
     grid-template-columns: 1fr;
-    gap: 24px;
-    direction: ltr;
   }
 
-  .srv-bloco--invertido {
-    direction: ltr;
+  .srv-card__img {
+    height: 200px;
   }
 
-  /* Imagem sempre abaixo do texto no mobile */
-  .srv-bloco__img { order: 2; }
-  .srv-bloco__texto { order: 1; }
+  .srv-card__resumo {
+    padding: 24px 20px;
+  }
 
-  .srv-divisor { margin: 48px 0; }
+  .srv-card__titulo { font-size: 1.05rem; }
+
+  .srv-card__detalhe {
+    padding: 0 20px 24px;
+  }
 
   .srv-preco-item {
     flex-direction: column;
@@ -1965,6 +2024,26 @@ html, body {
   }
 
   .eq-modal__nome { font-size: 1.25rem; }
+}
+
+/* Hero — imagem da empilhadeira abaixo dos botões */
+.hero-maquina-img {
+  margin-top: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 560px;
+}
+.hero-maquina-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: cover;
+  max-height: 320px;
+}
+@media (max-width: 640px) {
+  .hero-maquina-img { max-width: 100%; }
+  .hero-maquina-img img { max-height: 220px; }
 }
 
 /* Galeria — wrapper que inclui foto principal + thumbs */
