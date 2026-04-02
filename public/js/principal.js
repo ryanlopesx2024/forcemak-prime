@@ -791,20 +791,55 @@ function carregarEquipamentosDestaque() {
 // ABAS DE SERVIÇOS
 // ════════════════════════════════════════════════════════════
 (function iniciarAbasServicos() {
-  const tabs   = document.querySelectorAll('.sa-tab');
+  const tabs    = Array.from(document.querySelectorAll('.sa-tab'));
   const paineis = document.querySelectorAll('.sa-painel');
   if (!tabs.length) return;
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const alvo = tab.dataset.tab;
+  let idx = 0;
 
-      tabs.forEach(t => t.classList.remove('ativo'));
-      paineis.forEach(p => p.classList.remove('ativo'));
+  function irPara(novoIdx) {
+    idx = ((novoIdx % tabs.length) + tabs.length) % tabs.length;
+    tabs.forEach(t => t.classList.remove('ativo'));
+    paineis.forEach(p => p.classList.remove('ativo'));
+    tabs[idx].classList.add('ativo');
+    const alvo = tabs[idx].dataset.tab;
+    const painel = document.getElementById('tab-' + alvo);
+    if (painel) painel.classList.add('ativo');
 
-      tab.classList.add('ativo');
-      const painel = document.getElementById('tab-' + alvo);
-      if (painel) painel.classList.add('ativo');
-    });
+    const counter = document.getElementById('sa-counter');
+    const btnPrev = document.getElementById('sa-prev');
+    const btnNext = document.getElementById('sa-next');
+    if (counter) counter.textContent = `${idx + 1} / ${tabs.length}`;
+    if (btnPrev) btnPrev.disabled = idx === 0;
+    if (btnNext) btnNext.disabled = idx === tabs.length - 1;
+  }
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => irPara(i));
   });
+
+  // Botões prev/next mobile
+  const btnPrev = document.getElementById('sa-prev');
+  const btnNext = document.getElementById('sa-next');
+  if (btnPrev) btnPrev.addEventListener('click', () => irPara(idx - 1));
+  if (btnNext) btnNext.addEventListener('click', () => irPara(idx + 1));
+
+  // Swipe no painel
+  const paineis2 = document.querySelector('.sa-paineis');
+  if (paineis2) {
+    let sx = 0, sy = 0;
+    paineis2.addEventListener('touchstart', e => {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive: true });
+    paineis2.addEventListener('touchend', e => {
+      const dx = sx - e.changedTouches[0].clientX;
+      const dy = Math.abs(sy - e.changedTouches[0].clientY);
+      if (Math.abs(dx) > 50 && Math.abs(dx) > dy) {
+        irPara(dx > 0 ? idx + 1 : idx - 1);
+      }
+    }, { passive: true });
+  }
+
+  irPara(0);
 })();
