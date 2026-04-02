@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iniciarTransicoesDePagina();
   marcarLinkAtivo();
   iniciarHeroTicker();
+  enviarCapiPageView();
   // Home
   if (document.getElementById('videos-especiais-container')) {
     carregarVideosEspeciais();
@@ -22,6 +23,31 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCarrosseis();
   }
 });
+
+// ════════════════════════════════════════════════════════════
+// META CONVERSIONS API — duplicação server-side
+// ════════════════════════════════════════════════════════════
+function enviarCapiPageView() {
+  fetch('/api/capi-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName:      'PageView',
+      eventSourceUrl: window.location.href
+    })
+  }).catch(() => {});
+}
+
+function enviarCapiContato() {
+  fetch('/api/capi-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName:      'Contact',
+      eventSourceUrl: window.location.href
+    })
+  }).catch(() => {});
+}
 
 
 // ════════════════════════════════════════════════════════════

@@ -11,10 +11,40 @@ const path      = require('path');
 const fs        = require('fs');
 const multer    = require('multer');
 const https     = require('https');
+const crypto    = require('crypto');
 
 const app          = express();
 const PORTA        = process.env.PORT || 3000;
 const JWT_SEGREDO  = process.env.JWT_SEGREDO || 'forcemak_segredo_padrao';
+const PIXEL_ID     = process.env.FACEBOOK_PIXEL_ID  || '1433120138425099';
+const CAPI_TOKEN   = process.env.FACEBOOK_ACCESS_TOKEN;
+
+// ─── Meta Conversions API ─────────────────────────────────────
+function hashSHA256(valor) {
+  if (!valor) return null;
+  return crypto.createHash('sha256').update(String(valor).toLowerCase().trim()).digest('hex');
+}
+
+function enviarEventoCAPI(eventos) {
+  if (!CAPI_TOKEN) return Promise.resolve();
+  const body = JSON.stringify({ data: eventos });
+  return new Promise((resolve) => {
+    const options = {
+      hostname: 'graph.facebook.com',
+      path:     `/v19.0/${PIXEL_ID}/events?access_token=${CAPI_TOKEN}`,
+      method:   'POST',
+      headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
+    };
+    const req = https.request(options, (res) => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => { try { resolve(JSON.parse(d)); } catch { resolve({}); } });
+    });
+    req.on('error', () => resolve({}));
+    req.write(body);
+    req.end();
+  });
+}
 
 // ─── Middlewares ─────────────────────────────────────────────
 app.use(cors());
@@ -238,6 +268,41 @@ app.post('/api/contato', (req, res) => {
     mensagem
   });
   salvarDados('contatos.json', dados);
+
+  // Dispara evento Lead na Conversions API (server-side)
+  enviarEventoCAPI([{
+    event_name:       'Lead',
+    event_time:       Math.floor(Date.now() / 1000),
+    action_source:    'website',
+    event_source_url: req.headers.referer || 'https://forcemakprime.com.br/contato.html',
+    user_data: {
+      em:                  hashSHA256(email)    ? [hashSHA256(email)]    : undefined,
+      ph:                  hashSHA256(telefone) ? [hashSHA256(telefone)] : undefined,
+      client_ip_address:   req.ip,
+      client_user_agent:   req.headers['user-agent']
+    }
+  }]).catch(() => {});
+
+  res.json({ sucesso: true });
+});
+
+// Endpoint para eventos CAPI disparados pelo browser (PageView, ViewContent, Contact)
+app.post('/api/capi-event', (req, res) => {
+  const { eventName, eventSourceUrl, customData } = req.body;
+  if (!eventName) return res.status(400).json({ erro: 'eventName obrigatório' });
+
+  enviarEventoCAPI([{
+    event_name:       eventName,
+    event_time:       Math.floor(Date.now() / 1000),
+    action_source:    'website',
+    event_source_url: eventSourceUrl || req.headers.referer,
+    user_data: {
+      client_ip_address: req.ip,
+      client_user_agent: req.headers['user-agent']
+    },
+    ...(customData ? { custom_data: customData } : {})
+  }]).catch(() => {});
+
   res.json({ sucesso: true });
 });
 
