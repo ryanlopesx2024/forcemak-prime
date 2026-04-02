@@ -1516,13 +1516,15 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   grid-column: span 2;
 }
 
-/* Hero principal — silhuetas PNG transparentes, grid 3×2 */
-.hero-abertura .hero-wm {
+/* Hero principal e serviços — silhuetas PNG transparentes, grid 3×2 */
+.hero-abertura .hero-wm,
+.servicos-abas .hero-wm {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
 }
 
-.hero-abertura .hero-wm__item {
+.hero-abertura .hero-wm__item,
+.servicos-abas .hero-wm__item {
   background-size: contain;
   background-position: center center;
   filter: none;
