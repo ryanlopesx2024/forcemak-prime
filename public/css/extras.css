@@ -1450,8 +1450,11 @@ html, body {
   height: 100%;
   min-height: 260px;
   max-height: 300px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   display: block;
+  background: var(--verde-fundo);
+  padding: 16px;
 }
 
 .sa-painel__info {

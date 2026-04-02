@@ -1516,9 +1516,9 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   grid-column: span 2;
 }
 
-/* Hero principal — silhuetas PNG transparentes, grid 2×2 */
+/* Hero principal — silhuetas PNG transparentes, grid 3×2 */
 .hero-abertura .hero-wm {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
 }
 
