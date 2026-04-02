@@ -1516,13 +1516,18 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   grid-column: span 2;
 }
 
-/* Hero principal — silhuetas com multiply (branco some, preto fica) */
+/* Hero principal — silhuetas PNG transparentes, grid 2×2 */
+.hero-abertura .hero-wm {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
 .hero-abertura .hero-wm__item {
   background-size: contain;
-  background-position: center bottom;
+  background-position: center center;
   filter: none;
-  opacity: 0.13;
-  mix-blend-mode: multiply;
+  opacity: 0.12;
+  mix-blend-mode: normal;
 }
 
 @media (max-width: 768px) {
@@ -1533,7 +1538,7 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
     grid-column: span 1;
   }
   .hero-wm__item { opacity: 0.07; }
-  .hero-abertura .hero-wm__item { opacity: 0.11; }
+  .hero-abertura .hero-wm__item { opacity: 0.1; }
 }
 
 .hero-abertura__conteudo {
