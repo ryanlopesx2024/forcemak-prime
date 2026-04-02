@@ -1365,6 +1365,60 @@ html, body {
 
 
 /* ════════════════════════════════════════════════════════════
+   QUICK-NAV — Página de Serviços
+   ════════════════════════════════════════════════════════════ */
+.srv-quicknav {
+  position: sticky;
+  top: 62px; /* altura do nav */
+  z-index: 90;
+  background: #fff;
+  border-bottom: 1px solid var(--cinza-borda);
+  box-shadow: 0 2px 12px rgba(17,65,86,0.07);
+}
+
+.srv-quicknav__inner {
+  display: flex;
+  gap: 4px;
+  padding: 10px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.srv-quicknav__inner::-webkit-scrollbar { display: none; }
+
+.srv-qn-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cinza-texto);
+  background: var(--cinza-fundo);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 20px;
+  padding: 8px 18px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+  flex-shrink: 0;
+}
+
+.srv-qn-btn:hover {
+  background: rgba(17,65,86,0.08);
+  color: var(--azul);
+  border-color: var(--azul);
+}
+
+.srv-qn-btn.ativo {
+  background: var(--azul);
+  color: #fff;
+  border-color: var(--azul);
+}
+
+@media (max-width: 768px) {
+  .srv-quicknav { top: 56px; }
+  .srv-qn-btn { font-size: 0.78rem; padding: 7px 14px; }
+}
+
+/* ════════════════════════════════════════════════════════════
    SERVIÇOS COM ABAS
    ════════════════════════════════════════════════════════════ */
 .servicos-abas {

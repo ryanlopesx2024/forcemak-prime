@@ -60,12 +60,23 @@
     </div>
   </section>
 
+  <!-- Navegação rápida entre serviços -->
+  <nav class="srv-quicknav" id="srv-quicknav" aria-label="Ir para serviço">
+    <div class="container srv-quicknav__inner">
+      <a href="#srv-busca"       class="srv-qn-btn ativo">Busca e Compra</a>
+      <a href="#srv-consultoria" class="srv-qn-btn">Consultoria</a>
+      <a href="#srv-venda"       class="srv-qn-btn">Venda do Ativo</a>
+      <a href="#srv-frota"       class="srv-qn-btn">Gestão de Frota</a>
+      <a href="#srv-key"         class="srv-qn-btn">Key Account</a>
+    </div>
+  </nav>
+
   <!-- Serviços em destaque -->
   <section style="padding:80px 0;background:#fff;">
     <div class="container">
 
       <!-- Busca Inteligente -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;" data-aos="fade-up">
+      <div id="srv-busca" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;scroll-margin-top:110px;" data-aos="fade-up">
         <div>
           <span class="secao-etiqueta">Serviço 01</span>
           <h2 class="secao-titulo">Busca e Compra de Tratores e Máquinas Pesadas</h2>
@@ -95,8 +106,8 @@
 
       <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:80px;">
 
-      <!-- Equipamento Ideal -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;" data-aos="fade-up">
+      <!-- Consultoria Estratégica -->
+      <div id="srv-consultoria" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;scroll-margin-top:110px;" data-aos="fade-up">
         <img src="/imagens/uploads/maq-259-1.-maquina-1-.png" alt="Equipamento Ideal" style="width:100%;border-radius:16px;object-fit:cover;aspect-ratio:4/3;">
         <div>
           <span class="secao-etiqueta">Serviço 02</span>
@@ -111,7 +122,7 @@
       <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:80px;">
 
       <!-- Venda do Seu Ativo -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;" data-aos="fade-up">
+      <div id="srv-venda" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;scroll-margin-top:110px;" data-aos="fade-up">
         <div>
           <span class="secao-etiqueta">Serviço 03</span>
           <h2 class="secao-titulo">Gestão de Venda de Máquinas Usadas</h2>
@@ -146,7 +157,7 @@
       <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:80px;">
 
       <!-- Mix de Frota Ideal -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;" data-aos="fade-up">
+      <div id="srv-frota" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;scroll-margin-top:110px;" data-aos="fade-up">
         <img src="/imagens/uploads/maq-115-3.jpg" alt="Mix de Frota Ideal" style="width:100%;border-radius:16px;object-fit:cover;aspect-ratio:4/3;">
         <div>
           <span class="secao-etiqueta">Serviço 04</span>
@@ -160,7 +171,7 @@
       <hr style="border:none;border-top:1px solid var(--cinza-borda);margin-bottom:80px;">
 
       <!-- Key Account Prime -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;" data-aos="fade-up">
+      <div id="srv-key" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;scroll-margin-top:110px;" data-aos="fade-up">
         <div>
           <span class="secao-etiqueta">Serviço 05</span>
           <h2 class="secao-titulo">Assessoria Key Account para Grandes Frotas</h2>
@@ -212,5 +223,31 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="/js/principal.js"></script>
+  <script>
+    // Destaca botão ativo conforme scroll
+    (function() {
+      const secoes = ['srv-busca','srv-consultoria','srv-venda','srv-frota','srv-key'];
+      const btns   = document.querySelectorAll('.srv-qn-btn');
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            btns.forEach(b => b.classList.remove('ativo'));
+            const btn = document.querySelector(`.srv-qn-btn[href="#${entry.target.id}"]`);
+            if (btn) {
+              btn.classList.add('ativo');
+              // Rola o botão para a vista na quick-nav
+              btn.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+            }
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      secoes.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) obs.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
