@@ -1540,7 +1540,27 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
     grid-column: span 1;
   }
   .hero-wm__item { opacity: 0.07; }
-  .hero-abertura .hero-wm__item { opacity: 0.1; }
+
+  /* Silhuetas no mobile — 2 colunas, mostrar só 4 itens bem grandes */
+  .hero-abertura .hero-wm,
+  .servicos-abas .hero-wm {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .hero-abertura .hero-wm__item,
+  .servicos-abas .hero-wm__item {
+    opacity: 0.15;
+    background-size: 85%;
+  }
+
+  /* Esconde os últimos 2 no mobile para as 4 primeiras ficarem grandes */
+  .hero-abertura .hero-wm__item:nth-child(5),
+  .hero-abertura .hero-wm__item:nth-child(6),
+  .servicos-abas .hero-wm__item:nth-child(5),
+  .servicos-abas .hero-wm__item:nth-child(6) {
+    display: none;
+  }
 }
 
 .hero-abertura__conteudo {
