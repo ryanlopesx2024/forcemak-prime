@@ -2027,24 +2027,25 @@ html, body {
   .eq-modal__nome { font-size: 1.25rem; }
 }
 
-/* Hero — imagem da empilhadeira abaixo dos botões */
+/* Hero — imagem da empilhadeira: só no mobile */
 .hero-maquina-img {
-  margin-top: 32px;
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 560px;
+  display: none; /* esconde no desktop */
 }
-.hero-maquina-img img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  object-fit: cover;
-  max-height: 320px;
-}
-@media (max-width: 640px) {
-  .hero-maquina-img { max-width: 100%; }
-  .hero-maquina-img img { max-height: 220px; }
+@media (max-width: 768px) {
+  .hero-maquina-img {
+    display: block;
+    margin-top: 28px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hero-maquina-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    object-fit: cover;
+    max-height: 240px;
+  }
 }
 
 /* Galeria — wrapper que inclui foto principal + thumbs */
