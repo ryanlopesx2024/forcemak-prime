@@ -252,7 +252,10 @@ function renderizarFotoGaleria() {
   const btnNext     = document.getElementById('eq-gal-next');
 
   if (galeriaFotos.length > 0) {
+    // Fade rápido na troca
+    foto.style.opacity = '0.5';
     foto.src = galeriaFotos[galeriaIdx];
+    foto.onload = () => { foto.style.opacity = '1'; };
     foto.alt = '';
     foto.style.display = 'block';
     placeholder.style.display = 'none';
@@ -306,6 +309,9 @@ function abrirEqModal(dadosEncoded) {
   }
   galeriaIdx = 0;
   renderizarFotoGaleria();
+
+  // Pré-carrega todas as imagens em segundo plano para troca instantânea
+  galeriaFotos.forEach(url => { const img = new Image(); img.src = url; });
 
   // Specs
   const specs  = document.getElementById('eq-modal-specs');
