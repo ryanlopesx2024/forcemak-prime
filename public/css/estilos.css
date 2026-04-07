@@ -753,6 +753,22 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   display: block;
 }
 
+/* 3 silhuetas na página Sobre */
+.sobre-3sil {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(17,65,86,0.07);
+}
+.sobre-3sil__item {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  opacity: 0.55;
+}
+
 .sobre-preview__badge-flutuante {
   position: absolute;
   bottom: -20px;
@@ -1170,6 +1186,10 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
   align-items: start;
 }
 
+/* Formulário aparece primeiro (coluna 1) no desktop */
+.contato-grid--form-first .contato-form-col { order: 1; }
+.contato-grid--form-first .contato-info-col { order: 2; }
+
 .contato-info__titulo {
   font-size: 1.5rem;
   font-weight: 800;
@@ -1432,8 +1452,8 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
     align-items: center;
     gap: 28px;
     transform: translateX(-100%);
-    transition: transform 0.4s ease;
-    z-index: 999;
+    transition: transform 0.18s ease;
+    z-index: 9998;
   }
 
   .nav__menu.aberto { transform: translateX(0); }

@@ -82,10 +82,11 @@
   <!-- Seção de contato -->
   <section class="contato-secao">
     <div class="container">
-      <div class="contato-grid">
+      <div class="contato-grid contato-grid--form-first">
 
+        <!-- Formulário vem primeiro no HTML (ordem visual trocada por CSS no desktop) -->
         <!-- Informações de contato -->
-        <div data-aos="fade-right">
+        <div data-aos="fade-right" class="contato-info-col">
           <h2 class="contato-info__titulo">Estamos aqui para ajudar</h2>
           <p class="contato-info__texto">
             Seja para tirar dúvidas, solicitar uma proposta ou conhecer melhor nossos serviços,
@@ -131,7 +132,7 @@
         </div>
 
         <!-- Formulário -->
-        <div data-aos="fade-left">
+        <div data-aos="fade-left" class="contato-form-col">
           <form class="formulario" id="form-contato">
             <h3 class="formulario__titulo">Envie uma mensagem</h3>
 

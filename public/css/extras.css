@@ -1400,6 +1400,15 @@ html, body {
   display: block;
 }
 
+/* Variante com silhueta em vez de foto */
+.srv-card__img--sil {
+  background-color: rgba(17, 65, 86, 0.07);
+  background-image: var(--sil);
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .srv-card__resumo {
   padding: 32px 36px;
   display: flex;
@@ -2027,24 +2036,28 @@ html, body {
   .eq-modal__nome { font-size: 1.25rem; }
 }
 
-/* Hero — imagem da empilhadeira: só no mobile */
-.hero-maquina-img {
-  display: none; /* esconde no desktop */
-}
+/* Hero — 2 silhuetas: só no mobile */
+.hero-maquina-img { display: none; }
+
 @media (max-width: 768px) {
   .hero-maquina-img {
     display: block;
     margin-top: 28px;
+  }
+  .hero-2sil {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    height: 160px;
     border-radius: 16px;
     overflow: hidden;
+    background: rgba(17, 65, 86, 0.06);
   }
-  .hero-maquina-img img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 16px;
-    object-fit: cover;
-    max-height: 240px;
+  .hero-2sil__item {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    opacity: 0.55;
   }
 }
 
