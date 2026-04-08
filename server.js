@@ -356,6 +356,55 @@ app.get('/api/facebook/metricas', verificarToken, (req, res) => {
 });
 
 
+// ╔══════════════════════════════════════════════════════════════╗
+// ║  ROTAS - VÍDEOS YOUTUBE (RSS)                                ║
+// ╚══════════════════════════════════════════════════════════════╝
+
+const YT_CHANNEL_ID  = 'UChd5w1hoWx9wbBqU_UtTp7g';
+const YT_RSS_URL     = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
+let   ytCache        = null;
+let   ytCacheTs      = 0;
+const YT_CACHE_TTL   = 15 * 60 * 1000; // 15 minutos
+
+function fetchYouTubeRSS() {
+  return new Promise((resolve, reject) => {
+    https.get(YT_RSS_URL, (res) => {
+      let xml = '';
+      res.on('data', c => xml += c);
+      res.on('end', () => {
+        try {
+          const entries = [];
+          const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
+          let m;
+          while ((m = entryRegex.exec(xml)) !== null) {
+            const block = m[1];
+            const videoId    = (block.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)     || [])[1] || '';
+            const title      = (block.match(/<title>([^<]+)<\/title>/)               || [])[1] || '';
+            const published  = (block.match(/<published>([^<]+)<\/published>/)       || [])[1] || '';
+            const thumbnail  = (block.match(/media:thumbnail url="([^"]+)"/)         || [])[1] || '';
+            if (videoId) entries.push({ videoId, title: title.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'"), published, thumbnail });
+          }
+          resolve(entries);
+        } catch (e) { reject(e); }
+      });
+    }).on('error', reject);
+  });
+}
+
+app.get('/api/videos-youtube', async (req, res) => {
+  try {
+    const agora = Date.now();
+    if (!ytCache || agora - ytCacheTs > YT_CACHE_TTL) {
+      ytCache  = await fetchYouTubeRSS();
+      ytCacheTs = agora;
+    }
+    res.json(ytCache);
+  } catch (e) {
+    res.status(500).json({ erro: 'Erro ao buscar vídeos', detalhe: e.message });
+  }
+});
+
+
 // ─── Fallback: envia index.html para rotas do frontend ────────
 app.get('*', (req, res) => {
   // Só redireciona se não for rota de API ou arquivo estático

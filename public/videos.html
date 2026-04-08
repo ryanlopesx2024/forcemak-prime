@@ -100,25 +100,29 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
-    // Para a página de vídeos, mostrar todos (sem limite de 3)
     document.addEventListener('DOMContentLoaded', () => {
       const container = document.getElementById('videos-especiais-container');
-      fetch('/api/conteudo')
+      fetch('/api/videos-youtube')
         .then(r => r.json())
-        .then(dados => {
-          const videos = dados.midia?.youtube?.videos || [];
-          if (!videos.length) { container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Nenhum vídeo disponível no momento.</p>'; return; }
-          container.innerHTML = `<div class="yt-grid">${videos.map(vid => `
-            <div class="yt-thumb" onclick="abrirModalYT('${vid}')" role="button" aria-label="Assistir vídeo">
-              <img src="https://img.youtube.com/vi/${vid}/hqdefault.jpg" alt="Vídeo Forcemak Prime" loading="lazy">
+        .then(videos => {
+          if (!Array.isArray(videos) || !videos.length) {
+            container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Nenhum vídeo disponível no momento.</p>';
+            return;
+          }
+          container.innerHTML = `<div class="yt-grid">${videos.map(v => `
+            <div class="yt-thumb" onclick="abrirModalYT('${v.videoId}')" role="button" aria-label="Assistir: ${v.title.replace(/"/g,'&quot;')}">
+              <img src="${v.thumbnail || 'https://img.youtube.com/vi/' + v.videoId + '/hqdefault.jpg'}" alt="${v.title.replace(/"/g,'&quot;')}" loading="lazy">
               <div class="yt-thumb__play">
                 <svg viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect width="68" height="48" rx="12" fill="#FF0000" opacity="0.9"/>
                   <polygon points="26,14 26,34 48,24" fill="white"/>
                 </svg>
               </div>
+              <div class="yt-thumb__titulo">${v.title}</div>
             </div>`).join('')}</div>`;
-        }).catch(() => { container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Erro ao carregar vídeos.</p>'; });
+        }).catch(() => {
+          container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Erro ao carregar vídeos.</p>';
+        });
     });
     function abrirModalYT(videoId) {
       const modal = document.getElementById('yt-modal');
