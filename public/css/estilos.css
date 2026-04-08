@@ -1458,7 +1458,12 @@ body.pagina-home .nav:not(.rolando) .nav__hamburguer span {
 
   .nav__menu.aberto { transform: translateX(0); }
   .nav__link        { font-size: 1.15rem; font-weight: 600; }
-  .nav__hamburguer  { display: flex; z-index: 1001; }
+  .nav__hamburguer  { display: flex; z-index: 9999; }
+
+  /* Garante links visíveis no menu mobile mesmo na home */
+  body.pagina-home .nav .nav__menu.aberto .nav__link       { color: rgba(255,255,255,0.85); }
+  body.pagina-home .nav .nav__menu.aberto .nav__link.ativo { color: #fff; }
+  body.pagina-home .nav .nav__menu.aberto .nav__link:hover { color: #fff; }
   /* Esconde todos os botões do nav no mobile — hamburguer ocupa o espaço */
   .nav__acoes .btn  { display: none; }
 
