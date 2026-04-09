@@ -2327,3 +2327,64 @@ html, body {
     height: 18px;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   LAUDO — grids responsivos
+   ════════════════════════════════════════════════════════════ */
+
+.laudo-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.inspecao-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .laudo-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .laudo-intro-grid img {
+    order: -1;
+    max-height: 280px;
+    object-fit: cover;
+  }
+  .inspecao-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .inspecao-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO-WM — silhuetas de fundo: tablet fix
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .hero-wm {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .hero-wm__item {
+    opacity: 0.06;
+    background-size: 80%;
+  }
+}
+
+/* Desktop: silhuetas bem distribuídas */
+@media (min-width: 769px) {
+  .hero-wm__item {
+    background-size: 70%;
+    background-position: center center;
+  }
+}
