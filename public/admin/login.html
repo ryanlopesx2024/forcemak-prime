@@ -39,6 +39,16 @@
           <input type="password" id="senha" name="senha" placeholder="••••••••" required autocomplete="current-password">
         </div>
 
+        <!-- CAPTCHA matemático -->
+        <div class="campo" id="captcha-campo">
+          <label for="captcha-resp" id="captcha-label" style="display:flex;align-items:center;gap:8px;">
+            <span id="captcha-pergunta" style="font-weight:700;color:var(--azul);font-size:1rem;"></span>
+            <span style="color:var(--cinza-texto);font-size:0.85rem;">(confirme que é humano)</span>
+          </label>
+          <input type="number" id="captcha-resp" placeholder="Resposta" required autocomplete="off"
+            style="margin-top:6px;">
+        </div>
+
         <button type="submit" class="btn btn--azul" style="width:100%;justify-content:center;margin-top:8px;" id="btn-login">
           Entrar
         </button>
@@ -57,10 +67,33 @@
       window.location.href = '/admin/painel.html';
     }
 
+    // CAPTCHA matemático
+    let captchaResposta = 0;
+
+    function gerarCaptcha() {
+      const a  = Math.floor(Math.random() * 10) + 1;
+      const b  = Math.floor(Math.random() * 10) + 1;
+      const op = Math.random() < 0.5 ? '+' : '-';
+      captchaResposta = op === '+' ? a + b : a - b;
+      document.getElementById('captcha-pergunta').textContent = `${a} ${op} ${b} =`;
+      document.getElementById('captcha-resp').value = '';
+    }
+
+    gerarCaptcha();
+
     document.getElementById('form-login').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn  = document.getElementById('btn-login');
       const erro = document.getElementById('erro-login');
+
+      // Valida CAPTCHA antes de tudo
+      const respUsuario = parseInt(document.getElementById('captcha-resp').value, 10);
+      if (respUsuario !== captchaResposta) {
+        erro.textContent   = 'Resposta do CAPTCHA incorreta. Tente novamente.';
+        erro.style.display = 'block';
+        gerarCaptcha();
+        return;
+      }
 
       btn.disabled     = true;
       btn.innerHTML    = '<span class="spinner"></span> Entrando...';
@@ -91,6 +124,7 @@
         erro.style.display = 'block';
         btn.disabled       = false;
         btn.textContent    = 'Entrar';
+        gerarCaptcha();
       }
     });
   </script>

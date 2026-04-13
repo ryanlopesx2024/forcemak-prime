@@ -2409,9 +2409,30 @@ html, body {
   text-align: center;
 }
 
+/* Versão do subtítulo — desktop mostra completo, mobile mostra curto */
+.hero-abertura__subtitulo--mobile  { display: none; }
+.hero-abertura__subtitulo--desktop { display: block; }
+
 @media (max-width: 768px) {
-  .hero-abertura__titulo {
+  .hero-abertura__subtitulo--desktop { display: none; }
+  .hero-abertura__subtitulo--mobile  { display: block; }
+
+  /* Alinha tudo à esquerda no mobile — consistente */
+  .hero-abertura__conteudo {
     text-align: left;
-    font-size: 1.35rem;
+  }
+  .hero-abertura__titulo {
+    font-size: 1.3rem;
+    line-height: 1.25;
+  }
+  .hero-abertura__subtitulo {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+  .hero-abertura__botoes {
+    justify-content: flex-start;
   }
 }
