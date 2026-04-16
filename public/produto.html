@@ -11,23 +11,147 @@
   <link rel="stylesheet" href="/css/estilos.css">
   <link rel="stylesheet" href="/css/extras.css">
   <style>
-    .produto-detalhe { padding: 120px 0 80px; }
-    .produto-detalhe__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-    .produto-detalhe__foto-principal { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 16px; display: block; background: var(--cinza-fundo); }
-    .produto-detalhe__info { position: sticky; top: 100px; }
-    .produto-detalhe__categoria { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--laranja); margin-bottom: 12px; }
-    .produto-detalhe__nome { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--preto-titulo); margin-bottom: 16px; line-height: 1.2; }
-    .produto-detalhe__desc { color: var(--cinza-texto); line-height: 1.8; margin-bottom: 24px; font-size: 0.95rem; }
-    .produto-detalhe__badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; margin-bottom: 28px; }
-    .produto-detalhe__badge--disponivel { background: rgba(34,197,94,0.1); color: #16a34a; }
-    .produto-detalhe__badge--consultar { background: rgba(100,116,139,0.1); color: #64748B; }
-    .produto-detalhe__botoes { display: flex; flex-direction: column; gap: 12px; }
-    .produto-detalhe__back { display: inline-flex; align-items: center; gap: 8px; color: var(--cinza-texto); font-size: 0.88rem; font-weight: 600; margin-bottom: 32px; transition: color 0.3s; }
-    .produto-detalhe__back:hover { color: var(--azul); }
-    @media (max-width: 768px) {
-      .produto-detalhe__grid { grid-template-columns: 1fr; gap: 32px; }
-      .produto-detalhe__info { position: static; }
-      .produto-detalhe { padding: 100px 0 60px; }
+    /* ── Layout de detalhe ── */
+    .det { padding: 110px 0 80px; background: #f8f9fb; min-height: 100vh; }
+
+    .det__back {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--cinza-texto); font-size: 0.88rem; font-weight: 600;
+      margin-bottom: 28px; transition: color 0.2s;
+    }
+    .det__back:hover { color: var(--azul); }
+
+    .det__grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Galeria */
+    .det__galeria { position: sticky; top: 90px; }
+
+    .det__foto-principal {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; border-radius: 16px;
+      background: #e8eef2; display: block;
+      transition: opacity 0.2s;
+    }
+    .det__foto-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      border-radius: 16px; background: #e8eef2;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; color: #aab5bc; text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .det__thumbs {
+      display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
+    }
+    .det__thumb {
+      width: 72px; height: 56px; border-radius: 8px;
+      overflow: hidden; cursor: pointer;
+      border: 2px solid transparent; transition: border-color 0.15s;
+      background: #e8eef2;
+    }
+    .det__thumb.ativo { border-color: var(--azul); }
+    .det__thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .det__gal-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.92); border: none; border-radius: 50%;
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.4rem; color: var(--azul);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: background 0.15s; z-index: 2;
+    }
+    .det__gal-nav--prev { left: 12px; }
+    .det__gal-nav--next { right: 12px; }
+    .det__gal-wrap { position: relative; }
+
+    /* Painel de informações */
+    .det__info {
+      background: #fff; border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: 0 4px 24px rgba(17,65,86,0.07);
+    }
+
+    .det__categoria {
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--laranja); margin-bottom: 10px;
+    }
+
+    .det__nome {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 900;
+      color: var(--preto-titulo); margin-bottom: 12px; line-height: 1.15;
+    }
+
+    /* Badges de condição */
+    .det__badges { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+
+    .det__badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 0.78rem; font-weight: 700;
+    }
+    .det__badge--disponivel { background: rgba(34,197,94,0.1); color: #16a34a; }
+    .det__badge--indisponivel { background: rgba(100,116,139,0.1); color: #64748B; }
+    .det__badge--seminova  { background: rgba(34,197,94,0.12); color: #15803d; }
+    .det__badge--oportunidade { background: rgba(243,115,59,0.12); color: var(--laranja); }
+    .det__badge--nova      { background: rgba(17,65,86,0.1); color: var(--azul); }
+    .det__badge--usada     { background: rgba(100,116,139,0.1); color: #64748b; }
+
+    /* Preço */
+    .det__preco {
+      font-size: 2rem; font-weight: 900; color: var(--azul);
+      margin: 16px 0 24px; line-height: 1;
+    }
+    .det__preco small {
+      font-size: 0.88rem; font-weight: 600; color: var(--cinza-texto);
+      display: block; margin-bottom: 4px;
+    }
+
+    /* Specs grid */
+    .det__specs {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 24px;
+    }
+    .det__spec {
+      background: #f4f7f9; border-radius: 10px; padding: 12px 14px;
+    }
+    .det__spec__label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--cinza-texto); display: block; margin-bottom: 4px;
+    }
+    .det__spec__valor {
+      font-size: 0.95rem; font-weight: 700; color: var(--preto-titulo);
+    }
+
+    /* Descrição */
+    .det__desc {
+      font-size: 0.9rem; color: var(--cinza-texto);
+      line-height: 1.75; margin-bottom: 28px;
+      padding-top: 16px; border-top: 1px solid var(--cinza-borda);
+    }
+
+    /* CTAs */
+    .det__ctas { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Seção "Mais equipamentos" */
+    .det__mais {
+      margin-top: 72px; padding-top: 48px;
+      border-top: 1px solid var(--cinza-borda);
+    }
+    .det__mais h2 {
+      font-size: 1.2rem; font-weight: 800; color: var(--preto-titulo); margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .det__grid { grid-template-columns: 1fr; gap: 28px; }
+      .det__galeria { position: static; }
+      .det { padding: 90px 0 60px; }
+    }
+    @media (max-width: 520px) {
+      .det__info { padding: 24px 20px; border-radius: 16px; }
+      .det__specs { grid-template-columns: 1fr; gap: 8px; }
+      .det__preco { font-size: 1.6rem; }
     }
   </style>
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1433120138425099');fbq('track','PageView');</script>
@@ -55,7 +179,7 @@
       </ul>
       <div class="nav__acoes">
         <a href="https://wa.me/5551996050777" target="_blank" rel="noopener"
-           class="btn btn--laranja btn--pequeno">WhatsApp</a>
+           class="btn btn--laranja btn--pequeno">💬 WhatsApp</a>
         <button class="nav__hamburguer" id="nav-hamburguer" aria-label="Abrir menu">
           <span></span><span></span><span></span>
         </button>
@@ -63,48 +187,102 @@
     </div>
   </nav>
 
-  <section class="produto-detalhe" style="background:#fff;">
+  <section class="det">
     <div class="container">
-      <a href="/produtos.html" class="produto-detalhe__back">
+
+      <a href="/produtos.html" class="det__back">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Voltar aos Equipamentos
       </a>
 
-      <div id="produto-loading" style="text-align:center;padding:60px;color:var(--cinza-texto);">Carregando equipamento...</div>
+      <div id="det-loading" style="text-align:center;padding:80px;color:var(--cinza-texto);">
+        Carregando equipamento...
+      </div>
 
-      <div class="produto-detalhe__grid" id="produto-conteudo" style="display:none;">
-        <div>
-          <img src="" alt="" class="produto-detalhe__foto-principal" id="produto-foto">
-        </div>
-        <div class="produto-detalhe__info">
-          <p class="produto-detalhe__categoria" id="produto-categoria"></p>
-          <h1 class="produto-detalhe__nome" id="produto-nome"></h1>
-          <p class="produto-detalhe__badge" id="produto-status"></p>
-          <p class="produto-detalhe__desc" id="produto-desc"></p>
-          <div class="produto-detalhe__botoes">
-            <a id="produto-wa-btn" href="#" target="_blank" rel="noopener"
-               class="btn btn--laranja btn--grande"
-               onclick="fbq&&fbq('track','Contact')">
-              Consultar Disponibilidade no WhatsApp
-            </a>
-            <a href="/laudo.html" class="btn btn--outline btn--grande">
-              Solicitar Laudo Cautelar
-            </a>
+      <div id="det-conteudo" style="display:none;">
+        <div class="det__grid">
+
+          <!-- GALERIA -->
+          <div class="det__galeria">
+            <div class="det__gal-wrap">
+              <img src="" alt="" class="det__foto-principal" id="det-foto" style="display:none;">
+              <div class="det__foto-placeholder" id="det-placeholder"></div>
+              <button class="det__gal-nav det__gal-nav--prev" id="det-prev" style="display:none;">&#8249;</button>
+              <button class="det__gal-nav det__gal-nav--next" id="det-next" style="display:none;">&#8250;</button>
+            </div>
+            <div class="det__thumbs" id="det-thumbs"></div>
           </div>
+
+          <!-- INFORMAÇÕES -->
+          <div class="det__info">
+            <p class="det__categoria" id="det-categoria"></p>
+            <h1 class="det__nome" id="det-nome"></h1>
+            <div class="det__badges" id="det-badges"></div>
+            <div class="det__preco" id="det-preco" style="display:none;">
+              <small>Valor</small>
+              <span id="det-preco-valor"></span>
+            </div>
+            <div class="det__specs" id="det-specs"></div>
+            <p class="det__desc" id="det-desc"></p>
+            <div class="det__ctas">
+              <a id="det-wa-btn" href="#" target="_blank" rel="noopener"
+                 class="btn btn--laranja btn--grande"
+                 onclick="fbq&&fbq('track','Contact')">
+                💬 Consultar no WhatsApp
+              </a>
+              <a href="/laudo.html" class="btn btn--outline btn--grande">
+                Solicitar Laudo Cautelar
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <div id="produto-nao-encontrado" style="display:none;text-align:center;padding:60px;">
-        <p style="color:var(--cinza-texto);font-size:1.1rem;">Equipamento não encontrado.</p>
-        <a href="/produtos.html" class="btn btn--azul" style="margin-top:20px;">Ver todos os equipamentos</a>
+      <div id="det-nao-encontrado" style="display:none;text-align:center;padding:80px;">
+        <p style="color:var(--cinza-texto);font-size:1.1rem;margin-bottom:20px;">Equipamento não encontrado.</p>
+        <a href="/produtos.html" class="btn btn--azul">Ver todos os equipamentos</a>
       </div>
+
     </div>
   </section>
 
+  <!-- Rodapé -->
   <footer class="rodape">
     <div class="container">
-      <div class="rodape__base" style="padding:24px 0;text-align:center;">
-        <p>&copy; 2024 Forcemak Prime. Todos os direitos reservados.</p>
+      <div class="rodape__conteudo">
+        <div class="rodape__marca">
+          <div class="rodape__logo-texto">
+            <span class="rodape__logo-nome">FORCEMAK</span>
+            <span class="rodape__logo-prime">PRIME</span>
+          </div>
+          <p>Negocie com segurança, realize com confiança.</p>
+        </div>
+        <div class="rodape__links">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="/">Início</a></li>
+            <li><a href="/sobre.html">Sobre</a></li>
+            <li><a href="/produtos.html">Equipamentos</a></li>
+            <li><a href="/contato.html">Contato</a></li>
+          </ul>
+        </div>
+        <div class="rodape__links">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="/servicos.html">Busca Inteligente</a></li>
+            <li><a href="/servicos.html">Venda do Ativo</a></li>
+            <li><a href="/laudo.html">Laudo Cautelar</a></li>
+          </ul>
+        </div>
+        <div class="rodape__contato">
+          <h4>Contato</h4>
+          <p>comercial@forcemak.com.br</p>
+          <p>(51) 99605-0777</p>
+        </div>
+      </div>
+      <div class="rodape__base">
+        <p>&copy; 2024 Forcemak Prime — Forcemak Equipamentos LTDA. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
@@ -112,59 +290,168 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="/js/principal.js"></script>
   <script>
+  (function() {
+    let fotos    = [];
+    let fotoIdx  = 0;
+
+    function renderFoto() {
+      const fotoEl   = document.getElementById('det-foto');
+      const phEl     = document.getElementById('det-placeholder');
+      const prevBtn  = document.getElementById('det-prev');
+      const nextBtn  = document.getElementById('det-next');
+      const thumbsEl = document.getElementById('det-thumbs');
+
+      if (fotos.length > 0) {
+        fotoEl.style.opacity = '0.5';
+        fotoEl.src = fotos[fotoIdx];
+        fotoEl.onload = () => { fotoEl.style.opacity = '1'; };
+        fotoEl.style.display = 'block';
+        phEl.style.display = 'none';
+      } else {
+        fotoEl.style.display = 'none';
+        phEl.style.display = 'flex';
+      }
+
+      const multi = fotos.length > 1;
+      prevBtn.style.display = multi ? 'flex' : 'none';
+      nextBtn.style.display = multi ? 'flex' : 'none';
+
+      if (multi) {
+        thumbsEl.innerHTML = fotos.map((url, i) => `
+          <button class="det__thumb ${i === fotoIdx ? 'ativo' : ''}" onclick="irParaFoto(${i})">
+            <img src="${url}" alt="Foto ${i+1}">
+          </button>
+        `).join('');
+      } else {
+        thumbsEl.innerHTML = '';
+      }
+    }
+
+    window.irParaFoto = function(idx) {
+      fotoIdx = idx;
+      renderFoto();
+    };
+
+    document.getElementById('det-prev').addEventListener('click', () => {
+      fotoIdx = (fotoIdx - 1 + fotos.length) % fotos.length;
+      renderFoto();
+    });
+    document.getElementById('det-next').addEventListener('click', () => {
+      fotoIdx = (fotoIdx + 1) % fotos.length;
+      renderFoto();
+    });
+
+    function formatarPreco(valor) {
+      if (!valor) return null;
+      const str = String(valor).replace(/[^\d,\.]/g, '').replace(',', '.');
+      const num = parseFloat(str);
+      if (!isNaN(num) && num > 0) {
+        return 'R$ ' + num.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      }
+      return String(valor);
+    }
+
     (async function() {
       const params = new URLSearchParams(window.location.search);
-      const id = parseInt(params.get('id'));
-      const loading = document.getElementById('produto-loading');
-      const conteudo = document.getElementById('produto-conteudo');
-      const naoEncontrado = document.getElementById('produto-nao-encontrado');
+      const id     = parseInt(params.get('id'));
+      const loading    = document.getElementById('det-loading');
+      const conteudo   = document.getElementById('det-conteudo');
+      const naoEncontrado = document.getElementById('det-nao-encontrado');
 
       if (!id) { loading.style.display = 'none'; naoEncontrado.style.display = 'block'; return; }
 
       try {
-        const res = await fetch('/api/produtos');
+        const res  = await fetch('/api/produtos');
         const lista = await res.json();
         const p = lista.find(x => x.id === id);
 
         if (!p) { loading.style.display = 'none'; naoEncontrado.style.display = 'block'; return; }
 
-        // Atualiza título da página
+        // Título da página
         document.title = `${p.nome} | Forcemak Prime`;
 
-        // Preenche os campos
-        document.getElementById('produto-categoria').textContent = p.categoria;
-        document.getElementById('produto-nome').textContent = p.nome;
-        document.getElementById('produto-desc').textContent = p.descricao || 'Entre em contato para mais informações sobre este equipamento.';
+        // Categoria e nome
+        document.getElementById('det-categoria').textContent = p.categoria;
+        document.getElementById('det-nome').textContent      = p.nome;
+        document.getElementById('det-placeholder').textContent = p.categoria;
 
-        const foto = document.getElementById('produto-foto');
-        if (p.imagem) {
-          foto.src = p.imagem;
-          foto.alt = p.nome;
-        } else {
-          foto.style.display = 'none';
-        }
+        // Galeria
+        fotos = (p.imagens && p.imagens.length > 0) ? p.imagens
+              : p.imagem ? [p.imagem]
+              : [];
+        fotoIdx = 0;
+        renderFoto();
 
-        const status = document.getElementById('produto-status');
+        // Badges
+        const badgesEl = document.getElementById('det-badges');
+        const badgesHTML = [];
+
         if (p.estoque > 0) {
-          status.textContent = 'Disponível em estoque';
-          status.className = 'produto-detalhe__badge produto-detalhe__badge--disponivel';
+          badgesHTML.push(`<span class="det__badge det__badge--disponivel">✔ Disponível em estoque</span>`);
         } else {
-          status.textContent = 'Consultar disponibilidade';
-          status.className = 'produto-detalhe__badge produto-detalhe__badge--consultar';
+          badgesHTML.push(`<span class="det__badge det__badge--indisponivel">Consultar disponibilidade</span>`);
         }
 
-        const waBtn = document.getElementById('produto-wa-btn');
-        const msg = encodeURIComponent(`Olá! Tenho interesse no equipamento: ${p.nome} (ID ${p.id}). Poderia me dar mais informações?`);
-        waBtn.href = `https://wa.me/5551996050777?text=${msg}`;
+        if (p.condicao) {
+          const mapa = { seminova: 'seminova', oportunidade: 'oportunidade', nova: 'nova', usada: 'usada' };
+          const chave = (p.condicao || '').toLowerCase();
+          const cls   = mapa[chave] || 'usada';
+          badgesHTML.push(`<span class="det__badge det__badge--${cls}">${p.condicao}</span>`);
+        }
+        if (p.destaque) {
+          badgesHTML.push(`<span class="det__badge" style="background:rgba(243,115,59,0.1);color:var(--laranja);">★ Destaque</span>`);
+        }
+        badgesEl.innerHTML = badgesHTML.join('');
 
-        loading.style.display = 'none';
-        conteudo.style.display = 'grid';
+        // Preço
+        const precoFormatado = formatarPreco(p.valor);
+        if (precoFormatado) {
+          document.getElementById('det-preco-valor').textContent = precoFormatado;
+          document.getElementById('det-preco').style.display = 'block';
+        }
+
+        // Specs
+        const specsEl = document.getElementById('det-specs');
+        const campos = [
+          { label: 'Ano',          valor: p.ano },
+          { label: 'Horímetro',    valor: p.horimetro },
+          { label: 'Localização',  valor: p.localizacao },
+          { label: 'Condição',     valor: p.condicao },
+          { label: 'Marca',        valor: p.marca },
+          { label: 'Tipo',         valor: p.tipo },
+          { label: 'Unidade',      valor: p.unidade },
+          { label: 'Proprietário', valor: p.proprietario },
+        ].filter(c => c.valor);
+
+        specsEl.innerHTML = campos.map(c => `
+          <div class="det__spec">
+            <span class="det__spec__label">${c.label}</span>
+            <span class="det__spec__valor">${c.valor}</span>
+          </div>
+        `).join('');
+
+        // Descrição
+        const descEl = document.getElementById('det-desc');
+        descEl.textContent = p.descricao || 'Entre em contato para mais informações sobre este equipamento.';
+
+        // WhatsApp
+        const msg = encodeURIComponent(`Olá! Tenho interesse no equipamento: ${p.nome} (ID ${p.id}). Poderia me passar mais informações?`);
+        document.getElementById('det-wa-btn').href = `https://wa.me/5551996050777?text=${msg}`;
+
+        // Pré-carrega imagens restantes
+        fotos.forEach(url => { const img = new Image(); img.src = url; });
+
+        loading.style.display  = 'none';
+        conteudo.style.display = 'block';
+
+        if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome, content_category: p.categoria });
 
       } catch(e) {
         loading.style.display = 'none';
         naoEncontrado.style.display = 'block';
       }
     })();
+  })();
   </script>
 </body>
 </html>

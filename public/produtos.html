@@ -125,6 +125,36 @@
             </div>
           </div>
 
+          <!-- Marca -->
+          <div class="filtro-grupo">
+            <p class="filtro-grupo__titulo">Marca</p>
+            <input type="text" id="filtro-marca" class="busca-input" placeholder="Ex: Caterpillar, JCB...">
+          </div>
+
+          <!-- Faixa de preço -->
+          <div class="filtro-grupo">
+            <p class="filtro-grupo__titulo">Faixa de Preço (R$)</p>
+            <div class="filtro-range-grid">
+              <input type="number" id="filtro-preco-min" class="filtro-range-input" placeholder="Mín">
+              <input type="number" id="filtro-preco-max" class="filtro-range-input" placeholder="Máx">
+            </div>
+          </div>
+
+          <!-- Ano -->
+          <div class="filtro-grupo">
+            <p class="filtro-grupo__titulo">Ano de Fabricação</p>
+            <div class="filtro-range-grid">
+              <input type="number" id="filtro-ano-min" class="filtro-range-input" placeholder="De" min="1980" max="2030">
+              <input type="number" id="filtro-ano-max" class="filtro-range-input" placeholder="Até" min="1980" max="2030">
+            </div>
+          </div>
+
+          <!-- Horas -->
+          <div class="filtro-grupo">
+            <p class="filtro-grupo__titulo">Horímetro máximo (h)</p>
+            <input type="number" id="filtro-horas-max" class="busca-input" placeholder="Ex: 5000">
+          </div>
+
           <!-- Toggle estoque -->
           <div id="toggle-estoque" class="toggle-estoque">
             <span class="toggle-estoque__label">
@@ -144,10 +174,12 @@
             <p class="resultados-contagem" id="contagem-resultados">Carregando...</p>
             <select class="ordenar-select" id="ordenar-select">
               <option value="padrao">Padrão</option>
+              <option value="destaque">Destaques primeiro</option>
+              <option value="preco-menor">Menor preço</option>
+              <option value="preco-maior">Maior preço</option>
+              <option value="ano-novo">Mais novo</option>
               <option value="nome-az">Nome A→Z</option>
               <option value="nome-za">Nome Z→A</option>
-              <option value="estoque-maior">Maior estoque</option>
-              <option value="destaque">Destaques primeiro</option>
             </select>
           </div>
           <div class="produtos-grid" id="produtos-grid">
