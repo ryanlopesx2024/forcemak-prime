@@ -246,12 +246,42 @@
               </div>
               <div class="campo-linha">
                 <div class="campo-admin">
+                  <label>Marca</label>
+                  <select id="prod-marca">
+                    <option value="">Não informado</option>
+                    <option value="Caterpillar">Caterpillar (CAT)</option>
+                    <option value="JCB">JCB</option>
+                    <option value="Case">Case</option>
+                    <option value="Komatsu">Komatsu</option>
+                    <option value="Volvo">Volvo</option>
+                    <option value="Hyundai">Hyundai</option>
+                    <option value="Liebherr">Liebherr</option>
+                    <option value="Doosan">Doosan</option>
+                    <option value="New Holland">New Holland</option>
+                    <option value="John Deere">John Deere</option>
+                    <option value="Bobcat">Bobcat</option>
+                    <option value="Terex">Terex</option>
+                    <option value="Hitachi">Hitachi</option>
+                    <option value="Sany">Sany</option>
+                    <option value="XCMG">XCMG</option>
+                    <option value="Massey Ferguson">Massey Ferguson</option>
+                    <option value="Valtra">Valtra</option>
+                    <option value="Outras">Outras</option>
+                  </select>
+                </div>
+                <div class="campo-admin">
+                  <label>Peso Operacional</label>
+                  <input type="text" id="prod-peso" placeholder="Ex: 20t ou 20.000 kg">
+                </div>
+              </div>
+              <div class="campo-linha">
+                <div class="campo-admin">
                   <label>Localização</label>
                   <input type="text" id="prod-localizacao" placeholder="Ex: Goiás - GO">
                 </div>
                 <div class="campo-admin">
-                  <label>Valor</label>
-                  <input type="text" id="prod-valor" placeholder="Ex: R$ 280.000 ou Consultar">
+                  <label>Valor (R$)</label>
+                  <input type="text" id="prod-valor" placeholder="Ex: 280000 ou Consultar">
                 </div>
               </div>
               <div class="campo-linha">
@@ -259,9 +289,10 @@
                   <label>Condição</label>
                   <select id="prod-condicao">
                     <option value="">Não informado</option>
-                    <option value="Excelente">Excelente</option>
-                    <option value="Bom estado">Bom estado</option>
-                    <option value="Regular">Regular</option>
+                    <option value="Seminova">Seminova</option>
+                    <option value="Oportunidade">Oportunidade</option>
+                    <option value="Nova">Nova</option>
+                    <option value="Usada">Usada</option>
                     <option value="Para recuperação">Para recuperação</option>
                   </select>
                 </div>

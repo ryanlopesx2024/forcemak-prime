@@ -15,6 +15,7 @@ const estado = {
   anoMax:       '',
   horas:        '',
   marca:        '',
+  pesoMax:      '',
   todos:        []  // cache dos produtos
 };
 
@@ -104,7 +105,8 @@ function iniciarEventos() {
   bindFiltroInput('filtro-ano-min',    v => { estado.anoMin   = v; });
   bindFiltroInput('filtro-ano-max',    v => { estado.anoMax   = v; });
   bindFiltroInput('filtro-horas-max',  v => { estado.horas    = v; });
-  bindFiltroInput('filtro-marca',      v => { estado.marca    = v.toLowerCase(); });
+  bindFiltroInput('filtro-marca',      v => { estado.marca    = v; });   // select: valor exato
+  bindFiltroInput('filtro-peso-max',   v => { estado.pesoMax  = v; });
 
   const btnLimpar = document.getElementById('btn-limpar-filtros');
   if (btnLimpar) {
@@ -129,8 +131,9 @@ function limparFiltros() {
   estado.anoMax         = '';
   estado.horas          = '';
   estado.marca          = '';
+  estado.pesoMax        = '';
 
-  ['busca-input','filtro-preco-min','filtro-preco-max','filtro-ano-min','filtro-ano-max','filtro-horas-max','filtro-marca'].forEach(id => {
+  ['busca-input','filtro-preco-min','filtro-preco-max','filtro-ano-min','filtro-ano-max','filtro-horas-max','filtro-marca','filtro-peso-max'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -180,8 +183,14 @@ function filtrarProdutos() {
       if (h !== null && h > parseFloat(estado.horas)) return false;
     }
 
-    // Marca
-    if (estado.marca && !(p.marca || '').toLowerCase().includes(estado.marca)) return false;
+    // Marca (select — comparação exata)
+    if (estado.marca && (p.marca || '') !== estado.marca) return false;
+
+    // Peso máximo (em toneladas — extrai número do campo)
+    if (estado.pesoMax) {
+      const pesoNum = extrairNumero(p.peso);
+      if (pesoNum !== null && pesoNum > parseFloat(estado.pesoMax)) return false;
+    }
 
     return true;
   });
@@ -250,10 +259,11 @@ function gerarCardHTML(p, i) {
 
   // Specs visíveis no card
   const specs = [];
+  if (p.marca)       specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Marca</span><strong>${p.marca}</strong></div>`);
   if (p.ano)         specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Ano</span><strong>${p.ano}</strong></div>`);
   if (p.horimetro)   specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Horímetro</span><strong>${p.horimetro}</strong></div>`);
   if (p.localizacao) specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Local</span><strong>${p.localizacao}</strong></div>`);
-  if (p.marca)       specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Marca</span><strong>${p.marca}</strong></div>`);
+  if (p.peso)        specs.push(`<div class="mkt-spec"><span class="mkt-spec__label">Peso</span><strong>${p.peso}</strong></div>`);
 
   const specsHTML = specs.length ? `<div class="mkt-specs">${specs.join('')}</div>` : '';
 

@@ -224,7 +224,9 @@ async function carregarProdutosAdmin() {
       <div class="produto-admin-item">
         <div class="produto-admin-item__info">
           <div class="produto-admin-item__nome">${p.nome}</div>
-          <div class="produto-admin-item__categoria">${p.categoria} ${p.destaque ? '⭐' : ''}</div>
+          <div class="produto-admin-item__categoria">
+            ${p.categoria}${p.marca ? ` · ${p.marca}` : ''}${p.ano ? ` · ${p.ano}` : ''}${p.valor ? ` · ${p.valor}` : ''}${p.destaque ? ' ⭐' : ''}
+          </div>
         </div>
         <div class="produto-admin-item__acoes">
           <button class="btn-admin btn-admin--outline" onclick="editarProduto(${p.id})">
@@ -294,6 +296,8 @@ document.getElementById('form-produto').addEventListener('submit', async (e) => 
     nome:        document.getElementById('prod-nome').value,
     categoria:   document.getElementById('prod-categoria').value,
     descricao:   document.getElementById('prod-descricao').value,
+    marca:       document.getElementById('prod-marca').value,
+    peso:        document.getElementById('prod-peso').value,
     ano:         document.getElementById('prod-ano').value,
     horimetro:   document.getElementById('prod-horimetro').value,
     localizacao: document.getElementById('prod-localizacao').value,
@@ -348,6 +352,8 @@ async function editarProduto(id) {
     document.getElementById('prod-categoria').value   = prod.categoria;
     document.getElementById('prod-descricao').value   = prod.descricao   || '';
     document.getElementById('prod-estoque').value     = prod.estoque ?? 1;
+    document.getElementById('prod-marca').value       = prod.marca       || '';
+    document.getElementById('prod-peso').value        = prod.peso        || '';
     document.getElementById('prod-ano').value         = prod.ano         || '';
     document.getElementById('prod-horimetro').value   = prod.horimetro   || '';
     document.getElementById('prod-localizacao').value = prod.localizacao || '';
