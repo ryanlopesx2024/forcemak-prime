@@ -16,122 +16,109 @@
   <link rel="stylesheet" href="/css/extras.css">
   <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1433120138425099');fbq('track','PageView');</script>
   <style>
-    /* ── Wrapper breadcrumb ── */
-    .ck-breadcrumb-wrap {
-      background: #f5f5f0;
-      padding: 14px 0;
-    }
-    .ck-breadcrumb-wrap .breadcrumb a { color: #555; }
-    .ck-breadcrumb-wrap .breadcrumb span { color: #888; }
-
-    /* ── Documento CheckMaq ── */
-    .ck-doc-wrap {
-      background: #f5f5f0;
-      padding: 40px 0 60px;
-    }
-    .ck-doc {
-      max-width: 900px;
-      margin: 0 auto;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.13);
-    }
-
-    /* Header preto */
-    .ck-doc__header {
-      background: #0d0d0d;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 28px;
-    }
-    .ck-doc__header-brand {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: -0.02em;
-    }
-    .ck-doc__header-logo {
-      height: 72px;
-      width: auto;
-    }
-
-    /* Body 2 colunas */
-    .ck-doc__body {
+    /* ── Hero CheckMaq ── */
+    .ck-hero {
       background: #fff;
+      border-bottom: 3px solid #f5c700;
+      padding: 64px 0 56px;
+    }
+    .ck-hero__grid {
       display: grid;
-      grid-template-columns: 1fr 260px;
-      border-left: 6px solid #f5c700;
+      grid-template-columns: 1fr 320px;
+      gap: 48px;
+      align-items: center;
     }
-    @media (max-width: 700px) {
-      .ck-doc__body { grid-template-columns: 1fr; }
-      .ck-doc__right { border-top: 3px solid #f5c700; }
+    @media (max-width: 800px) {
+      .ck-hero__grid { grid-template-columns: 1fr; }
+      .ck-hero__img-col { display: flex; justify-content: center; }
     }
-
-    .ck-doc__left {
-      padding: 32px 28px;
-    }
-    .ck-doc__left h2 {
-      font-size: 1.25rem;
-      font-weight: 900;
+    .ck-hero__eyebrow {
+      display: inline-block;
+      background: #f5c700;
       color: #0d0d0d;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 4px;
       margin-bottom: 16px;
     }
-    .ck-doc__left p {
-      font-size: 0.875rem;
-      color: #333;
+    .ck-hero__titulo {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 900;
+      color: #0d0d0d;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .ck-hero__titulo span { color: #f5c700; }
+    .ck-hero__texto {
+      color: #555;
+      font-size: 0.95rem;
       line-height: 1.75;
       margin-bottom: 12px;
     }
-
-    .ck-doc__right {
-      padding: 28px 20px;
-      background: #fafaf8;
-      border-left: 1px solid #e8e8e0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-    .ck-doc__right p {
-      font-size: 0.8rem;
-      color: #333;
-      line-height: 1.65;
-      text-align: center;
-    }
-    .ck-doc__right p strong {
-      color: #0d0d0d;
-    }
-    .ck-doc__seal {
-      width: 150px;
+    .ck-hero__logo {
+      width: 100%;
+      max-width: 280px;
       height: auto;
-      margin: 4px 0;
+    }
+    .ck-hero__seal {
+      width: 160px;
+      height: auto;
+      display: block;
+      margin: 20px auto 0;
     }
 
-    /* Rodapé amarelo */
-    .ck-doc__footer {
-      background: #f5c700;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 28px;
-      flex-wrap: wrap;
-      gap: 8px;
+    /* ── Seção sobre CheckMaq ── */
+    .ck-sobre {
+      padding: 72px 0;
+      background: #f5f5f0;
     }
-    .ck-doc__footer-logo {
-      height: 36px;
-      width: auto;
+    .ck-sobre__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
     }
-    .ck-doc__footer-contato {
-      font-size: 0.78rem;
-      font-weight: 600;
+    @media (max-width: 760px) {
+      .ck-sobre__grid { grid-template-columns: 1fr; }
+    }
+    .ck-sobre__titulo {
+      font-size: 1.3rem;
+      font-weight: 800;
       color: #0d0d0d;
-      text-align: right;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #f5c700;
+      display: inline-block;
     }
-    .ck-doc__footer-contato a {
-      color: #0d0d0d;
-      text-decoration: none;
+    .ck-sobre__texto {
+      color: #444;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      margin-bottom: 12px;
     }
+    .ck-sobre__selo-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+      border: 1px solid #e8e8e0;
+    }
+    .ck-sobre__selo-box img {
+      width: 160px;
+      height: auto;
+      margin: 12px auto;
+      display: block;
+    }
+    .ck-sobre__selo-texto {
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .ck-sobre__selo-texto strong { color: #0d0d0d; }
     .ck-doc__cta {
       text-align: center;
       margin-top: 28px;
@@ -296,64 +283,47 @@
     </div>
   </nav>
 
-  <!-- Breadcrumb -->
-  <div class="ck-breadcrumb-wrap">
+  <!-- Hero -->
+  <section class="ck-hero">
     <div class="container">
-      <nav class="breadcrumb" aria-label="Caminho">
+      <nav class="breadcrumb" aria-label="Caminho" style="margin-bottom:28px;">
         <a href="/">Início</a><span>/</span><span>Laudo Cautelar</span>
       </nav>
-    </div>
-  </div>
-
-  <!-- Documento CheckMaq -->
-  <section class="ck-doc-wrap">
-    <div class="container">
-      <div class="ck-doc" data-aos="fade-up">
-
-        <!-- Header preto -->
-        <div class="ck-doc__header">
-          <span class="ck-doc__header-brand">CheckMaq</span>
-          <img src="/imagens/uploads/checkmaq-laudo.png" alt="CheckMaq Laudo Cautelar" class="ck-doc__header-logo">
+      <div class="ck-hero__grid" data-aos="fade-up">
+        <div>
+          <span class="ck-hero__eyebrow">CheckMaq</span>
+          <h1 class="ck-hero__titulo">Laudo Cautelar<br>para <span>Máquinas Pesadas</span></h1>
+          <p class="ck-hero__texto">Nosso propósito é oferecer segurança, transparência e credibilidade a todos os envolvidos nas negociações de máquinas: concessionárias, locadores, construtoras, compradores, vendedores, seguradoras e financeiras.</p>
+          <p class="ck-hero__texto">Com metodologia própria e know-how técnico, realizamos avaliações completas de confiabilidade, histórico técnico, documentação e autenticidade dos equipamentos, assegurando que cada transação ocorra com total clareza.</p>
+          <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20solicitar%20um%20Laudo%20Cautelar"
+             class="btn btn--azul" target="_blank" rel="noopener" style="margin-top:8px;"
+             onclick="fbq&&fbq('track','Lead')">Solicitar Laudo Cautelar</a>
         </div>
-
-        <!-- Body -->
-        <div class="ck-doc__body">
-          <!-- Coluna esquerda — textos -->
-          <div class="ck-doc__left">
-            <h2>CheckMaq Laudo Cautelar</h2>
-            <p><strong>Duas trajetórias sólidas. Um mesmo propósito: elevar o padrão de confiança no mercado de máquinas pesadas.</strong></p>
-            <p>A CheckMaq nasceu da união de duas empresas com mais de uma década de experiência nos segmentos da linha pesada. De um lado, uma empresa com profundo domínio técnico e de engenharia, responsável por análises precisas e criteriosas. Do outro, uma empresa com vasta experiência comercial, atuante na venda e aquisição de equipamentos, conhecedora das demandas reais do mercado.</p>
-            <p>Dessa união estratégica surgiu uma nova força: a CheckMaq, empresa especializada em Laudo Cautelar para máquinas e equipamentos da linha amarela.</p>
-            <p>Nosso propósito é oferecer segurança, transparência e credibilidade a todos os envolvidos nas negociações de máquinas: concessionárias, locadores, construtoras, compradores, vendedores, seguradoras e financeiras.</p>
-            <p>Com metodologia própria e know-how técnico, realizamos avaliações completas de confiabilidade, histórico técnico, documentação e autenticidade dos equipamentos, assegurando que cada transação ocorra com total clareza.</p>
-            <p>A CheckMaq surge, portanto, não apenas como um serviço de laudo, mas como um novo padrão de credibilidade no mercado da linha amarela, o elo de confiança entre quem vende, quem compra e quem garante o investimento.</p>
-          </div>
-
-          <!-- Coluna direita — selo -->
-          <div class="ck-doc__right">
-            <p>Procure sempre por equipamentos que exibem o nosso selo de qualidade.</p>
-            <p>Ele é mais do que um símbolo, é a garantia de segurança, credibilidade e confiança.</p>
-            <p>Com ele, você tem a certeza de estar adquirindo um equipamento cuidadosamente avaliado, de uma empresa que valoriza cada detalhe e preza pela excelência em tudo o que oferece.</p>
-            <img src="/imagens/uploads/checkmaq-aprovado.png" alt="CheckMaq Aprovado" class="ck-doc__seal">
-            <p><strong>Nosso selo é o seu sinal verde para um ótimo negócio, com total tranquilidade e confiança.</strong></p>
-          </div>
-        </div>
-
-        <!-- Rodapé amarelo -->
-        <div class="ck-doc__footer">
-          <img src="/imagens/uploads/checkmaq-laudo.png" alt="CheckMaq" class="ck-doc__footer-logo">
-          <div class="ck-doc__footer-contato">
-            <div>Contato: <a href="https://wa.me/5551996050777">(51) 99605-0777</a></div>
-            <div><a href="mailto:checkmaqlaudo@gmail.com">checkmaqlaudo@gmail.com</a></div>
-          </div>
+        <div class="ck-hero__img-col">
+          <img src="/imagens/uploads/checkmaq-laudo.png" alt="CheckMaq Laudo Cautelar" class="ck-hero__logo">
+          <img src="/imagens/uploads/checkmaq-aprovado.png" alt="CheckMaq Aprovado" class="ck-hero__seal">
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- CTA abaixo do card -->
-      <div class="ck-doc__cta">
-        <a href="https://wa.me/5551996050777?text=Olá%2C%20quero%20solicitar%20um%20Laudo%20Cautelar"
-           class="btn btn--azul" target="_blank" rel="noopener"
-           onclick="fbq&&fbq('track','Lead')">Solicitar Laudo Cautelar</a>
+  <!-- Sobre a CheckMaq -->
+  <section class="ck-sobre">
+    <div class="container">
+      <div class="ck-sobre__grid" data-aos="fade-up">
+        <div>
+          <h2 class="ck-sobre__titulo">Sobre a CheckMaq</h2>
+          <p class="ck-sobre__texto"><strong>Duas trajetórias sólidas. Um mesmo propósito: elevar o padrão de confiança no mercado de máquinas pesadas.</strong></p>
+          <p class="ck-sobre__texto">A CheckMaq nasceu da união de duas empresas com mais de uma década de experiência nos segmentos da linha pesada. De um lado, uma empresa com profundo domínio técnico e de engenharia. Do outro, uma empresa com vasta experiência comercial, conhecedora das demandas reais do mercado.</p>
+          <p class="ck-sobre__texto">Dessa união surgiu a CheckMaq — empresa especializada em Laudo Cautelar para máquinas e equipamentos da linha amarela.</p>
+          <p class="ck-sobre__texto">A CheckMaq surge não apenas como um serviço de laudo, mas como um novo padrão de credibilidade no mercado, o elo de confiança entre quem vende, quem compra e quem garante o investimento.</p>
+        </div>
+        <div class="ck-sobre__selo-box">
+          <p class="ck-sobre__selo-texto">Procure sempre por equipamentos que exibem o nosso selo de qualidade. Ele é mais do que um símbolo — é a garantia de segurança, credibilidade e confiança.</p>
+          <img src="/imagens/uploads/checkmaq-aprovado.png" alt="CheckMaq Aprovado">
+          <p class="ck-sobre__selo-texto">Com ele, você adquire um equipamento cuidadosamente avaliado por uma empresa que preza pela excelência em tudo o que oferece.</p>
+          <p class="ck-sobre__selo-texto"><strong>Nosso selo é o seu sinal verde para um ótimo negócio, com total tranquilidade e confiança.</strong></p>
+        </div>
       </div>
     </div>
   </section>
