@@ -49,11 +49,27 @@ function enviarEventoCAPI(eventos) {
 // ─── Middlewares ─────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
-// ─── Upload de imagens ────────────────────────────────────────
-const uploadsDir = path.join(__dirname, 'public', 'imagens', 'uploads');
+// ─── Disco persistente (Render Disk em /var/data) ────────────
+const DISK_BASE   = fs.existsSync('/var/data') ? '/var/data' : path.join(__dirname);
+const uploadsDir  = path.join(DISK_BASE, 'uploads');
+const dadosDir    = path.join(DISK_BASE, 'dados');
+
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+if (!fs.existsSync(dadosDir))   fs.mkdirSync(dadosDir,   { recursive: true });
+
+// Migração: copia dados do repo para o disco na primeira inicialização
+const dadosLocais = path.join(__dirname, 'dados');
+if (dadosLocais !== dadosDir && fs.existsSync(dadosLocais)) {
+  fs.readdirSync(dadosLocais).forEach(arq => {
+    const dest = path.join(dadosDir, arq);
+    if (!fs.existsSync(dest)) fs.copyFileSync(path.join(dadosLocais, arq), dest);
+  });
+}
+
+// Serve imagens do disco persistente em /imagens/uploads (antes do static geral)
+app.use('/imagens/uploads', express.static(uploadsDir));
+app.use(express.static(path.join(__dirname, 'public')));
 
 const armazenamento = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsDir),
@@ -71,14 +87,14 @@ const upload = multer({
 
 // ─── Utilitários de dados ─────────────────────────────────────
 function lerDados(arquivo) {
-  const caminho = path.join(__dirname, 'dados', arquivo);
+  const caminho = path.join(dadosDir, arquivo);
   if (!fs.existsSync(caminho)) return {};
   try { return JSON.parse(fs.readFileSync(caminho, 'utf8')); }
   catch { return {}; }
 }
 
 function salvarDados(arquivo, dados) {
-  const caminho = path.join(__dirname, 'dados', arquivo);
+  const caminho = path.join(dadosDir, arquivo);
   fs.writeFileSync(caminho, JSON.stringify(dados, null, 2), 'utf8');
 }
 
@@ -232,6 +248,15 @@ app.patch('/api/produtos/:id/estoque', verificarToken, (req, res) => {
 
 app.delete('/api/produtos/:id', verificarToken, (req, res) => {
   const dados = lerDados('produtos.json');
+  const produto = (dados.produtos || []).find(p => p.id == req.params.id);
+  // Remove imagens do disco ao deletar produto
+  if (produto && Array.isArray(produto.imagens)) {
+    produto.imagens.forEach(url => {
+      const nome = path.basename(url);
+      const arq  = path.join(uploadsDir, nome);
+      if (fs.existsSync(arq)) fs.unlinkSync(arq);
+    });
+  }
   dados.produtos = (dados.produtos || []).filter(p => p.id != req.params.id);
   salvarDados('produtos.json', dados);
   res.json({ sucesso: true });
@@ -245,6 +270,15 @@ app.delete('/api/produtos/:id', verificarToken, (req, res) => {
 app.post('/api/upload', verificarToken, upload.single('imagem'), (req, res) => {
   if (!req.file) return res.status(400).json({ erro: 'Nenhuma imagem recebida' });
   res.json({ url: '/imagens/uploads/' + req.file.filename });
+});
+
+app.delete('/api/upload', verificarToken, (req, res) => {
+  const { url } = req.body;
+  if (!url) return res.status(400).json({ erro: 'URL não informada' });
+  const nome = path.basename(url);
+  const arq  = path.join(uploadsDir, nome);
+  if (fs.existsSync(arq)) fs.unlinkSync(arq);
+  res.json({ sucesso: true });
 });
 
 
