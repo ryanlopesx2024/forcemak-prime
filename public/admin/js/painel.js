@@ -245,6 +245,15 @@ async function carregarProdutosAdmin() {
 }
 
 // Upload de fotos — slots 1 a 10
+async function deletarImagemServidor(url) {
+  if (!url || !url.startsWith('/imagens/uploads/')) return;
+  await fetch('/api/upload', {
+    method:  'DELETE',
+    headers: cabecalhoAuth(),
+    body:    JSON.stringify({ url })
+  }).catch(() => {});
+}
+
 function criarUploadHandler(num) {
   const fileInput = document.getElementById(`prod-foto-file-${num}`);
   if (!fileInput) return;
@@ -254,6 +263,9 @@ function criarUploadHandler(num) {
     const status = document.getElementById('upload-status');
     status.textContent = `Enviando foto ${num}...`;
     status.style.color = '#999';
+    // Deleta imagem anterior do disco se existir
+    const urlAntiga = document.getElementById(`prod-imagem-${num}`).value;
+    if (urlAntiga) await deletarImagemServidor(urlAntiga);
     const formData = new FormData();
     formData.append('imagem', file);
     try {
@@ -280,6 +292,18 @@ function criarUploadHandler(num) {
   });
 }
 for (let i = 1; i <= 10; i++) criarUploadHandler(i);
+
+async function removerFotoSlot(num) {
+  const urlEl   = document.getElementById(`prod-imagem-${num}`);
+  const preview = document.getElementById(`prod-foto-preview-${num}`);
+  const fileEl  = document.getElementById(`prod-foto-file-${num}`);
+  if (!urlEl.value) return;
+  await deletarImagemServidor(urlEl.value);
+  urlEl.value          = '';
+  fileEl.value         = '';
+  preview.style.display = 'none';
+  mostrarToast('Foto removida', 'sucesso');
+}
 
 // Salvar produto (criar ou editar)
 document.getElementById('form-produto').addEventListener('submit', async (e) => {

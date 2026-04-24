@@ -309,87 +309,16 @@
                 <small style="color:#999;font-size:0.75rem;display:block;margin-bottom:10px;">JPG, PNG, WEBP — máx. 5MB por foto. A primeira foto é a capa.</small>
                 <span id="upload-status" style="font-size:0.82rem;color:#999;display:block;margin-bottom:8px;"></span>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                  <!-- Slots 1 a 6 -->
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 1 — Capa</span>
-                    <input type="file" id="prod-foto-file-1" accept="image/*">
-                    <input type="hidden" id="prod-imagem-1">
-                    <div id="prod-foto-preview-1" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-1" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 2</span>
-                    <input type="file" id="prod-foto-file-2" accept="image/*">
-                    <input type="hidden" id="prod-imagem-2">
-                    <div id="prod-foto-preview-2" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-2" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 3</span>
-                    <input type="file" id="prod-foto-file-3" accept="image/*">
-                    <input type="hidden" id="prod-imagem-3">
-                    <div id="prod-foto-preview-3" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-3" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 4</span>
-                    <input type="file" id="prod-foto-file-4" accept="image/*">
-                    <input type="hidden" id="prod-imagem-4">
-                    <div id="prod-foto-preview-4" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-4" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 5</span>
-                    <input type="file" id="prod-foto-file-5" accept="image/*">
-                    <input type="hidden" id="prod-imagem-5">
-                    <div id="prod-foto-preview-5" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-5" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 6</span>
-                    <input type="file" id="prod-foto-file-6" accept="image/*">
-                    <input type="hidden" id="prod-imagem-6">
-                    <div id="prod-foto-preview-6" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-6" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 7</span>
-                    <input type="file" id="prod-foto-file-7" accept="image/*">
-                    <input type="hidden" id="prod-imagem-7">
-                    <div id="prod-foto-preview-7" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-7" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 8</span>
-                    <input type="file" id="prod-foto-file-8" accept="image/*">
-                    <input type="hidden" id="prod-imagem-8">
-                    <div id="prod-foto-preview-8" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-8" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 9</span>
-                    <input type="file" id="prod-foto-file-9" accept="image/*">
-                    <input type="hidden" id="prod-imagem-9">
-                    <div id="prod-foto-preview-9" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-9" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
-                  <div class="foto-slot-admin">
-                    <span class="foto-slot-admin__label">Foto 10</span>
-                    <input type="file" id="prod-foto-file-10" accept="image/*">
-                    <input type="hidden" id="prod-imagem-10">
-                    <div id="prod-foto-preview-10" style="display:none;margin-top:6px;">
-                      <img id="prod-foto-img-10" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;">
-                    </div>
-                  </div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 1 — Capa</span><input type="file" id="prod-foto-file-1" accept="image/*"><input type="hidden" id="prod-imagem-1"><div id="prod-foto-preview-1" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-1" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(1)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 2</span><input type="file" id="prod-foto-file-2" accept="image/*"><input type="hidden" id="prod-imagem-2"><div id="prod-foto-preview-2" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-2" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(2)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 3</span><input type="file" id="prod-foto-file-3" accept="image/*"><input type="hidden" id="prod-imagem-3"><div id="prod-foto-preview-3" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-3" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(3)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 4</span><input type="file" id="prod-foto-file-4" accept="image/*"><input type="hidden" id="prod-imagem-4"><div id="prod-foto-preview-4" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-4" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(4)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 5</span><input type="file" id="prod-foto-file-5" accept="image/*"><input type="hidden" id="prod-imagem-5"><div id="prod-foto-preview-5" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-5" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(5)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 6</span><input type="file" id="prod-foto-file-6" accept="image/*"><input type="hidden" id="prod-imagem-6"><div id="prod-foto-preview-6" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-6" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(6)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 7</span><input type="file" id="prod-foto-file-7" accept="image/*"><input type="hidden" id="prod-imagem-7"><div id="prod-foto-preview-7" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-7" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(7)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 8</span><input type="file" id="prod-foto-file-8" accept="image/*"><input type="hidden" id="prod-imagem-8"><div id="prod-foto-preview-8" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-8" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(8)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 9</span><input type="file" id="prod-foto-file-9" accept="image/*"><input type="hidden" id="prod-imagem-9"><div id="prod-foto-preview-9" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-9" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(9)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
+                  <div class="foto-slot-admin"><span class="foto-slot-admin__label">Foto 10</span><input type="file" id="prod-foto-file-10" accept="image/*"><input type="hidden" id="prod-imagem-10"><div id="prod-foto-preview-10" style="display:none;margin-top:6px;position:relative;display:none;"><img id="prod-foto-img-10" src="" alt="" style="max-height:80px;border-radius:6px;border:1px solid #ddd;object-fit:cover;display:block;"><button type="button" onclick="removerFotoSlot(10)" style="position:absolute;top:-8px;right:-8px;background:#ef4444;color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:0.85rem;cursor:pointer;line-height:1;padding:0;">×</button></div></div>
                 </div>
               </div>
 
