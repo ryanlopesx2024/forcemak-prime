@@ -50,6 +50,17 @@ function enviarCapiContato() {
   }).catch(() => {});
 }
 
+function enviarCapiLead() {
+  fetch('/api/capi-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName:      'Lead',
+      eventSourceUrl: window.location.href
+    })
+  }).catch(() => {});
+}
+
 
 // ════════════════════════════════════════════════════════════
 // NAVEGAÇÃO
@@ -327,6 +338,8 @@ if (formContato) {
         msgEl.className   = 'formulario__mensagem sucesso';
         msgEl.textContent = '✅ Mensagem enviada com sucesso! Em breve entraremos em contato.';
         formContato.reset();
+        if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+        enviarCapiContato();
       } else {
         throw new Error(json.erro);
       }
@@ -948,7 +961,13 @@ function mostrarCaptchaWA(destino) {
         } else {
           window.location.href = destino;
         }
-        if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+        const isLaudo = window.location.pathname.includes('laudo');
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Contact');
+          if (isLaudo) fbq('track', 'Lead');
+        }
+        enviarCapiContato();
+        if (isLaudo) enviarCapiLead();
       }, 600);
     }, 1400);
   });
