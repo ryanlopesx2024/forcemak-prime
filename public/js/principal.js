@@ -61,6 +61,18 @@ function enviarCapiLead() {
   }).catch(() => {});
 }
 
+function enviarCapiViewContent(nome, categoria) {
+  fetch('/api/capi-event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      eventName:      'ViewContent',
+      eventSourceUrl: window.location.href,
+      customData:     { content_name: nome || '', content_category: categoria || '' }
+    })
+  }).catch(() => {});
+}
+
 
 // ════════════════════════════════════════════════════════════
 // NAVEGAÇÃO
@@ -710,7 +722,8 @@ function abrirEqModal(dadosEncoded) {
 
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome });
+  if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome, content_category: p.categoria });
+  enviarCapiViewContent(p.nome, p.categoria);
 }
 
 function fecharEqModal(e) {

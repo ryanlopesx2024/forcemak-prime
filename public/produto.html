@@ -705,6 +705,7 @@
         conteudo.style.display = 'block';
 
         if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: p.nome, content_category: p.categoria });
+        if (typeof enviarCapiViewContent === 'function') enviarCapiViewContent(p.nome, p.categoria);
 
       } catch(e) {
         loading.style.display = 'none';
