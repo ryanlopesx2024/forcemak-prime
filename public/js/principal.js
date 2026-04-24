@@ -929,12 +929,13 @@ function mostrarCaptchaWA(destino) {
     if (clicado) return;
     clicado = true;
 
-    // Fase 1: spinner
+    // Abre a janela imediatamente no gesto do usuário (evita bloqueio de popup)
+    const waJanela = window.open('', '_blank');
+
     checkbox.classList.add('loading');
     spinner.style.display = 'block';
 
     setTimeout(() => {
-      // Fase 2: checkmark verde
       spinner.style.display = 'none';
       checkbox.classList.remove('loading');
       checkbox.classList.add('done');
@@ -942,7 +943,11 @@ function mostrarCaptchaWA(destino) {
 
       setTimeout(() => {
         removerCaptchaWA(overlay);
-        window.open(destino, '_blank', 'noopener');
+        if (waJanela) {
+          waJanela.location.href = destino;
+        } else {
+          window.location.href = destino;
+        }
         if (typeof fbq !== 'undefined') fbq('track', 'Contact');
       }, 600);
     }, 1400);
