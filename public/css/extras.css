@@ -10,6 +10,16 @@ html, body {
   overflow-x: hidden;
 }
 
+/* Botões largos no detalhe dos serviços no mobile */
+@media (max-width: 768px) {
+  .srv-card__detalhe .btn {
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+}
+
 /* ════════════════════════════════════════════════════════════
    DOIS PAINÉIS — HERO PRINCIPAL (Mobile-first)
    ════════════════════════════════════════════════════════════ */
