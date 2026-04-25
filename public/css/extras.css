@@ -2698,7 +2698,6 @@ html, body {
   position: absolute;
   top: 10px; left: 10px;
   display: flex; gap: 6px; flex-wrap: wrap;
-  z-index: 1;
 }
 
 .mkt-badge {
@@ -2786,10 +2785,21 @@ html, body {
    CHECKMAQ SEAL
    ════════════════════════════════════════════════════════════ */
 .mkt-badge-checkmaq {
-  width: 70px;
-  height: 70px;
+  width: 68px;
+  height: 68px;
   object-fit: contain;
+  border-radius: 50%;
   mix-blend-mode: multiply;
+  display: block;
+}
+
+/* Fallback: se o browser não suportar multiply, adiciona fundo escuro atrás */
+@supports not (mix-blend-mode: multiply) {
+  .mkt-badge-checkmaq {
+    background: rgba(0,0,0,0.45);
+    border-radius: 50%;
+    padding: 3px;
+  }
 }
 
 .pdet-checkmaq-seal {
