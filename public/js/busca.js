@@ -68,29 +68,43 @@ function montarFiltrosCategorias() {
     cb.addEventListener('change', () => {
       if (cb.checked) estado.categorias.add(cb.value);
       else            estado.categorias.delete(cb.value);
+      atualizarFiltrosMarcas(); // recalcula marcas disponíveis para categoria
       renderizarProdutos(true);
     });
   });
 }
 
-// ─── Monta checkboxes de marcas dinamicamente ────────────────
+// ─── Marcas: geração inicial ──────────────────────────────────
 function montarFiltrosMarcas() {
+  atualizarFiltrosMarcas();
+}
+
+// ─── Marcas: recalcula conforme categorias selecionadas ──────
+function atualizarFiltrosMarcas() {
   const container = document.getElementById('filtros-marcas');
   if (!container) return;
 
+  // Base: apenas produtos das categorias selecionadas (ou todos)
+  const base = estado.categorias.size > 0
+    ? estado.todos.filter(p => estado.categorias.has(p.categoria))
+    : estado.todos;
+
   const contagem = {};
-  estado.todos.forEach(p => {
+  base.forEach(p => {
     if (p.marca) contagem[p.marca] = (contagem[p.marca] || 0) + 1;
   });
 
   const marcas = Object.keys(contagem).sort();
   const grupo  = container.closest('.filtro-grupo');
-  if (!marcas.length) { if (grupo) grupo.style.display = 'none'; return; }
+  if (!marcas.length) { if (grupo) grupo.style.display = 'none'; estado.marcas.clear(); return; }
   if (grupo) grupo.style.display = '';
+
+  // Remove marcas selecionadas que não existem mais na base
+  estado.marcas.forEach(m => { if (!contagem[m]) estado.marcas.delete(m); });
 
   container.innerHTML = marcas.map(m => `
     <label class="filtro-opcao">
-      <input type="checkbox" value="${m}" class="filtro-marca-check">
+      <input type="checkbox" value="${m}" class="filtro-marca-check"${estado.marcas.has(m) ? ' checked' : ''}>
       <span class="filtro-opcao__label">${m}</span>
       <span class="filtro-opcao__contagem">${contagem[m]}</span>
     </label>
