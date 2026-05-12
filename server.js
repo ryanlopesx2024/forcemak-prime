@@ -264,10 +264,10 @@ app.delete('/api/produtos/:id', verificarToken, (req, res) => {
 
 
 // ╔══════════════════════════════════════════════════════════════╗
-// ║  MARCA D'ÁGUA — CheckMaq (top-right, branca, semi-opaca)     ║
+// ║  MARCA D'ÁGUA — CheckMaq (top-right, selo preto transparente) ║
 // ╚══════════════════════════════════════════════════════════════╝
 
-const LOGO_PATH = path.join(__dirname, 'public', 'imagens', 'uploads', 'checkmaq-laudo.png');
+const LOGO_PATH = path.join(__dirname, 'public', 'imagens', 'uploads', 'checkmaq-aprovado-transparente.png');
 
 async function aplicarMarcaDagua(imagemPath) {
   const ext = path.extname(imagemPath).toLowerCase();
@@ -280,21 +280,27 @@ async function aplicarMarcaDagua(imagemPath) {
     const imagem = await Jimp.read(imagemPath);
     const logo   = await Jimp.read(LOGO_PATH);
 
-    // Redimensiona logo para ~13% da largura da foto
-    const logoW = Math.round(imagem.bitmap.width * 0.13);
+    // Redimensiona o selo para ~17% da largura da foto.
+    const logoW = Math.round(imagem.bitmap.width * 0.17);
     logo.resize({ w: logoW });
 
-    // Converte pixels escuros em branco semi-transparente (marca d'água clara)
+    // Fundo claro fica transparente; todo desenho visivel fica preto.
     logo.scan(0, 0, logo.bitmap.width, logo.bitmap.height, (px, py, idx) => {
       const r   = logo.bitmap.data[idx];
       const g   = logo.bitmap.data[idx + 1];
       const b   = logo.bitmap.data[idx + 2];
       const lum = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-      // Pixels escuros → opaco; pixels claros → transparente
-      logo.bitmap.data[idx]     = 255;
-      logo.bitmap.data[idx + 1] = 255;
-      logo.bitmap.data[idx + 2] = 255;
-      logo.bitmap.data[idx + 3] = Math.round((255 - lum) * 0.72);
+      const alphaOriginal = logo.bitmap.data[idx + 3];
+
+      if (lum > 238 || alphaOriginal < 8) {
+        logo.bitmap.data[idx + 3] = 0;
+        return;
+      }
+
+      logo.bitmap.data[idx]     = 0;
+      logo.bitmap.data[idx + 1] = 0;
+      logo.bitmap.data[idx + 2] = 0;
+      logo.bitmap.data[idx + 3] = Math.round(alphaOriginal * 0.86);
     });
 
     // Canto superior direito, margem de 2% da largura

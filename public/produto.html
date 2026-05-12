@@ -355,7 +355,7 @@
               <button class="pdet__nav pdet__nav--prev" id="pdet-prev" style="display:none;" aria-label="Foto anterior">&#8249;</button>
               <button class="pdet__nav pdet__nav--next" id="pdet-next" style="display:none;" aria-label="Próxima foto">&#8250;</button>
               <span class="pdet__gal-counter" id="pdet-counter" style="display:none;"></span>
-              <img src="/imagens/uploads/checkmaq-aprovado.png" id="pdet-seal" class="pdet-seal-watermark" alt="CheckMaq Aprovado" style="display:none;">
+              <img src="/imagens/uploads/checkmaq-aprovado-transparente.png" id="pdet-seal" class="pdet-seal-watermark" alt="CheckMaq Aprovado" style="display:none;">
             </div>
 
             <!-- Thumbnails -->
@@ -714,10 +714,8 @@
           const cls = { seminova:'semi', oportunidade:'opor', nova:'nova', usada:'off' }[(p.condicao||'').toLowerCase()] || 'off';
           badgesHTML.push(`<span class="pdet__badge pdet__badge--${cls}">${p.condicao}</span>`);
         }
-        if (p.destaque) {
-          const sealEl = document.getElementById('pdet-seal');
-          if (sealEl) sealEl.style.display = 'block';
-        }
+        const sealEl = document.getElementById('pdet-seal');
+        if (sealEl) sealEl.style.display = fotos.length ? 'block' : 'none';
         badgesEl.innerHTML = badgesHTML.join('');
 
         // Preço

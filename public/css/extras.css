@@ -2785,23 +2785,30 @@ html, body {
    CHECKMAQ — marca d'água na foto do produto
    ════════════════════════════════════════════════════════════ */
 .mkt-seal-watermark,
-.pdet-seal-watermark {
+.pdet-seal-watermark,
+.eq-modal-seal-watermark {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 76px;
-  height: 76px;
+  top: 8px;
+  right: 8px;
+  width: 74px;
+  height: 74px;
   object-fit: contain;
-  opacity: 0.75;
-  filter: brightness(0) invert(1);
+  opacity: 0.88;
   pointer-events: none;
   z-index: 2;
 }
 
 .pdet-seal-watermark {
-  width: 100px;
-  height: 100px;
-  top: 8px;
-  right: 8px;
+  width: 112px;
+  height: 112px;
+  top: 12px;
+  right: 12px;
+}
+
+.eq-modal-seal-watermark {
+  width: 96px;
+  height: 96px;
+  top: 14px;
+  right: 14px;
 }
 

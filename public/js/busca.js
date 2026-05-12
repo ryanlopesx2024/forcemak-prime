@@ -350,8 +350,8 @@ function gerarCardHTML(p, i) {
 
   // Badges de condição (esquerda)
   const badgeCondicao = p.condicao ? badgeCondicaoHTML(p.condicao) : '';
-  // Marca d'água CheckMaq (canto superior direito)
-  const sealWatermark = p.destaque ? '<img src="/imagens/uploads/checkmaq-aprovado.png" class="mkt-seal-watermark" alt="CheckMaq Aprovado">' : '';
+  // Marca d'agua CheckMaq (canto superior direito)
+  const sealWatermark = p.imagem ? '<img src="/imagens/uploads/checkmaq-aprovado-transparente.png" class="mkt-seal-watermark" alt="CheckMaq Aprovado">' : '';
 
   const precoHTML = p.valor
     ? `<div class="mkt-preco">${formatarPreco(p.valor)}</div>`
