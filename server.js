@@ -280,8 +280,8 @@ async function aplicarMarcaDagua(imagemPath) {
     const imagem = await Jimp.read(imagemPath);
     const logo   = await Jimp.read(LOGO_PATH);
 
-    // Redimensiona o selo para ~17% da largura da foto.
-    const logoW = Math.round(imagem.bitmap.width * 0.17);
+    // Redimensiona o selo para ~9% da largura da foto.
+    const logoW = Math.round(imagem.bitmap.width * 0.09);
     logo.resize({ w: logoW });
 
     // Fundo claro fica transparente; todo desenho visivel fica preto.
