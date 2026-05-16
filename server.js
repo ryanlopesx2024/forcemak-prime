@@ -322,7 +322,6 @@ async function aplicarMarcaDagua(imagemPath) {
 
 app.post('/api/upload', verificarToken, upload.single('imagem'), async (req, res) => {
   if (!req.file) return res.status(400).json({ erro: 'Nenhuma imagem recebida' });
-  await aplicarMarcaDagua(req.file.path);
   res.json({ url: '/imagens/uploads/' + req.file.filename });
 });
 

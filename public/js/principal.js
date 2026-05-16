@@ -414,6 +414,7 @@ async function carregarProdutos(filtro = 'Todos') {
             ? `<img src="${p.imagem}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;">`
             : `<div style="width:100%;height:100%;background:var(--cinza-fundo);display:flex;align-items:center;justify-content:center;"><span style="font-size:1.5rem;color:var(--cinza-texto);font-weight:600;">${p.categoria}</span></div>`
           }
+          ${p.imagem ? '<img src="/imagens/uploads/checkmaq-aprovado-transparente.png" class="mkt-seal-watermark" alt="CheckMaq Aprovado">' : ''}
         </div>
         <div class="produto-card__corpo">
           <span class="produto-card__categoria">${p.categoria}</span>
@@ -725,6 +726,8 @@ function abrirEqModal(dadosEncoded) {
   } else {
     foto.style.display = 'none'; ph.style.display = 'flex';
   }
+  const seal = document.querySelector('.eq-modal-seal-watermark');
+  if (seal) seal.style.display = p.imagem ? 'block' : 'none';
   const status = document.getElementById('eq-modal-status');
   if (p.estoque > 0) {
     status.textContent = 'Disponível em estoque';
@@ -846,6 +849,7 @@ function carregarEquipamentosDestaque() {
             <div class="eq-destaque-card__img-placeholder" style="display:none;">
               <span>${p.categoria}</span>
             </div>
+            <img src="/imagens/uploads/checkmaq-aprovado-transparente.png" class="mkt-seal-watermark" alt="CheckMaq Aprovado">
             <div class="eq-destaque-card__body">
               <span class="eq-destaque-card__cat">${p.categoria}</span>
               <h3 class="eq-destaque-card__nome">${p.nome}</h3>

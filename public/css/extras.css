@@ -2781,4 +2781,33 @@ html, body {
 }
 .filtro-grupo { margin-bottom: 18px; }
 
+/* CheckMaq: selo pequeno em overlay, para aparecer em fotos antigas sem duplicar no upload. */
+.mkt-seal-watermark,
+.pdet-seal-watermark,
+.eq-modal-seal-watermark {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  opacity: 0.82;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.pdet-seal-watermark {
+  width: 68px;
+  height: 68px;
+  top: 12px;
+  right: 12px;
+}
+
+.eq-modal-seal-watermark {
+  width: 58px;
+  height: 58px;
+  top: 14px;
+  right: 14px;
+}
+
 
