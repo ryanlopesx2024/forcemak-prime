@@ -451,13 +451,23 @@ app.get('/api/facebook/metricas', verificarToken, (req, res) => {
 
 const YT_CHANNEL_ID  = 'UChd5w1hoWx9wbBqU_UtTp7g';
 const YT_RSS_URL     = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL_ID}`;
+const YT_CHANNEL_URL = 'https://www.youtube.com/@forcemak/videos';
 let   ytCache        = null;
 let   ytCacheTs      = 0;
 const YT_CACHE_TTL   = 15 * 60 * 1000; // 15 minutos
 
+function decodificarTextoYouTube(texto = '') {
+  return texto
+    .replace(/\\u0026/g, '&')
+    .replace(/\\"/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
 function fetchYouTubeRSS() {
   return new Promise((resolve, reject) => {
-    https.get(YT_RSS_URL, (res) => {
+    https.get(YT_RSS_URL, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
       let xml = '';
       res.on('data', c => xml += c);
       res.on('end', () => {
@@ -471,8 +481,58 @@ function fetchYouTubeRSS() {
             const title      = (block.match(/<title>([^<]+)<\/title>/)               || [])[1] || '';
             const published  = (block.match(/<published>([^<]+)<\/published>/)       || [])[1] || '';
             const thumbnail  = (block.match(/media:thumbnail url="([^"]+)"/)         || [])[1] || '';
-            if (videoId) entries.push({ videoId, title: title.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'"), published, thumbnail });
+            if (videoId) entries.push({ videoId, title: decodificarTextoYouTube(title), published, thumbnail });
           }
+          resolve(entries);
+        } catch (e) { reject(e); }
+      });
+    }).on('error', reject);
+  });
+}
+
+function fetchYouTubeChannelPage() {
+  return new Promise((resolve, reject) => {
+    const options = {
+      headers: {
+        'User-Agent': 'Mozilla/5.0',
+        'Accept-Language': 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7'
+      }
+    };
+
+    https.get(YT_CHANNEL_URL, options, (res) => {
+      let html = '';
+      res.on('data', c => html += c);
+      res.on('end', () => {
+        try {
+          const entries = [];
+          const vistos = new Set();
+          const videoRegex = /"videoId":"([^"]+)"/g;
+          let m;
+
+          while ((m = videoRegex.exec(html)) !== null && entries.length < 30) {
+            const videoId = m[1];
+            if (vistos.has(videoId)) continue;
+            vistos.add(videoId);
+
+            const bloco = html.slice(m.index, m.index + 15000);
+            const title =
+              (bloco.match(/"lockupMetadataViewModel":\{"title":\{"content":"([^"]+)"/) || [])[1] ||
+              (bloco.match(/"title":\{"runs":\[\{"text":"([^"]+)"/) || [])[1] ||
+              '';
+            const published =
+              (bloco.match(/"metadataRows":\[\{"metadataParts":\[\{"text":\{"content":"[^"]*"\}\},\{"text":\{"content":"([^"]+)"/) || [])[1] ||
+              '';
+
+            if (title) {
+              entries.push({
+                videoId,
+                title: decodificarTextoYouTube(title),
+                published: decodificarTextoYouTube(published),
+                thumbnail: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+              });
+            }
+          }
+
           resolve(entries);
         } catch (e) { reject(e); }
       });
@@ -498,8 +558,9 @@ app.get('/api/videos-youtube', async (req, res) => {
   try {
     const agora = Date.now();
     if (!ytCache || agora - ytCacheTs > YT_CACHE_TTL) {
-      const videosRss = await fetchYouTubeRSS();
-      ytCache = videosRss.length ? videosRss : videosYoutubeFallback();
+      const videosRss = await fetchYouTubeRSS().catch(() => []);
+      const videosCanal = videosRss.length ? videosRss : await fetchYouTubeChannelPage().catch(() => []);
+      ytCache = videosCanal.length ? videosCanal : videosYoutubeFallback();
       ytCacheTs = agora;
     }
     res.json(ytCache);

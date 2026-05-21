@@ -104,6 +104,18 @@
               </div>
               <div class="yt-thumb__titulo">${v.title}</div>
             </div>`).join('')}</div>`;
+
+          const params = new URLSearchParams(window.location.search);
+          const videoParam = params.get('video') || params.get('v');
+          if (videoParam) {
+            const videoInicial = videoParam.toLowerCase() === 'latest'
+              ? videos[0].videoId
+              : videoParam;
+
+            if (/^[a-zA-Z0-9_-]{6,}$/.test(videoInicial)) {
+              abrirModalYT(videoInicial);
+            }
+          }
         }).catch(() => {
           container.innerHTML = '<p style="text-align:center;color:var(--cinza-texto);">Erro ao carregar vídeos.</p>';
         });
