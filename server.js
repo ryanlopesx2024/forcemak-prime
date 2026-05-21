@@ -454,7 +454,7 @@ const YT_RSS_URL     = `https://www.youtube.com/feeds/videos.xml?channel_id=${YT
 const YT_CHANNEL_URL = 'https://www.youtube.com/@forcemak/videos';
 let   ytCache        = null;
 let   ytCacheTs      = 0;
-const YT_CACHE_TTL   = 15 * 60 * 1000; // 15 minutos
+const YT_CACHE_TTL   = 2 * 60 * 1000; // 2 minutos
 
 function decodificarTextoYouTube(texto = '') {
   return texto
