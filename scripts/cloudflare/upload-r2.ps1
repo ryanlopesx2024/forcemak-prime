@@ -36,7 +36,7 @@ foreach ($pasta in $pastas) {
     $contentType = Get-ContentType $_.FullName
     $objectPath = "$Bucket/$($_.Name)"
     Write-Host "Enviando $($_.Name) para R2..." -ForegroundColor Cyan
-    npx wrangler r2 object put $objectPath --file $_.FullName --content-type $contentType --force
+    npx wrangler r2 object put $objectPath --file $_.FullName --content-type $contentType --force --remote
   }
 }
 
